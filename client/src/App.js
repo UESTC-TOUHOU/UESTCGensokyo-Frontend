@@ -1,11 +1,20 @@
-import logo from './logo.svg';
+import logo from './logo.png';
 import './App.css';
-import {Component} from "react";
+import {Component, useEffect} from "react";
 
 class App extends Component{
   constructor(props) {
     super(props);
     this.state = { apiResponse: "" };
+  }
+
+  resetHtmlFontSize = () => {
+    document.documentElement.style.fontSize = window.innerWidth / 10 + 'px';
+  }
+
+  componentDidMount() {
+    this.resetHtmlFontSize();
+    window.addEventListener('resize', this.resetHtmlFontSize);
   }
 
   callAPI() {
@@ -17,26 +26,18 @@ class App extends Component{
   componentWillMount() {
     this.callAPI();
   }
-  
+
+
   render() {
     return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo"/>
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header>
-          <p className="App-intro">;{this.state.apiResponse}</p>
-        </div>
+      <>
+      <div className="App-header">
+      <p className='apiTest'>{this.state.apiResponse}</p>
+      </div>
+      <div className='App'>
+      <div className='App-logo-move'><img src={logo} className="App-logo" alt="logo" /></div>
+      </div>
+      </>
     );
   }
 }
