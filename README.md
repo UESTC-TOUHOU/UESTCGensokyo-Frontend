@@ -1,5 +1,13 @@
 # UESTCGensokyo-Frontend
 
+> 本项目是 UESTCGensokyo 的前端部分，基于 React 框架开发。
+
+```javascript
+// 安装依赖
+npm install --legacy-peer-deps
+
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
