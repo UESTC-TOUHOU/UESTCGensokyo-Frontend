@@ -42,7 +42,6 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  text-align: left;
   font-size: 0.5rem;
   color: #91bef0;
 }
@@ -58,12 +57,12 @@
 
 @keyframes App-logo-move {
   0% {
-    transform: translate(-5rem);
+    transform: translate(-4.2rem);
   }
   50% {
-    transform: translate(5rem);
+    transform: translate(4.2rem);
   }
   100% {
-    transform: translate(-5rem);
+    transform: translate(-4.2rem);
   }
 }

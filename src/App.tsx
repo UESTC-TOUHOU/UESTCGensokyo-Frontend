@@ -1,9 +1,10 @@
-import logo from "./logo.png";
+import logo from "./assets/logo.png";
 import "./App.css";
-import { Component, useEffect } from "react";
+import { Component } from "react";
+import React from "react";
 
 class App extends Component {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = { apiResponse: "" };
   }
@@ -27,11 +28,11 @@ class App extends Component {
     this.callAPI();
   }
 
-  render() {
+  testTmp() {
     return (
       <>
         <div className="App-header">
-          <p className="apiTest">{this.state.apiResponse}</p>
+          <p className="apiTest">{(this.state as any).apiResponse}</p>
         </div>
         <div className="App">
           <div className="App-logo-move">
@@ -40,6 +41,12 @@ class App extends Component {
         </div>
       </>
     );
+  }
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+  render() {
+    return this.testTmp();
   }
 }
 
