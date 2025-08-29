@@ -25,7 +25,7 @@ function Contact() {
 
     try {
       // 3. 发送 HTTP POST 请求到你的后端 API
-      const response = await fetch('https://your-backend-api.com/contact', {
+      const response = await fetch('http://127.0.0.1:18080/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
