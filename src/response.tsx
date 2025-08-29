@@ -1,4 +1,3 @@
-import react from "react";
 import { Component } from "react";
 
 class response extends Component {
