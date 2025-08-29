@@ -1,0 +1,37 @@
+{
+    "header": {
+        "welcome": "Welcome",
+        "homepage": "Home",
+        "products": "Products",
+        "contact": "Contact Us"
+    },
+    "welcome": {
+        "title": "Welcome to UESTC-Touhou Club"
+    },
+    "homepage": {
+        "title": "About Us",
+        "mission_title": "Our Mission",
+        "mission_text": "Introduce the mission and vision of your organization here.",
+        "team_title": "Our Team",
+        "team_text": "Introduce the team members and organizational structure here."
+    },
+    "products": {
+        "title": "Our Products",
+        "product1_title": "Product One",
+        "product1_desc": "This is a detailed description for product one.",
+        "product2_title": "Product Two",
+        "product2_desc": "This is a detailed description for product two.",
+        "product3_title": "Product Three",
+        "product3_desc": "This is a detailed description for product three."
+    },
+    "contact": {
+        "title": "Contact Us",
+        "form_name": "Your Name",
+        "form_email": "Your Email",
+        "form_message": "Message",
+        "form_submit": "Send"
+    },
+    "footer": {
+        "copyright": "© 2025 Your Organization Name. All Rights Reserved."
+    }
+}

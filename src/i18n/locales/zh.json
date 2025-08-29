@@ -1,0 +1,37 @@
+{
+    "header": {
+        "welcome": "欢迎",
+        "homepage": "主页",
+        "products": "产品",
+        "contact": "联系我们"
+    },
+    "welcome": {
+        "title": "欢迎来到UESTC-Touhou社团"
+    },
+    "homepage": {
+        "title": "关于我们",
+        "mission_title": "我们的使命",
+        "mission_text": "在这里介绍贵组织的使命和愿景。",
+        "team_title": "我们的团队",
+        "team_text": "在这里介绍团队成员和组织结构。"
+    },
+    "products": {
+        "title": "我们的产品",
+        "product1_title": "产品一",
+        "product1_desc": "这是产品一的详细描述。",
+        "product2_title": "产品二",
+        "product2_desc": "这是产品二的详细描述。",
+        "product3_title": "产品三",
+        "product3_desc": "这是产品三的详细描述。"
+    },
+    "contact": {
+        "title": "联系我们",
+        "form_name": "您的姓名",
+        "form_email": "您的邮箱",
+        "form_message": "留言内容",
+        "form_submit": "发送"
+    },
+    "footer": {
+        "copyright": "© 2025 你的组织名称。保留所有权利。"
+    }
+}

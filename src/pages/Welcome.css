@@ -1,0 +1,31 @@
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: calc(100vh - 120px); /* Full height minus header and footer */
+}
+
+.logo-animation-wrapper {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.animated-logo {
+    height: 15rem; /* Logo can be larger on the welcome page */
+    pointer-events: none;
+    animation: App-logo-bounce-and-spin infinite 4s linear;
+}
+
+@keyframes App-logo-bounce-and-spin {
+    0% {
+        transform: translateX(-150px) rotate(0deg);
+    }
+    50% {
+        transform: translateX(150px) rotate(360deg);
+    }
+    100% {
+        transform: translateX(-150px) rotate(720deg);
+    }
+}

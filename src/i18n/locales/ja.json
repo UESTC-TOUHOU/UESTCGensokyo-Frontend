@@ -1,0 +1,37 @@
+{
+    "header": {
+        "welcome": "ようこそ",
+        "homepage": "ホームページ",
+        "products": "製品",
+        "contact": "お問い合わせ"
+    },
+    "welcome": {
+        "title": "ようこそUESTC-Touhouクラブへ"
+    },
+    "homepage": {
+        "title": "私たちについて",
+        "mission_title": "私たちの使命",
+        "mission_text": "ここに組織の使命とビジョンを紹介します。",
+        "team_title": "私たちのチーム",
+        "team_text": "ここにチームメンバーと組織構造を紹介します。"
+    },
+    "products": {
+        "title": "私たちの製品",
+        "product1_title": "製品一",
+        "product1_desc": "これは製品一の詳細な説明です。",
+        "product2_title": "製品二",
+        "product2_desc": "これは製品二の詳細な説明です。",
+        "product3_title": "製品三",
+        "product3_desc": "これは製品三の詳細な説明です。"
+    },
+    "contact": {
+        "title": "お問い合わせ",
+        "form_name": "お名前",
+        "form_email": "メールアドレス",
+        "form_message": "メッセージ",
+        "form_submit": "送信"
+    },
+    "footer": {
+        "copyright": "© 2025 あなたの組織名。全著作権所有。"
+    }
+}
