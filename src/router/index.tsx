@@ -7,37 +7,42 @@ import Contact from '../pages/Contact';
 import Admin from '../pages/Admin';
 import AdminLogin from '../pages/AdminLogin';
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <Layout />, // 所有页面共享布局
+      children: [
+        {
+          index: true, // 默认子路由
+          element: <Welcome />,
+        },
+        {
+          path: 'home',
+          element: <Homepage />,
+        },
+        {
+          path: 'products',
+          element: <Products />,
+        },
+        {
+          path: 'contact',
+          element: <Contact />,
+        },
+        {
+          path: 'admin',
+          element: <Admin />,
+        },
+        {
+          path: 'admin/login',
+          element: <AdminLogin />,
+        },
+      ],
+    },
+  ],
   {
-    path: '/',
-    element: <Layout />, // 所有页面共享布局
-    children: [
-      {
-        index: true, // 默认子路由
-        element: <Welcome />,
-      },
-      {
-        path: 'home',
-        element: <Homepage />,
-      },
-      {
-        path: 'products',
-        element: <Products />,
-      },
-      {
-        path: 'contact',
-        element: <Contact />,
-      },
-      {
-        path: 'admin',
-        element: <Admin />,
-      },
-      {
-        path: 'admin/login',
-        element: <AdminLogin />,
-      },
-    ],
-  },
-]);
+    basename: import.meta.env.BASE_URL,
+  }
+);
 
 export default router;
