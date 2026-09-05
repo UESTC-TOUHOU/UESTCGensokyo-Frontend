@@ -4,20 +4,20 @@ import './Products.css';
 
 import doujinshiMockupImg from '../assets/products/doujinshi-mockup.jpg';
 import marisaPosterImg from '../assets/products/marisa-poster.jpg';
-import bookmark1Img from '../assets/products/bookmark1.jpg';
-import bookmark2Img from '../assets/products/bookmark2.jpg';
-import bookmark3Img from '../assets/products/bookmark3.jpg';
-import bookmark4Img from '../assets/products/bookmark4.jpg';
-import bookmark5Img from '../assets/products/bookmark5.jpg';
-import bookmark6Img from '../assets/products/bookmark6.jpg';
-import acrylic1Img from '../assets/products/acrylic1.jpg';
-import acrylic2Img from '../assets/products/acrylic2.jpg';
-import acrylic3Img from '../assets/products/acrylic3.jpg';
-import acrylic4Img from '../assets/products/acrylic4.jpg';
-import acrylic5Img from '../assets/products/acrylic5.jpg';
-import acrylic6Img from '../assets/products/acrylic6.jpg';
-import acrylic7Img from '../assets/products/acrylic7.jpg';
-import acrylic8Img from '../assets/products/acrylic8.jpg';
+import bookmarkReimuImg from '../assets/products/bookmark-reimu.jpg';
+import bookmarkMarisaImg from '../assets/products/bookmark-marisa.jpg';
+import bookmarkAliceImg from '../assets/products/bookmark-alice.jpg';
+import bookmarkAkyuuImg from '../assets/products/bookmark-akyuu.jpg';
+import bookmarkKosuzuImg from '../assets/products/bookmark-kosuzu.jpg';
+import bookmarkSumirekoImg from '../assets/products/bookmark-sumireko.jpg';
+import acrylicSunnyImg from '../assets/products/acrylic-sunny.jpg';
+import acrylicTenshiImg from '../assets/products/acrylic-tenshi.jpg';
+import acrylicByakurenImg from '../assets/products/acrylic-byakuren.jpg';
+import acrylicHifuuImg from '../assets/products/acrylic-hifuu.jpg';
+import acrylicFlandreImg from '../assets/products/acrylic-flandre.jpg';
+import acrylicLunaImg from '../assets/products/acrylic-luna.jpg';
+import acrylicSuwakoImg from '../assets/products/acrylic-suwako.jpg';
+import acrylicShikiImg from '../assets/products/acrylic-shiki.jpg';
 
 export type Product = {
   id: string;
@@ -51,98 +51,98 @@ const PRODUCTS_DATA: Product[] = [
   },
   {
     id: 'bookmark-reimu',
-    img: bookmark1Img,
+    img: bookmarkReimuImg,
     titleKey: 'products.bookmark_reimu_title',
     descKey: 'products.bookmark_reimu_desc',
     tag: 'bookmark',
   },
   {
     id: 'bookmark-marisa',
-    img: bookmark2Img,
+    img: bookmarkMarisaImg,
     titleKey: 'products.bookmark_marisa_title',
     descKey: 'products.bookmark_marisa_desc',
     tag: 'bookmark',
   },
   {
     id: 'bookmark-alice',
-    img: bookmark3Img,
+    img: bookmarkAliceImg,
     titleKey: 'products.bookmark_alice_title',
     descKey: 'products.bookmark_alice_desc',
     tag: 'bookmark',
   },
   {
     id: 'bookmark-akyuu',
-    img: bookmark4Img,
+    img: bookmarkAkyuuImg,
     titleKey: 'products.bookmark_akyuu_title',
     descKey: 'products.bookmark_akyuu_desc',
     tag: 'bookmark',
   },
   {
     id: 'bookmark-kosuzu',
-    img: bookmark5Img,
+    img: bookmarkKosuzuImg,
     titleKey: 'products.bookmark_kosuzu_title',
     descKey: 'products.bookmark_kosuzu_desc',
     tag: 'bookmark',
   },
   {
-    id: 'bookmark-renko',
-    img: bookmark6Img,
-    titleKey: 'products.bookmark_renko_title',
-    descKey: 'products.bookmark_renko_desc',
+    id: 'bookmark-sumireko',
+    img: bookmarkSumirekoImg,
+    titleKey: 'products.bookmark_sumireko_title',
+    descKey: 'products.bookmark_sumireko_desc',
     tag: 'bookmark',
   },
   {
-    id: 'acrylic-medicine',
-    img: acrylic1Img,
-    titleKey: 'products.acrylic_medicine_title',
-    descKey: 'products.acrylic_medicine_desc',
-    tag: 'acrylic',
-  },
-  {
-    id: 'acrylic-byakuren',
-    img: acrylic2Img,
-    titleKey: 'products.acrylic_byakuren_title',
-    descKey: 'products.acrylic_byakuren_desc',
+    id: 'acrylic-sunny',
+    img: acrylicSunnyImg,
+    titleKey: 'products.acrylic_sunny_title',
+    descKey: 'products.acrylic_sunny_desc',
     tag: 'acrylic',
   },
   {
     id: 'acrylic-tenshi',
-    img: acrylic3Img,
+    img: acrylicTenshiImg,
     titleKey: 'products.acrylic_tenshi_title',
     descKey: 'products.acrylic_tenshi_desc',
     tag: 'acrylic',
   },
   {
-    id: 'acrylic-flandre',
-    img: acrylic4Img,
-    titleKey: 'products.acrylic_flandre_title',
-    descKey: 'products.acrylic_flandre_desc',
+    id: 'acrylic-byakuren',
+    img: acrylicByakurenImg,
+    titleKey: 'products.acrylic_byakuren_title',
+    descKey: 'products.acrylic_byakuren_desc',
     tag: 'acrylic',
   },
   {
     id: 'acrylic-hifuu',
-    img: acrylic5Img,
+    img: acrylicHifuuImg,
     titleKey: 'products.acrylic_hifuu_title',
     descKey: 'products.acrylic_hifuu_desc',
     tag: 'acrylic',
   },
   {
-    id: 'acrylic-sekibanki',
-    img: acrylic6Img,
-    titleKey: 'products.acrylic_sekibanki_title',
-    descKey: 'products.acrylic_sekibanki_desc',
+    id: 'acrylic-flandre',
+    img: acrylicFlandreImg,
+    titleKey: 'products.acrylic_flandre_title',
+    descKey: 'products.acrylic_flandre_desc',
     tag: 'acrylic',
   },
   {
-    id: 'acrylic-sakuya',
-    img: acrylic7Img,
-    titleKey: 'products.acrylic_sakuya_title',
-    descKey: 'products.acrylic_sakuya_desc',
+    id: 'acrylic-luna',
+    img: acrylicLunaImg,
+    titleKey: 'products.acrylic_luna_title',
+    descKey: 'products.acrylic_luna_desc',
+    tag: 'acrylic',
+  },
+  {
+    id: 'acrylic-suwako',
+    img: acrylicSuwakoImg,
+    titleKey: 'products.acrylic_suwako_title',
+    descKey: 'products.acrylic_suwako_desc',
     tag: 'acrylic',
   },
   {
     id: 'acrylic-shiki',
-    img: acrylic8Img,
+    img: acrylicShikiImg,
     titleKey: 'products.acrylic_shiki_title',
     descKey: 'products.acrylic_shiki_desc',
     tag: 'acrylic',

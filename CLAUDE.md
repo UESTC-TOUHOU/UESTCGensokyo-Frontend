@@ -1,8 +1,8 @@
 ## Conventions
 
-### Visual recognition — delegate to subagents
+~~### Visual recognition — delegate to subagents~~
 
-The main agent has no visual recognition capability. **All visual-requirement tasks must be delegated to a subagent**: analyzing screenshots, judging whether a design matches an aesthetic (e.g. Touhou style), verifying rendered pages.
+~~The main agent has no visual recognition capability. **All visual-requirement tasks must be delegated to a subagent**: analyzing screenshots, judging whether a design matches an aesthetic (e.g. Touhou style), verifying rendered pages.~~
 
 ### PR workflow — never push directly
 

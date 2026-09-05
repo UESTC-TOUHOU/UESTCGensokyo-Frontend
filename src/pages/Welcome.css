@@ -86,7 +86,7 @@
     to   { transform: translate(-50%, -50%) rotate(-360deg); }
 }
 
-.spellcard-frame {
+.seal-container .spellcard-frame {
     position: absolute;
     top: 14%;
     left: 14%;
@@ -96,14 +96,14 @@
     align-items: center;
     justify-content: center;
     border-radius: 16px;
-    background: radial-gradient(ellipse at 30% 20%, var(--g-card-strong), var(--g-card));
+    background: transparent;
     border: 2px solid var(--g-vermilion-line);
     box-shadow: 0 0 24px var(--g-teal-glow);
 }
 
 /* 符卡四角朱红角标 */
-.spellcard-frame::before,
-.spellcard-frame::after {
+.seal-container .spellcard-frame::before,
+.seal-container .spellcard-frame::after {
     content: "";
     position: absolute;
     width: 18px;
@@ -112,14 +112,14 @@
     border-style: solid;
 }
 
-.spellcard-frame::before {
+.seal-container .spellcard-frame::before {
     top: -3px;
     left: -3px;
     border-width: 3px 0 0 3px;
     border-top-left-radius: 6px;
 }
 
-.spellcard-frame::after {
+.seal-container .spellcard-frame::after {
     bottom: -3px;
     right: -3px;
     border-width: 0 3px 3px 0;

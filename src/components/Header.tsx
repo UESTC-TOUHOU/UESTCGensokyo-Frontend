@@ -8,22 +8,48 @@ function Header() {
   const { t, i18n } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
 
-  // 点击菜单外部时收起汉堡菜单
+  // 点击菜单外部或按 ESC 时收起汉堡菜单
   useEffect(() => {
     if (!menuOpen) return;
     function onDocClick(e: MouseEvent) {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      if (
+        navRef.current &&
+        !navRef.current.contains(target) &&
+        !toggleRef.current?.contains(target)
+      ) {
+        setMenuOpen(false);
+      }
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
         setMenuOpen(false);
       }
     }
     document.addEventListener('click', onDocClick);
-    return () => document.removeEventListener('click', onDocClick);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('click', onDocClick);
+      document.removeEventListener('keydown', onKeyDown);
+    };
   }, [menuOpen]);
+
+  // 视口变宽时自动收起移动端菜单
+  useEffect(() => {
+    function onResize() {
+      if (window.innerWidth >= 768) {
+        setMenuOpen(false);
+      }
+    }
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   return (
     <header className="site-header wafuu-pattern">
@@ -59,6 +85,7 @@ function Header() {
             >日</button>
           </div>
           <button
+            ref={toggleRef}
             className="menu-toggle"
             aria-label={menuOpen ? '关闭菜单' : '打开菜单'}
             aria-expanded={menuOpen}

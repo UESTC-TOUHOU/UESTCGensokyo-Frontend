@@ -13,7 +13,7 @@ export const SpellCardFrame: React.FC<SpellCardFrameProps> = ({
   variant = 'default',
   className = '',
 }) => {
-  const variantClass = variant !== 'default' ? `spellcard-variant-${variant}` : '';
+  const variantClass = `spellcard-variant-${variant}`;
   const combinedClassName = ['spellcard-frame', variantClass, className].filter(Boolean).join(' ');
 
   return (

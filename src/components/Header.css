@@ -1,5 +1,5 @@
 .site-header {
-    background-color: var(--color-bg-overlay, rgba(255, 249, 242, 0.95));
+    background: var(--color-bg-overlay);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--g-vermilion-line);
     padding: 0 1.5rem;
@@ -25,6 +25,7 @@
     min-height: 44px;
     color: var(--g-ink);
     white-space: nowrap;
+    font-family: var(--font-title);
 }
 
 .logo:hover {
@@ -48,13 +49,13 @@
 /* ---- 导航 ---- */
 .main-nav {
     display: flex;
-    gap: 1.5rem;
+    gap: clamp(0.75rem, 1.6vw, 1.5rem);
 }
 
 .main-nav a {
     color: var(--g-ink-soft);
     font-weight: 500;
-    padding: 6px 2px;
+    padding: 6px clamp(2px, 0.4vw, 6px);
     border-bottom: 2px solid transparent;
     transition: color 0.25s, border-color 0.25s;
     white-space: nowrap;
@@ -149,8 +150,16 @@
     transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ---- 移动断点：≤768px 汉堡模式 ---- */
-@media (max-width: 768px) {
+/* ---- 移动断点：<768px (≤767px) 汉堡模式 ---- */
+@media (max-width: 767px) {
+    .site-header {
+        padding: 0 1rem;
+    }
+
+    .header-actions {
+        gap: 0.5rem;
+    }
+
     .menu-toggle {
         display: flex;
     }
@@ -184,14 +193,55 @@
     }
 }
 
-/* 超窄屏幕：logo 文字可省略 */
-@media (max-width: 400px) {
+/* 窄屏适配：≤480px / 375px */
+@media (max-width: 480px) {
+    .site-header {
+        padding: 0 0.75rem;
+    }
+
+    .logo-text {
+        font-size: 1.05rem;
+        letter-spacing: 0.04em;
+    }
+
+    .lang-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 0.82rem;
+    }
+
+    .menu-toggle {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+/* 超窄屏幕：≤375px / 320px logo 文字隐藏，确保零溢出 */
+@media (max-width: 375px) {
     .logo-text {
         display: none;
     }
 
+    .site-header {
+        padding: 0 0.5rem;
+    }
+
+    .header-container {
+        gap: 0.5rem;
+    }
+
     .lang-btn {
-        padding: 4px 8px;
-        min-width: 40px;
+        width: 36px;
+        height: 36px;
+        font-size: 0.8rem;
+    }
+
+    .language-switcher {
+        gap: 0.25rem;
+    }
+
+    .menu-toggle {
+        width: 36px;
+        height: 36px;
     }
 }

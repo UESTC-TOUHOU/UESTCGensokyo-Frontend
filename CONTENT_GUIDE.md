@@ -1,0 +1,184 @@
+# 内容维护指南
+
+> 面向非开发人员的内容更新操作手册
+
+本文档说明如何修改网站的文案、图片、产品列表等内容，**无需编程知识**。
+
+---
+
+## 📝 修改文案（中文/英文/日文）
+
+所有文案集中在 **翻译文件** 中：
+
+```
+src/i18n/locales/
+├── zh.json    # 中文
+├── en.json    # 英文
+└── ja.json    # 日文
+```
+
+### 操作步骤
+
+1. 用文本编辑器（推荐 VS Code 或记事本）打开对应语言的 `.json` 文件
+2. 找到要修改的文案 key，修改 **引号内** 的文字
+3. 保存文件
+
+### 示例：修改首页标题
+
+**文件**：`src/i18n/locales/zh.json`
+
+```json
+{
+  "homepage": {
+    "title": "欢迎来到电科幻想乡",     ← 修改这里
+    "intro": "我们是电子科技大学的..."  ← 或这里
+  }
+}
+```
+
+⚠️ **注意事项**：
+- 只改引号 `"` 内的文字，不要删除引号、逗号、冒号
+- 中文标点用中文符号（，。！），英文标点用英文符号（,.!）
+- 保存后需要 **重新构建网站** 才能生效（见下方"发布流程"）
+
+---
+
+## 🖼️ 修改图片
+
+### 产品图片（制品展示）
+
+**位置**：`src/assets/products/`
+
+#### 替换现有图片
+
+1. 准备新图片（推荐 `.jpg` 格式，尺寸 800×1200 左右）
+2. **重命名为原文件名**（如 `acrylic1.jpg`）
+3. 替换 `src/assets/products/` 中的同名文件
+
+#### 添加新产品
+
+需要修改代码文件 `src/pages/Products.tsx`：
+
+1. 将新图片放入 `src/assets/products/`（如 `acrylic9.jpg`）
+2. 在文件顶部导入：
+   ```tsx
+   import acrylic9Img from '../assets/products/acrylic9.jpg';
+   ```
+3. 在 `PRODUCTS_DATA` 数组末尾添加：
+   ```tsx
+   {
+     id: 'acrylic-reimu',           // 唯一ID（英文+数字）
+     img: acrylic9Img,              // 导入的图片变量
+     titleKey: 'products.acrylic_reimu_title',     // 翻译key
+     descKey: 'products.acrylic_reimu_desc',       // 翻译key
+     tag: 'acrylic',                // 标签：doujinshi | poster | bookmark | acrylic
+   },
+   ```
+4. 在 `src/i18n/locales/zh.json` 的 `products` 部分添加翻译：
+   ```json
+   "acrylic_reimu_title": "博丽灵梦亚克力立牌",
+   "acrylic_reimu_desc": "尺寸：15cm 高"
+   ```
+
+### Logo 和图标
+
+**网站 Logo**：`src/assets/logo.png`  
+**旋转图标（首页）**：`src/assets/rotating-seal.png`
+
+直接替换文件即可，保持文件名不变。
+
+⚠️ **图片要求**：
+- Logo 需要 **透明背景**（`.png` 格式）
+- 推荐尺寸：512×512 或更高（网站会自动缩放）
+
+---
+
+## 🗑️ 删除产品
+
+1. 打开 `src/pages/Products.tsx`
+2. 找到 `PRODUCTS_DATA` 数组，删除对应的整个对象块（从 `{` 到 `},`）
+3. 保存文件
+
+**示例**（删除 `acrylic-medicine`）：
+
+```tsx
+// ❌ 删除这整块
+{
+  id: 'acrylic-medicine',
+  img: acrylic1Img,
+  titleKey: 'products.acrylic_medicine_title',
+  descKey: 'products.acrylic_medicine_desc',
+  tag: 'acrylic',
+},
+```
+
+---
+
+## 📢 发布流程（让修改生效）
+
+### 方法一：自动部署（推荐）
+
+1. 确保修改已保存
+2. 使用 Git 提交修改：
+   ```bash
+   git add .
+   git commit -m "更新产品图片和文案"
+   git push
+   ```
+3. 等待 **GitHub Actions** 自动构建（约 2-5 分钟）
+4. 访问 `https://uestc-touhou.github.io/UESTCGensokyo-Frontend/` 查看效果
+
+### 方法二：手动构建
+
+如果在本地服务器部署：
+
+```bash
+pnpm install     # 首次需要安装依赖
+pnpm build       # 构建生产版本
+```
+
+构建后的文件在 `dist/` 目录，将其部署到 Web 服务器即可。
+
+---
+
+## 🛠️ 常见问题
+
+### Q: 修改后网站没变化？
+
+**A**: 检查浏览器缓存，按 `Ctrl+F5` 强制刷新；或等待 GitHub Actions 部署完成（查看仓库 Actions 标签页）。
+
+### Q: JSON 文件保存后报错？
+
+**A**: 可能是格式错误。检查：
+- 每行结尾是否有 **逗号**（最后一行除外）
+- 引号是否配对（`"key": "value"`）
+- 使用 [JSONLint](https://jsonlint.com/) 验证格式
+
+### Q: 产品图片显示不出来？
+
+**A**: 
+1. 确认图片格式为 `.jpg` 或 `.png`
+2. 文件名不含中文、空格、特殊符号
+3. 图片路径正确（`src/assets/products/` 下）
+
+### Q: 如何修改导航栏链接？
+
+**A**: 
+- 文案：修改 `src/i18n/locales/zh.json` 的 `header` 部分
+- 链接路径：需修改 `src/components/Header.tsx`（需要开发知识）
+
+---
+
+## 📞 需要帮助？
+
+如果遇到以下情况，请联系开发人员：
+
+- 需要添加新页面
+- 修改网站布局和样式
+- 集成新功能（如表单、地图等）
+- Git 操作报错
+
+---
+
+**最后更新**：2026-09-06  
+**维护者**：UESTC幻想乡技术组
