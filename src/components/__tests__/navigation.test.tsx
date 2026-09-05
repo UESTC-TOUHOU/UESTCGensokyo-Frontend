@@ -34,6 +34,26 @@ describe('Header', () => {
       expect(i18n.language).toBe('en');
     });
   });
+
+  test('toggles mobile hamburger menu when toggle button is clicked', async () => {
+    renderWithRouter([
+      { path: '/', element: <Header /> },
+      { path: '/home', element: <div>home</div> },
+    ]);
+
+    const menuToggle = screen.getByRole('button', { name: '打开菜单' });
+    expect(menuToggle).toHaveAttribute('aria-expanded', 'false');
+
+    menuToggle.click();
+    await waitFor(() => {
+      expect(menuToggle).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    menuToggle.click();
+    await waitFor(() => {
+      expect(menuToggle).toHaveAttribute('aria-expanded', 'false');
+    });
+  });
 });
 
 describe('Layout', () => {

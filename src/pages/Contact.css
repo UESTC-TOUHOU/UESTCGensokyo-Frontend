@@ -13,10 +13,6 @@
     max-width: 580px;
     margin: 1.5rem auto 0;
     padding: 2.5rem 2rem;
-    background-color: var(--g-card);
-    border: 1px solid var(--g-vermilion-line);
-    border-radius: var(--g-radius);
-    box-shadow: var(--g-shadow);
     position: relative;
 }
 
@@ -45,7 +41,7 @@
     width: 100%;
     padding: 0.75rem 0.9rem;
     background-color: var(--color-bg-light, var(--g-paper));
-    border: 1.5px solid var(--color-border, rgba(142, 30, 38, 0.2));
+    border: 1px solid var(--color-border);
     border-radius: var(--g-radius-sm, 4px);
     font-family: var(--font-body, var(--g-font-sans));
     font-size: 0.95rem;
@@ -76,15 +72,15 @@
     width: 100%;
     margin-top: 0.5rem;
     padding: 0.85rem 1.5rem;
-    background: linear-gradient(135deg, var(--color-accent-purple, #8b5a8e) 0%, var(--color-primary-dark, #2d5d3f) 100%);
-    color: #ffffff;
+    background: var(--color-accent-gold);
+    color: #fff;
     border: 1px solid var(--color-accent-gold, #f4c542);
     border-radius: var(--g-radius-sm, 4px);
     font-family: var(--font-title, var(--g-font-serif));
     font-size: 1.05rem;
     letter-spacing: 0.12em;
     cursor: pointer;
-    box-shadow: 0 0 12px rgba(139, 90, 142, 0.35), 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 12px rgba(244, 197, 66, 0.35), 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -144,15 +140,38 @@
     border: 1px solid rgba(142, 30, 38, 0.3);
 }
 
-/* 移动端 320px 适配 */
+/* 移动端响应式适配 */
+@media (max-width: 767px) {
+    .contact-card {
+        padding: 2rem 1.5rem;
+        margin-top: 1rem;
+    }
+}
+
 @media (max-width: 480px) {
     .contact-card {
         padding: 1.5rem 1rem;
-        margin-top: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        font-size: 1rem; /* 防止 iOS 聚焦时自动缩放 */
+        padding: 0.7rem 0.75rem;
     }
 
     .submit-button {
         padding: 0.75rem 1rem;
         font-size: 1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .contact-card {
+        padding: 1.25rem 0.75rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        padding: 0.65rem 0.6rem;
     }
 }

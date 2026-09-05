@@ -15,7 +15,7 @@ describe('Products page', () => {
     expect(screen.getByText('同人小说集《赝饮同醉》')).toBeInTheDocument();
     expect(screen.getByText('《餍饮同醉》主题纪念海报')).toBeInTheDocument();
     expect(screen.getByText('东方印签书签 · 博丽灵梦')).toBeInTheDocument();
-    expect(screen.getByText('闪粉亚克力砖 · 梅蒂欣·梅兰可莉')).toBeInTheDocument();
+    expect(screen.getByText('闪粉亚克力砖 · 桑尼·米尔克')).toBeInTheDocument();
 
     // Verify tags
     expect(screen.getAllByText('同人志').length).toBeGreaterThanOrEqual(2);

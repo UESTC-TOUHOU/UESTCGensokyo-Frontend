@@ -54,7 +54,7 @@ body {
     font-family: var(--g-font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--color-bg-light, var(--g-paper));
+    background-color: var(--color-bg-light);
     background-image:
         radial-gradient(ellipse 60% 40% at 85% -5%, var(--g-teal-glow), transparent 70%),
         radial-gradient(ellipse 50% 35% at -10% 30%, rgba(201, 151, 56, 0.05), transparent 70%),
@@ -67,7 +67,7 @@ body {
 
 h1, h2, h3, h4 {
     font-family: var(--g-font-serif);
-    color: var(--g-ink);
+    color: var(--color-primary-dark);
     letter-spacing: 0.04em;
     line-height: 1.4;
 }
