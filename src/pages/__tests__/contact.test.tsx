@@ -31,7 +31,7 @@ describe('Contact form', () => {
       );
     });
     await waitFor(() => {
-      expect(screen.getByText('Message sent successfully!')).toBeInTheDocument();
+      expect(screen.getByText('发送成功！')).toBeInTheDocument();
     });
 
     vi.unstubAllGlobals();
@@ -49,7 +49,7 @@ describe('Contact form', () => {
     fireEvent.click(screen.getByRole('button', { name: '发送' }));
 
     await waitFor(() => {
-      expect(screen.getByText('Failed to send message. Please try again.')).toBeInTheDocument();
+      expect(screen.getByText('发送失败，请重试。')).toBeInTheDocument();
     });
 
     vi.unstubAllGlobals();

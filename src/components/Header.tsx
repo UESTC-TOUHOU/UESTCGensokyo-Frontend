@@ -26,7 +26,7 @@ function Header() {
   }, [menuOpen]);
 
   return (
-    <header className="site-header">
+    <header className="site-header wafuu-pattern">
       <div className="header-container">
         <NavLink to="/" className="logo">
           <img src={kyoukoLogo} alt="幽谷响子徽章" className="logo-img" />

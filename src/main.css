@@ -1,3 +1,5 @@
+@import './styles/touhou-theme.css';
+
 /* ============================================================
    UESTC幻想乡 — 全局设计体系
    东方Project 主题：和纸象牙 / 朱红 / 金箔 / 山彦青
@@ -6,7 +8,7 @@
 
 :root {
     /* ---- 色板 ---- */
-    --g-paper: #FFF9F2;            /* 和纸象牙（页面底色） */
+    --g-paper: var(--color-bg-light, #FFF9F2);            /* 和纸象牙（页面底色） */
     --g-card: #FDF3E7;             /* 羊皮纸（卡片面） */
     --g-card-strong: #F9E9D7;      /* 深一档羊皮纸（强调块） */
     --g-ink: #221516;              /* 主墨（标题/正文） */
@@ -19,9 +21,12 @@
     --g-vermilion-line: rgba(142, 30, 38, 0.14);   /* 朱砂发丝线 */
     --g-teal-glow: rgba(47, 117, 113, 0.08);       /* 山彦灵光 */
 
+    /* 企业蓝兼容覆盖 -> 响子深绿/主深色 */
+    --color-primary-dark: #2d5d3f;
+
     /* ---- 字体 ---- */
-    --g-font-serif: "Noto Serif SC", "Source Han Serif SC", "SimSun", "Songti SC", serif;
-    --g-font-sans: "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", "PingFang SC", -apple-system, sans-serif;
+    --g-font-serif: var(--font-title, "Noto Serif SC", "Source Han Serif SC", "SimSun", "Songti SC", serif);
+    --g-font-sans: var(--font-body, "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", "PingFang SC", -apple-system, sans-serif);
     --g-font-en: "Georgia", "Times New Roman", var(--g-font-serif);
 
     /* ---- 尺寸/结构 ---- */
@@ -49,7 +54,7 @@ body {
     font-family: var(--g-font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--g-paper);
+    background-color: var(--color-bg-light, var(--g-paper));
     background-image:
         radial-gradient(ellipse 60% 40% at 85% -5%, var(--g-teal-glow), transparent 70%),
         radial-gradient(ellipse 50% 35% at -10% 30%, rgba(201, 151, 56, 0.05), transparent 70%),

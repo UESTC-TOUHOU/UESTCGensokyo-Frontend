@@ -1,0 +1,254 @@
+/* ============================================================
+   UESTC幻想乡 — 管理后台样式 (Admin / AdminLogin)
+   ============================================================ */
+
+.admin-login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - var(--g-header-h) - 120px);
+}
+
+.admin-login-card {
+  background: var(--g-card);
+  border: 1px solid var(--g-vermilion-line);
+  border-radius: var(--g-radius);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--g-shadow);
+}
+
+.admin-page {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--g-vermilion-line);
+}
+
+.admin-title {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.admin-subtitle {
+  margin: 0.25rem 0 1.5rem;
+  color: var(--g-ink-soft);
+  font-size: 0.95rem;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-tab-btn {
+  background: transparent;
+  border: 1px solid var(--g-vermilion-line);
+  border-radius: var(--g-radius-sm);
+  padding: 0.5rem 1.25rem;
+  font-family: var(--g-font-sans);
+  font-size: 0.95rem;
+  color: var(--g-ink);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-tab-btn:hover {
+  background: rgba(142, 30, 38, 0.05);
+}
+
+.admin-tab-btn.active {
+  background: var(--g-vermilion);
+  color: #fff;
+  border-color: var(--g-vermilion);
+}
+
+.admin-section {
+  background: var(--g-card);
+  border: 1px solid var(--g-vermilion-line);
+  border-radius: var(--g-radius);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--g-shadow);
+}
+
+.admin-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.admin-section-title {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.admin-form label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--g-ink);
+}
+
+.admin-form input,
+.admin-form textarea {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(142, 30, 38, 0.2);
+  border-radius: var(--g-radius-sm);
+  background: #fff;
+  color: var(--g-ink);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus {
+  outline: none;
+  border-color: var(--g-vermilion);
+  box-shadow: 0 0 0 2px rgba(142, 30, 38, 0.15);
+}
+
+.admin-form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.admin-btn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--g-radius-sm);
+  border: 1px solid transparent;
+  font-family: var(--g-font-sans);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-btn-primary {
+  background: var(--g-vermilion);
+  color: #fff;
+}
+
+.admin-btn-primary:hover:not(:disabled) {
+  background: var(--g-vermilion-deep);
+}
+
+.admin-btn-secondary {
+  background: transparent;
+  border-color: var(--g-ink-soft);
+  color: var(--g-ink-soft);
+}
+
+.admin-btn-secondary:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.admin-btn-danger {
+  background: transparent;
+  border-color: #c93b2b;
+  color: #c93b2b;
+}
+
+.admin-btn-danger:hover {
+  background: #c93b2b;
+  color: #fff;
+}
+
+.admin-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-table-container {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 0.75rem 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid var(--g-vermilion-line);
+}
+
+.admin-table th {
+  font-family: var(--g-font-serif);
+  color: var(--g-ink);
+  background: rgba(142, 30, 38, 0.04);
+  white-space: nowrap;
+}
+
+.admin-table-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.admin-error-banner {
+  background: #fdf2f2;
+  border: 1px solid #f8b4b4;
+  color: #9b1c1c;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--g-radius-sm);
+  font-size: 0.85rem;
+}
+
+.admin-success-banner {
+  background: #f3faf7;
+  border: 1px solid #84e1bc;
+  color: #03543f;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--g-radius-sm);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.admin-loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--g-ink-soft);
+}
+
+.admin-form-panel {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: var(--g-radius-sm);
+  border: 1px dashed var(--g-vermilion-line);
+}
+
+.admin-form-panel h3 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}

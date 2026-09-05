@@ -1,42 +1,119 @@
 {
-    "header": {
-        "welcome": "Welcome",
-        "homepage": "Home",
-        "products": "Products",
-        "contact": "Contact Us"
+  "header": {
+    "welcome": "Welcome",
+    "homepage": "Home",
+    "products": "Products",
+    "contact": "Contact"
+  },
+  "welcome": {
+    "title": "Welcome to UESTC Gensokyo",
+    "subtitle": "Touhou Project Fan Club at UESTC",
+    "spellcard": "Mirage Sign \"Echo of Yamabiko\"",
+    "logo_alt": "Kyouko Kasodani emblem"
+  },
+  "homepage": {
+    "title": "About Our Club",
+    "subtitle": "Gathering Gensokyo inhabitants across generations along the ginkgo shores of Qingshuihe",
+    "intro_title": "Club Overview",
+    "intro_p1": "UESTC Gensokyo (Touhou Project Fan Club at UESTC, open-source org UESTC-TOUHOU) is an enthusiastic community founded spontaneously by students and alumni of the University of Electronic Science and Technology of China. Started as informal meetups by the Qingshuihe riverside, it has grown into one of the most vibrant ACG communities on campus.",
+    "intro_p2": "We embrace complete inclusivity: whether you are a Lunatic 1CC STG dodger, an avid canon setting lore researcher, a doujin music arranger, a fan artist, or simply drawn to the charming character designs, there is always a cozy place for you here at UESTC.",
+    "intro_feature1_title": "Inclusive & Diverse",
+    "intro_feature1_desc": "STG, fighting games, doujin music, illustration, book collecting or casual daily chats — no barrier to entry.",
+    "intro_feature2_title": "Geek Romance",
+    "intro_feature2_desc": "Unique UESTC engineering spirit: open-source Touhou-themed proxy clients, subtitle converters, and indie fan games.",
+    "intro_feature3_title": "Campus Beloging",
+    "intro_feature3_desc": "Annual autumn club fairs, on-campus doujin conventions, course advice, and offline meetups creating a warm campus home.",
+    "activities_title": "Club Activities",
+    "activities_loading": "Loading activities...",
+    "activities_error": "Could not sync latest activities; showing archived records.",
+    "activities_empty": "No activities scheduled.",
+    "members_title": "Organization",
+    "members_loading": "Loading member roster...",
+    "members_error": "Could not sync latest members; showing archived records.",
+    "members_empty": "No member details available.",
+    "date": "Date",
+    "location": "Location"
+  },
+  "activities_data": {
+    "seed_activity_welcome": "Autumn Club Fair & Recruitment",
+    "seed_activity_welcome_summary": "Annual joint club fair booth at UESTC Qingshuihe campus with doujin game trials, fan art displays, and freshman welcome.",
+    "act_hyxk_2023": "Genya Junko Touhou Project Convention",
+    "act_hyxk_2023_summary": "Successfully hosted at the Jiuzhou Hall in UESTC Student Activity Center, featuring fan work exhibits and open game trials.",
+    "act_btdz_2023": "2023 Club Fair PV & Column Release",
+    "act_btdz_2023_summary": "Published annual recruitment video and editorial column, welcoming new and senior fans alike.",
+    "act_haru_2021": "Hand-drawn PV \"Haru no Kishibe\" Released",
+    "act_haru_2021_summary": "Collaborative hand-drawn fan animation created by club members for the 2021 recruitment showcase."
+  },
+  "members_data": {
+    "seed_role_core": "Founding Committee / Core Council",
+    "seed_member_core_summary": "Responsible for overall club operations, campus event planning, and open-source tech ecosystem maintenance.",
+    "role_president": "President / Operations",
+    "desc_president": "Oversees daily club activities, campus coordination, and public communication.",
+    "role_tech_lead": "Tech Lead",
+    "desc_tech_lead": "Directs UESTC-TOUHOU GitHub organization, website infrastructure, and doujin tech projects.",
+    "role_art_lead": "Art & Doujin Creative",
+    "desc_art_lead": "Designs event posters, illustration PVs, merchandise, and visual identity.",
+    "role_stg_lead": "STG & Gaming Lead",
+    "desc_stg_lead": "Coordinates official and fangame discussions, score attacks, and booth trial stations."
+  },
+  "products": {
+    "title": "Club Works & Exhibition Merch",
+    "subtitle": "Anthology doujinshi, limited convention posters, customized bookmarks, and real acrylic exhibits",
+    "copyright_note": "All images on this site are genuine club goods and exhibition photos. Copyright belongs to UESTC Gensokyo.",
+    "tags": {
+      "doujinshi": "Doujinshi",
+      "poster": "Poster",
+      "bookmark": "Bookmark",
+      "acrylic": "Acrylic Merch"
     },
-    "welcome": {
-        "title": "Welcome to UESTC Gensokyo",
-        "subtitle": "Touhou Project Fan Club at UESTC",
-        "spellcard": "Mirage Sign \"Echo of Yamabiko\"",
-        "logo_alt": "Kyouko Kasodani emblem"
-    },
-    "homepage": {
-        "title": "About Us",
-        "mission_title": "Our Mission",
-        "mission_text": "Introduce the mission and vision of your organization here.",
-        "team_title": "Our Team",
-        "team_text": "Introduce the team members and organizational structure here."
-    },
-    "products": {
-        "title": "Our Products",
-        "product1_title": "Product One",
-        "product1_desc": "This is a detailed description for product one.",
-        "product2_title": "Product Two",
-        "product2_desc": "This is a detailed description for product two.",
-        "product3_title": "Product Three",
-        "product3_desc": "This is a detailed description for product three."
-    },
-    "contact": {
-        "title": "Contact Us",
-        "form_name": "Your Name",
-        "form_email": "Your Email",
-        "form_message": "Message",
-        "form_submit": "Send"
-    },
-    "footer": {
-        "copyright": "© 2025 Your Organization Name. All Rights Reserved.",
-        "slogan": "Find Gensokyo at UESTC",
-        "disclaimer": "Fan-made site · Touhou Project © ZUN / Team Shanghai Alice"
-    }
+    "doujinshi_yanyin_title": "Doujin Novel Anthology \"Yan Yin Tong Zui\"",
+    "doujinshi_yanyin_desc": "Published by the club in 2017: a 210k-word A5 novel anthology featuring member creations, bundled with a custom USB drive and a Kyouko Kasodani emblem.",
+    "doujinshi_rd_title": "\"Diao Ye Zong Research Project 2\" Doujinshi",
+    "doujinshi_rd_desc": "Volume two of our analytical critique magazine dedicated to RD-Sounds music, featuring cover art of Akyuu and Kosuzu with in-depth track and lyric essays.",
+    "poster_marisa_title": "\"Yan Yin Tong Zui\" Themed Commemorative Poster",
+    "poster_marisa_desc": "Hand-drawn convention poster centering on Kirisame Marisa and 'Cardiac Sparkling', rendered with Japanese wave patterns and dark gold textures.",
+    "bookmark_reimu_title": "Touhou Imprint Bookmark · Hakurei Reimu",
+    "bookmark_reimu_desc": "Dedicated to the Hakurei Shrine maiden, combining traditional red-and-white patterns with ofuda talismans on textured washi paper finish.",
+    "bookmark_marisa_title": "Touhou Imprint Bookmark · Kirisame Marisa",
+    "bookmark_marisa_desc": "The black-and-white magician riding her broom, accented with pastel blossoms and the 'Diao Ye Zong Research Project' typography.",
+    "bookmark_alice_title": "Touhou Imprint Bookmark · Alice Margatroid",
+    "bookmark_alice_desc": "The seven-colored puppeteer with grimoire in hand, featuring gentle peach tones and lace apron dress for convention showcase.",
+    "bookmark_akyuu_title": "Touhou Imprint Bookmark · Hieda no Akyuu",
+    "bookmark_akyuu_desc": "Child of Miare, chronicler of Gensokyo, in purple hakama holding a wooden presentation box with exclusive research branding.",
+    "bookmark_kosuzu_title": "Touhou Imprint Bookmark · Motoori Kosuzu",
+    "bookmark_kosuzu_desc": "The cheerful Suzunaan book-keeper with twin orange buns and checkered kimono sleeves, carrying the scent of antique scrolls.",
+    "bookmark_renko_title": "Touhou Imprint Bookmark · Secret Sealing Club",
+    "bookmark_renko_desc": "Usami Renko and Maribel Hearn commemorative bookmark, blending school uniforms with dreamy nightscapes and boundary-crossing curiosity.",
+    "acrylic_medicine_title": "Glitter Acrylic Block · Medicine Melancholy",
+    "acrylic_medicine_desc": "The tiny poison doll surrounded by sun-drenched sunflowers against a starry cosmos, framed with shimmering crimson and gold glitter.",
+    "acrylic_byakuren_title": "Prismatic Acrylic Block · Hijiri Byakuren",
+    "acrylic_byakuren_desc": "The great magician of Myouren Temple with flowing gradient tresses and rainbow reflections celebrating harmony of magic and Buddhism.",
+    "acrylic_tenshi_title": "Shikishi & Acrylic Display · Hinanawi Tenshi",
+    "acrylic_tenshi_desc": "The rebellious celestial from Scarlet Weather Rhapsody holding the Sword of Hisou and keystone, documented from our live booth showcase.",
+    "acrylic_flandre_title": "Shattered Crystal Acrylic Stand · Flandre Scarlet",
+    "acrylic_flandre_desc": "Rainbow prismatic crystal wings and a playful demonic smile over geometric fractal motifs that reflect luminous light.",
+    "acrylic_hifuu_title": "Layered Acrylic Display · Secret Sealing Club",
+    "acrylic_hifuu_desc": "Renko and Merry traversing boundaries: a custom two-layer stand merging their cozy room with a cybernetic starry dimension.",
+    "acrylic_sekibanki_title": "Starlit Acrylic Block · Sekibanki",
+    "acrylic_sekibanki_desc": "The flying-head Rokurokubi floating serenely amid star charts and fluttering ribbons, evoking an eerie nocturnal charm.",
+    "acrylic_sakuya_title": "Vintage Gold Acrylic Block · Izayoi Sakuya",
+    "acrylic_sakuya_desc": "A teatime portrait of the Scarlet Devil Mansion chief maid, captured in elegant monochrome sepia and warm metallic tones.",
+    "acrylic_shiki_title": "Judgment Acrylic Block · Shiki Eiki, Yamaxanadu",
+    "acrylic_shiki_desc": "The solemn judge of the dead holding the Cleansed Rod of Sin, portrayed with dignified regalia and pure reflective justice."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "form_name": "Your Name",
+    "form_email": "Your Email",
+    "form_message": "Message",
+    "form_submit": "Send",
+    "status_sending": "Sending...",
+    "status_success": "Message sent successfully!",
+    "status_error": "Failed to send message. Please try again."
+  },
+  "footer": {
+    "copyright": "© 2026 UESTC Gensokyo. All Rights Reserved.",
+    "slogan": "Find Gensokyo at UESTC",
+    "disclaimer": "Fan-made site · Touhou Project © ZUN / Team Shanghai Alice"
+  }
 }

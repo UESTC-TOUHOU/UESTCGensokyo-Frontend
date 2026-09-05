@@ -1,42 +1,119 @@
 {
-    "header": {
-        "welcome": "欢迎",
-        "homepage": "主页",
-        "products": "产品",
-        "contact": "联系我们"
+  "header": {
+    "welcome": "欢迎",
+    "homepage": "主页",
+    "products": "产品",
+    "contact": "联系我们"
+  },
+  "welcome": {
+    "title": "欢迎来到 UESTC幻想乡",
+    "subtitle": "电子科技大学 东方Project 同好会",
+    "spellcard": "幻符「山彦の響き」",
+    "logo_alt": "幽谷响子徽章"
+  },
+  "homepage": {
+    "title": "关于社团",
+    "subtitle": "在银杏飘落的清水河畔，聚拢跨越各届的幻想乡住民",
+    "intro_title": "社团简介",
+    "intro_p1": "UESTC幻想乡（电子科技大学东方Project同好会，开源组织 UESTC-TOUHOU）是由电子科技大学在校生与校友自发创立的东方同好家园。社团始于清水河畔的同好交流，历经多年传承，已成为成电最具活力的同好群体之一。",
+    "intro_p2": "我们秉持完全包容的理念：无论是通关 Lunatic 的避弹触手、考据原作设定的考据家、同人音乐与手绘的创作者，还是单纯被角色立绘吸引的新人，在成电，总有你的一方同好净土。",
+    "intro_feature1_title": "包容多元",
+    "intro_feature1_desc": "STG、格斗、同人音乐、手绘二创、同人本收藏或日常灌水，不设任何门槛，随时欢迎你的加入。",
+    "intro_feature2_title": "极客浪漫",
+    "intro_feature2_desc": "成电工科特色全栈开源二创，自制东方代理客户端、字幕转换工具与独立游戏等技术力呈现。",
+    "intro_feature3_title": "校园归属",
+    "intro_feature3_desc": "历年百团大战、校内同人交流展、选课交流与日常拼车面基，打造温馨活跃的校园同好家园。",
+    "activities_title": "社团活动",
+    "activities_loading": "正在获取活动记录...",
+    "activities_error": "未能同步最新活动，显示离线记录",
+    "activities_empty": "暂无活动排期",
+    "members_title": "组织架构",
+    "members_loading": "正在获取成员架构...",
+    "members_error": "未能同步最新成员，显示离线记录",
+    "members_empty": "暂无成员信息",
+    "date": "时间",
+    "location": "地点"
+  },
+  "activities_data": {
+    "seed_activity_welcome": "秋季社团联合招新",
+    "seed_activity_welcome_summary": "电子科技大学清水河校区“百团大战”社团联合招新展台，提供同人试玩、画作展示与新生交流。",
+    "act_hyxk_2023": "成止「幻夜巡行」东方Project交流展",
+    "act_hyxk_2023_summary": "在电子科技大学清水河校区学生活动中心九洲厅成功举办，设同人本周边展示区、游戏体验区，面向全川东方同好免费开放。",
+    "act_btdz_2023": "2023百团大战招新与PV发布",
+    "act_btdz_2023_summary": "发布2023主题招新专栏与宣传PV，聚拢各届成电新老同好。",
+    "act_haru_2021": "手绘PV《春之岸边》发布",
+    "act_haru_2021_summary": "社内成员联合手绘制作《春之岸边》同人动画影像，作为2021招新核心展示作品。"
+  },
+  "members_data": {
+    "seed_role_core": "社团主创 / 核心理事会",
+    "seed_member_core_summary": "负责社团总体运营、校内活动策划协调与开源技术生态维护。",
+    "role_president": "社长 / 运营统筹",
+    "desc_president": "社团日常运营、校内外活动联络与招新宣发负责。",
+    "role_tech_lead": "技术组负责人",
+    "desc_tech_lead": "主持 UESTC-TOUHOU GitHub 组织、官网架构与技术二创项目开发。",
+    "role_art_lead": "美术与同人创作",
+    "desc_art_lead": "负责展会海报、宣传手绘、同人周边设计与视觉风格把控。",
+    "role_stg_lead": "STG / 游戏体验组",
+    "desc_stg_lead": "原作与二创游戏交流、避弹心得分享与展会试玩机位维护。"
+  },
+  "products": {
+    "title": "社团作品与展会制品",
+    "subtitle": "历年同人志、活动限定纪念海报、定制书签与展会实拍亚克力制品",
+    "copyright_note": "本站图片均为社团实物/实拍，版权归 UESTC幻想乡 所有",
+    "tags": {
+      "doujinshi": "同人志",
+      "poster": "海报",
+      "bookmark": "书签",
+      "acrylic": "亚克力制品"
     },
-    "welcome": {
-        "title": "欢迎来到 UESTC幻想乡",
-        "subtitle": "电子科技大学 东方Project 同好会",
-        "spellcard": "幻符「山彦の響き」",
-        "logo_alt": "幽谷响子徽章"
-    },
-    "homepage": {
-        "title": "关于我们",
-        "mission_title": "我们的使命",
-        "mission_text": "在这里介绍贵组织的使命和愿景。",
-        "team_title": "我们的团队",
-        "team_text": "在这里介绍团队成员和组织结构。"
-    },
-    "products": {
-        "title": "我们的产品",
-        "product1_title": "产品一",
-        "product1_desc": "这是产品一的详细描述。",
-        "product2_title": "产品二",
-        "product2_desc": "这是产品二的详细描述。",
-        "product3_title": "产品三",
-        "product3_desc": "这是产品三的详细描述。"
-    },
-    "contact": {
-        "title": "联系我们",
-        "form_name": "您的姓名",
-        "form_email": "您的邮箱",
-        "form_message": "留言内容",
-        "form_submit": "发送"
-    },
-    "footer": {
-        "copyright": "© 2025 你的组织名称。保留所有权利。",
-        "slogan": "在成电，寻找幻想乡",
-        "disclaimer": "本站为东方Project同好会非官方站点 · 东方Project © ZUN / 上海アリス幻樂団"
-    }
+    "doujinshi_yanyin_title": "同人小说集《赝饮同醉》",
+    "doujinshi_yanyin_desc": "社团2017年出品，21万字A5厚本同人志，收录全员主题小说创作，附赠专属U盘与幽谷响子纪念徽章。",
+    "doujinshi_rd_title": "《凋叶棕研究计划 2》同人志",
+    "doujinshi_rd_desc": "RD-Sounds 同人音乐专研志第二辑，收录阿礼与小铃封绘的深度曲评考据与歌词文学鉴赏。",
+    "poster_marisa_title": "《餍饮同醉》主题纪念海报",
+    "poster_marisa_desc": "以魔理沙与「Cardiac Sparkling」为核心的特展手绘海报，采用日式传统海浪与暗金质感纹理印制。",
+    "bookmark_reimu_title": "东方印签书签 · 博丽灵梦",
+    "bookmark_reimu_desc": "博丽神社巫女专属款，红白和风纹样搭配御札符咒元素，特选和纸手感覆膜工艺。",
+    "bookmark_marisa_title": "东方印签书签 · 雾雨魔理沙",
+    "bookmark_marisa_desc": "骑扫帚的黑白魔法使主题，配以紫蓝淡彩花卉与「凋叶棕研究计划」特约纪念排版。",
+    "bookmark_alice_title": "东方印签书签 · 爱丽丝·玛格特洛依德",
+    "bookmark_alice_desc": "手持魔导书的七色人偶使，淡桃色背景配合蕾丝礼服裙摆，温柔淡雅的展会印签品。",
+    "bookmark_akyuu_title": "东方印签书签 · 稗田阿求",
+    "bookmark_akyuu_desc": "幻想乡记忆之子「御阿礼之子」，手捧木盒的和风紫襦袴盛装，印有研究计划专属标识。",
+    "bookmark_kosuzu_title": "东方印签书签 · 本居小铃",
+    "bookmark_kosuzu_desc": "铃奈庵元气藏书少女，暖橙双丸子发型搭配格子襦袢，洋溢着妖魔本墨香的纪念款。",
+    "bookmark_renko_title": "东方印签书签 · 秘封俱乐部",
+    "bookmark_renko_desc": "宇佐见莲子与玛艾露贝莉的主题印签，学院制服与梦境紫夜交融的近未来探索之风。",
+    "acrylic_medicine_title": "闪粉亚克力砖 · 梅蒂欣·梅兰可莉",
+    "acrylic_medicine_desc": "向日葵花海与幽暗星空辉映的小小毒药人偶，四周点缀红金双色璀璨流沙细闪。",
+    "acrylic_byakuren_title": "幻彩亚克力砖 · 圣白莲",
+    "acrylic_byakuren_desc": "命莲寺大魔法使与渐变飞瀑发丝，彩虹流光覆膜呈现佛法与魔界之力的柔美融合。",
+    "acrylic_tenshi_title": "色纸立牌 · 比那名居天子",
+    "acrylic_tenshi_desc": "「东方绯想天」剑指苍穹的气质有顶天不良天人，手持绯想之剑与要石的社团现场实物展品。",
+    "acrylic_flandre_title": "碎晶亚克力立牌 · 芙兰朵露·斯卡蕾特",
+    "acrylic_flandre_desc": "七彩棱镜羽翼与俏皮狂气的恶魔微笑，暗黑几何晶裂底纹折射绚烂光芒。",
+    "acrylic_hifuu_title": "双层亚克力立件 · 秘封俱乐部",
+    "acrylic_hifuu_desc": "莲子与梅莉的跨越结界之行，现代房间与赛博星河双重视界重叠的社团特制纪念立件。",
+    "acrylic_sekibanki_title": "星夜亚克力砖 · 赤蛮奇",
+    "acrylic_sekibanki_desc": "头首飞翔的飞头蛮在星图苍穹与飘扬缎带间漂浮，蓝黑深空带来幽玄夜色感。",
+    "acrylic_sakuya_title": "复古金箔亚克力砖 · 十六夜咲夜",
+    "acrylic_sakuya_desc": "红魔馆女仆长红茶与图书室的时光定格，典雅暖金单色调呈现古典优雅质感。",
+    "acrylic_shiki_title": "裁决亚克力砖 · 四季映姬·亚玛萨那度",
+    "acrylic_shiki_desc": "阎魔手执悔悟之棒的高洁姿态，红紫绿三色法袍与明镜止水的冥界最高审判之光。"
+  },
+  "contact": {
+    "title": "联系我们",
+    "form_name": "您的姓名",
+    "form_email": "您的邮箱",
+    "form_message": "留言内容",
+    "form_submit": "发送",
+    "status_sending": "发送中...",
+    "status_success": "发送成功！",
+    "status_error": "发送失败，请重试。"
+  },
+  "footer": {
+    "copyright": "© 2026 UESTC幻想乡。保留所有权利。",
+    "slogan": "在成电，寻找幻想乡",
+    "disclaimer": "本站为东方Project同好会非官方站点 · 东方Project © ZUN / 上海アリス幻樂団"
+  }
 }
