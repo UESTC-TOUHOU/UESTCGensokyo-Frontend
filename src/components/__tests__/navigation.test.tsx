@@ -26,7 +26,7 @@ describe('Header', () => {
       { path: '/home', element: <div>home</div> },
     ]);
 
-    const enButton = screen.getByRole('button', { name: 'EN' });
+    const enButton = screen.getByRole('button', { name: 'English' });
     enButton.click();
     // changeLanguage 是异步的：等待 i18n 状态更新并重渲染后再断言。
     await waitFor(() => {

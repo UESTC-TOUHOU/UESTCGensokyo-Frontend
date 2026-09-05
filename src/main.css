@@ -1,38 +1,180 @@
-body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #f4f7f9;
-    color: #333;
+/* ============================================================
+   UESTC幻想乡 — 全局设计体系
+   东方Project 主题：和纸象牙 / 朱红 / 金箔 / 山彦青
+   设计语言见 design-research/touhou-design-language.md
+   ============================================================ */
+
+:root {
+    /* ---- 色板 ---- */
+    --g-paper: #FFF9F2;            /* 和纸象牙（页面底色） */
+    --g-card: #FDF3E7;             /* 羊皮纸（卡片面） */
+    --g-card-strong: #F9E9D7;      /* 深一档羊皮纸（强调块） */
+    --g-ink: #221516;              /* 主墨（标题/正文） */
+    --g-ink-soft: #6B5C58;         /* 次要墨（正文灰） */
+    --g-vermilion: #8E1E26;        /* 朱红（弹幕/符卡/主色） */
+    --g-vermilion-deep: #6B161C;   /* 深朱（hover） */
+    --g-gold: #C99738;             /* 金箔（装饰/描边） */
+    --g-teal: #2F7571;             /* 山彦青（响子发色/强调） */
+    --g-teal-soft: #4E8B88;        /* 山彦浅青（hover） */
+    --g-vermilion-line: rgba(142, 30, 38, 0.14);   /* 朱砂发丝线 */
+    --g-teal-glow: rgba(47, 117, 113, 0.08);       /* 山彦灵光 */
+
+    /* ---- 字体 ---- */
+    --g-font-serif: "Noto Serif SC", "Source Han Serif SC", "SimSun", "Songti SC", serif;
+    --g-font-sans: "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", "PingFang SC", -apple-system, sans-serif;
+    --g-font-en: "Georgia", "Times New Roman", var(--g-font-serif);
+
+    /* ---- 尺寸/结构 ---- */
+    --g-radius: 12px;
+    --g-radius-sm: 8px;
+    --g-header-h: 64px;
+    --g-container-w: 1200px;
+    --g-shadow: 0 4px 16px rgba(57, 28, 24, 0.08);
+    --g-shadow-hover: 0 8px 24px rgba(57, 28, 24, 0.12);
 }
 
+/* ---- 重置与基础 ---- */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
-/* 容器统一样式 */
-.page-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
+html {
+    scroll-behavior: smooth;
 }
 
-h1,
-h2,
-h3 {
-    color: #003366; /* 企业蓝 */
+body {
+    margin: 0;
+    font-family: var(--g-font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--g-paper);
+    background-image:
+        radial-gradient(ellipse 60% 40% at 85% -5%, var(--g-teal-glow), transparent 70%),
+        radial-gradient(ellipse 50% 35% at -10% 30%, rgba(201, 151, 56, 0.05), transparent 70%),
+        radial-gradient(ellipse 70% 50% at 50% 110%, var(--g-vermilion-line), transparent 65%);
+    background-attachment: fixed;
+    color: var(--g-ink);
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--g-font-serif);
+    color: var(--g-ink);
+    letter-spacing: 0.04em;
+    line-height: 1.4;
 }
 
 a {
     text-decoration: none;
-    color: #007bff;
+    color: var(--g-vermilion);
+    transition: color 0.25s;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: var(--g-vermilion-deep);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 触控目标基础 ≥ 44px */
+button,
+a.nav-link {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* ---- 统一样式容器 ---- */
+.page-container {
+    max-width: var(--g-container-w);
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+}
+
+.page-title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin-bottom: 0.5rem;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.4em;
+}
+
+.page-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 2.4em;
+    height: 3px;
+    background: linear-gradient(90deg, var(--g-vermilion), var(--g-gold));
+    border-radius: 2px;
+}
+
+/* 符卡式分割线（弹幕形装饰） */
+.fukubari-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1rem 0 1.5rem;
+    color: var(--g-vermilion);
+    font-size: 0.85rem;
+}
+
+.fukubari-divider::before,
+.fukubari-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--g-vermilion-line), transparent);
+}
+
+/* 符卡宣言横幅（章节激活切入） */
+.spellcard-banner {
+    transform: rotate(-2deg) translateY(0);
+    background: linear-gradient(120deg, var(--g-vermilion), var(--g-vermilion-deep));
+    color: #fff;
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--g-radius-sm);
+    font-family: var(--g-font-serif);
+    letter-spacing: 0.14em;
+    box-shadow: 0 4px 12px rgba(142, 30, 38, 0.35);
+    animation: spellcard-slide-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes spellcard-slide-in {
+    from {
+        opacity: 0;
+        transform: rotate(-2deg) translateX(-40px) scale(0.92);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(-2deg) translateX(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* 响应式：窄屏容器内边距收紧 */
+@media (max-width: 480px) {
+    .page-container {
+        padding: 1.5rem 1rem 2.5rem;
+    }
+}
+
+/* 无障碍：减弱动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

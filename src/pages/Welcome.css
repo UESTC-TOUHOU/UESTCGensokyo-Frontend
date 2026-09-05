@@ -1,31 +1,154 @@
 .welcome-container {
+    min-height: calc(100vh - var(--g-header-h));
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    min-height: calc(100vh - 120px); /* Full height minus header and footer */
+    padding: 2rem 1rem;
 }
 
-.logo-animation-wrapper {
-    margin-top: 2rem;
+.welcome-stage {
+    position: relative;
     width: 100%;
+    max-width: 720px;
+    padding: 3rem 1.5rem;
+    overflow: hidden; /* 内部动画不容外溢 → 不再产生横向滚动（旧 bug 修复） */
 }
 
-.animated-logo {
-    height: 15rem; /* Logo can be larger on the welcome page */
+.danmaku-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
-    animation: App-logo-bounce-and-spin infinite 4s linear;
+    z-index: 0;
 }
 
-@keyframes App-logo-bounce-and-spin {
-    0% {
-        transform: translateX(-150px) rotate(0deg);
+.welcome-banner {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-title {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin: 0 0 0.5rem;
+}
+
+.welcome-sub {
+    position: relative;
+    z-index: 1;
+    color: var(--g-ink-soft);
+    margin: 1rem 0 0;
+}
+
+/* ---- 结界环 + 符卡容器 ---- */
+.seal-container {
+    position: relative;
+    z-index: 1;
+    width: min(68vw, 300px);
+    height: min(68vw, 300px);
+    margin: 2rem auto 1rem;
+}
+
+.seal-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.seal-ring-outer {
+    width: 100%;
+    height: 100%;
+    border: 2px dashed var(--g-vermilion-line);
+    animation: ring-spin-cw 20s linear infinite;
+}
+
+.seal-ring-inner {
+    width: 82%;
+    height: 82%;
+    border: 2px solid rgba(47, 117, 113, 0.28);
+    animation: ring-spin-ccw 35s linear infinite;
+}
+
+@keyframes ring-spin-cw {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes ring-spin-ccw {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+.spellcard-frame {
+    position: absolute;
+    top: 14%;
+    left: 14%;
+    width: 72%;
+    height: 72%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: radial-gradient(ellipse at 30% 20%, var(--g-card-strong), var(--g-card));
+    border: 2px solid var(--g-vermilion-line);
+    box-shadow: 0 0 24px var(--g-teal-glow);
+}
+
+/* 符卡四角朱红角标 */
+.spellcard-frame::before,
+.spellcard-frame::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: var(--g-vermilion);
+    border-style: solid;
+}
+
+.spellcard-frame::before {
+    top: -3px;
+    left: -3px;
+    border-width: 3px 0 0 3px;
+    border-top-left-radius: 6px;
+}
+
+.spellcard-frame::after {
+    bottom: -3px;
+    right: -3px;
+    border-width: 0 3px 3px 0;
+    border-bottom-right-radius: 6px;
+}
+
+/* 旋转 logo：原地自转（旧动画已从大位移改为自转，杜绝横向滚动） */
+.animated-logo {
+    width: 62%;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+    animation: logo-orbit 9s linear infinite;
+    box-shadow: 0 0 18px rgba(47, 117, 113, 0.25);
+}
+
+@keyframes logo-orbit {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* 窄屏收紧 */
+@media (max-width: 480px) {
+    .seal-container {
+        width: 60vw;
+        height: 60vw;
     }
-    50% {
-        transform: translateX(150px) rotate(360deg);
-    }
-    100% {
-        transform: translateX(-150px) rotate(720deg);
+
+    .welcome-stage {
+        padding: 2rem 1rem;
     }
 }
