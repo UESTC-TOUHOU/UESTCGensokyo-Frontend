@@ -1,11 +1,24 @@
 import { useTranslation } from 'react-i18next';
+import kyoukoLogo from '../assets/kyouko-logo.png';
 import './Footer.css';
 
 function Footer() {
   const { t } = useTranslation();
   return (
     <footer className="site-footer">
-      <p>{t('footer.copyright')}</p>
+      <div className="footer-inner">
+        <div className="footer-brand">
+          <img src={kyoukoLogo} alt="幽谷响子徽章" className="footer-logo" />
+          <div>
+            <p className="footer-title">UESTC幻想乡</p>
+            <p className="footer-sub">{t('footer.slogan')}</p>
+          </div>
+        </div>
+        <div className="footer-copyright">
+          <p>{t('footer.copyright')}</p>
+          <p className="footer-disclaimer">{t('footer.disclaimer')}</p>
+        </div>
+      </div>
     </footer>
   );
 }

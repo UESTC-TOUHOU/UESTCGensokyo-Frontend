@@ -6,7 +6,10 @@
         "contact": "Contact Us"
     },
     "welcome": {
-        "title": "Welcome to UESTC-Touhou Club"
+        "title": "Welcome to UESTC Gensokyo",
+        "subtitle": "Touhou Project Fan Club at UESTC",
+        "spellcard": "Mirage Sign \"Echo of Yamabiko\"",
+        "logo_alt": "Kyouko Kasodani emblem"
     },
     "homepage": {
         "title": "About Us",
@@ -32,6 +35,8 @@
         "form_submit": "Send"
     },
     "footer": {
-        "copyright": "© 2025 Your Organization Name. All Rights Reserved."
+        "copyright": "© 2025 Your Organization Name. All Rights Reserved.",
+        "slogan": "Find Gensokyo at UESTC",
+        "disclaimer": "Fan-made site · Touhou Project © ZUN / Team Shanghai Alice"
     }
 }

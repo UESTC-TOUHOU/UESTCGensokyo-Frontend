@@ -6,7 +6,10 @@
         "contact": "お問い合わせ"
     },
     "welcome": {
-        "title": "ようこそUESTC-Touhouクラブへ"
+        "title": "ようこそ UESTC幻想郷へ",
+        "subtitle": "電子科技大学 東方Project 同好会",
+        "spellcard": "幻符「ヤマビコの響き」",
+        "logo_alt": "幽谷響子シンボル"
     },
     "homepage": {
         "title": "私たちについて",
@@ -32,6 +35,8 @@
         "form_submit": "送信"
     },
     "footer": {
-        "copyright": "© 2025 あなたの組織名。全著作権所有。"
+        "copyright": "© 2025 あなたの組織名。全著作権所有。",
+        "slogan": "成電に幻想郷を探せ",
+        "disclaimer": "非公式の東方Project同好会サイト · 東方Project © ZUN / 上海アリス幻樂団"
     }
 }

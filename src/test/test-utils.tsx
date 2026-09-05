@@ -33,7 +33,7 @@ const testResources = {
         form_message: '留言内容',
         form_submit: '发送',
       },
-      footer: { copyright: '© 2026 UESTC幻想乡' },
+      footer: { copyright: '© 2026 UESTC幻想乡', slogan: '在成电，寻找幻想乡', disclaimer: '本站为东方Project同好会非官方站点' },
     },
   },
   en: {
@@ -63,7 +63,7 @@ const testResources = {
         form_message: 'Message',
         form_submit: 'Send',
       },
-      footer: { copyright: '© 2026 UESTC Gensokyo' },
+      footer: { copyright: '© 2026 UESTC Gensokyo', slogan: 'Find Gensokyo at UESTC', disclaimer: 'Fan-made site' },
     },
   },
 };

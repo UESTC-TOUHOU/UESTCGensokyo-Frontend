@@ -6,7 +6,10 @@
         "contact": "联系我们"
     },
     "welcome": {
-        "title": "欢迎来到UESTC-Touhou社团"
+        "title": "欢迎来到 UESTC幻想乡",
+        "subtitle": "电子科技大学 东方Project 同好会",
+        "spellcard": "幻符「山彦の響き」",
+        "logo_alt": "幽谷响子徽章"
     },
     "homepage": {
         "title": "关于我们",
@@ -32,6 +35,8 @@
         "form_submit": "发送"
     },
     "footer": {
-        "copyright": "© 2025 你的组织名称。保留所有权利。"
+        "copyright": "© 2025 你的组织名称。保留所有权利。",
+        "slogan": "在成电，寻找幻想乡",
+        "disclaimer": "本站为东方Project同好会非官方站点 · 东方Project © ZUN / 上海アリス幻樂団"
     }
 }
