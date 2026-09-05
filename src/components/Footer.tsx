@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import kyoukoLogo from '../assets/kyouko-logo.png';
+import logo from '../assets/logo.png';
 import './Footer.css';
 
 function Footer() {
@@ -8,7 +8,7 @@ function Footer() {
     <footer className="site-footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <img src={kyoukoLogo} alt="幽谷响子徽章" className="footer-logo" />
+          <img src={logo} alt="幽谷响子徽章" className="footer-logo" />
           <div>
             <p className="footer-title">UESTC幻想乡</p>
             <p className="footer-sub">{t('footer.slogan')}</p>

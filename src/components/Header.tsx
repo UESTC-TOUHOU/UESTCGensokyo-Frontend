@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import kyoukoLogo from '../assets/kyouko-logo.png';
+import logo from '../assets/logo.png';
 import './Header.css';
 
 function Header() {
@@ -55,7 +55,7 @@ function Header() {
     <header className="site-header wafuu-pattern">
       <div className="header-container">
         <NavLink to="/" className="logo">
-          <img src={kyoukoLogo} alt="幽谷响子徽章" className="logo-img" />
+          <img src={logo} alt="幽谷响子徽章" className="logo-img" />
           <span className="logo-text">UESTC幻想乡</span>
         </NavLink>
 

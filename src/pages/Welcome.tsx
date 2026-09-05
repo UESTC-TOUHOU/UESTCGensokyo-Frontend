@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import kyoukoLogo from '../assets/kyouko-logo.png';
+import logo from '../assets/logo.png';
 import './Welcome.css';
 
 // ---- 弹幕粒子：手写 Canvas，零依赖 ----
@@ -145,7 +145,7 @@ function Welcome() {
           <div className="seal-ring seal-ring-outer"></div>
           <div className="seal-ring seal-ring-inner"></div>
           <div className="spellcard-frame">
-            <img src={kyoukoLogo} className="animated-logo" alt={t('welcome.logo_alt')} />
+            <img src={logo} className="animated-logo" alt={t('welcome.logo_alt')} />
           </div>
         </div>
 
