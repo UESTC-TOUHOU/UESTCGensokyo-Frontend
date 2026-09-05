@@ -4,10 +4,10 @@
 
 **Blocked by:** 03
 
-**Status:** ready-for-agent
+**Status:** completed
 
-- [ ] `VITE_API_BASE` 生效（.env.example 提供），默认值 = 现地址
-- [ ] 表单符卡样式，320px 可用
-- [ ] 状态文案走 i18n 三语
-- [ ] 提交成功/失败路径测例更新后全绿
+- [x] `VITE_API_BASE` 生效（.env.example 提供），默认值 = 现地址
+- [x] 表单符卡样式，320px 可用
+- [x] 状态文案走 i18n 三语
+- [x] 提交成功/失败路径测例更新后全绿
 

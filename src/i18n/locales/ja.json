@@ -1,42 +1,119 @@
 {
-    "header": {
-        "welcome": "ようこそ",
-        "homepage": "ホームページ",
-        "products": "製品",
-        "contact": "お問い合わせ"
+  "header": {
+    "welcome": "ようこそ",
+    "homepage": "ホームページ",
+    "products": "製品",
+    "contact": "お問い合わせ"
+  },
+  "welcome": {
+    "title": "ようこそ UESTC幻想郷へ",
+    "subtitle": "電子科技大学 東方Project 同好会",
+    "spellcard": "幻符「ヤマビコの響き」",
+    "logo_alt": "幽谷響子シンボル"
+  },
+  "homepage": {
+    "title": "サークルについて",
+    "subtitle": "銀杏舞う清水河のほとり、世代を超えて集う幻想郷の住人たち",
+    "intro_title": "サークル紹介",
+    "intro_p1": "UESTC幻想郷（電子科技大学東方Project同好会、オープンソース組織 UESTC-TOUHOU）は、電子科技大学の在学生と卒業生によって自発的に設立された同好の拠点です。清水河畔の交流から始まり、長年にわたり成電で最も活発なオタク文化コミュニティの一つとして活動しています。",
+    "intro_p2": "私たちは完全なる包摂を理念としています。Lunaticをクリアする弾幕猛者から、原作設定の探求者、同人音楽・イラストの創作者、あるいはキャラクターデザインに惹かれた初心者まで、成電にはいつでもあなたの居場所があります。",
+    "intro_feature1_title": "多様性の尊重",
+    "intro_feature1_desc": "STG、格闘ゲーム、同人音楽、手描き二次創作、同人誌収集や日常の雑談まで、一切の敷居はありません。",
+    "intro_feature2_title": "ギークの浪漫",
+    "intro_feature2_desc": "理工系大学ならではのオープンソース精神：東方テーマのプロキシクライアント、字幕変換ツール、同人ゲーム開発など。",
+    "intro_feature3_title": "キャンパスの絆",
+    "intro_feature3_desc": "毎年の秋のサークル新歓、学内同人交流即売会、履修相談やオフ会など、温かな学内コミュニティを築いています。",
+    "activities_title": "サークル活動",
+    "activities_loading": "活動記録を取得中...",
+    "activities_error": "最新の活動を取得できませんでした。アーカイブを表示します。",
+    "activities_empty": "予定されている活動はありません",
+    "members_title": "組織構成",
+    "members_loading": "メンバー構成を取得中...",
+    "members_error": "最新の構成を取得できませんでした。アーカイブを表示します。",
+    "members_empty": "メンバー情報はありません",
+    "date": "開催日",
+    "location": "場所"
+  },
+  "activities_data": {
+    "seed_activity_welcome": "秋期サークル合同新歓",
+    "seed_activity_welcome_summary": "電子科技大学清水河キャンパスの「百団大戦」合同新歓ブース。同人試遊、イラスト展示、新入生交流を実施。",
+    "act_hyxk_2023": "成止「幻夜巡行」東方Project交流展",
+    "act_hyxk_2023_summary": "電子科技大学清水河キャンパス学生活動センター九洲庁にて開催。同人誌・グッズ展示、ゲーム体験コーナーを無料開放。",
+    "act_btdz_2023": "2023年新歓PV・コラム公開",
+    "act_btdz_2023_summary": "2023年テーマ新歓コラムとPVを公開し、幅広い世代の愛好家を結集。",
+    "act_haru_2021": "手描きPV『春の岸辺』公開",
+    "act_haru_2021_summary": "サークルメンバー共同制作による手描き同人アニメーション映像を新歓作品として発表。"
+  },
+  "members_data": {
+    "seed_role_core": "サークル創設幹部 / 運営理事会",
+    "seed_member_core_summary": "サークル全体の運営、学内イベントの企画調整、技術エコシステムの維持を担当。",
+    "role_president": "代表 / 運営統括",
+    "desc_president": "サークルの日常運営、学内外の連絡調整、広報新歓を担当。",
+    "role_tech_lead": "技術チーム統括",
+    "desc_tech_lead": "UESTC-TOUHOU GitHub組織、公式サイト、技術系二次創作プロジェクトを主導。",
+    "role_art_lead": "美術・同人クリエイティブ",
+    "desc_art_lead": "展示会ポスター、手描きPV、同人グッズデザイン、ビジュアル監修を担当。",
+    "role_stg_lead": "STG・ゲーム体験担当",
+    "desc_stg_lead": "原作・二次創作ゲームの交流、弾幕攻略法の共有、イベント試遊台の管理。"
+  },
+  "products": {
+    "title": "サークル作品と頒布物",
+    "subtitle": "歴代同人誌、イベント限定記念ポスター、オリジナル栞、そして即売会展示アクリルグッズ",
+    "copyright_note": "掲載写真はすべてサークル実物・現地撮影写真です。著作権は UESTC幻想郷 に帰属します。",
+    "tags": {
+      "doujinshi": "同人誌",
+      "poster": "ポスター",
+      "bookmark": "しおり",
+      "acrylic": "アクリル製品"
     },
-    "welcome": {
-        "title": "ようこそ UESTC幻想郷へ",
-        "subtitle": "電子科技大学 東方Project 同好会",
-        "spellcard": "幻符「ヤマビコの響き」",
-        "logo_alt": "幽谷響子シンボル"
-    },
-    "homepage": {
-        "title": "私たちについて",
-        "mission_title": "私たちの使命",
-        "mission_text": "ここに組織の使命とビジョンを紹介します。",
-        "team_title": "私たちのチーム",
-        "team_text": "ここにチームメンバーと組織構造を紹介します。"
-    },
-    "products": {
-        "title": "私たちの製品",
-        "product1_title": "製品一",
-        "product1_desc": "これは製品一の詳細な説明です。",
-        "product2_title": "製品二",
-        "product2_desc": "これは製品二の詳細な説明です。",
-        "product3_title": "製品三",
-        "product3_desc": "これは製品三の詳細な説明です。"
-    },
-    "contact": {
-        "title": "お問い合わせ",
-        "form_name": "お名前",
-        "form_email": "メールアドレス",
-        "form_message": "メッセージ",
-        "form_submit": "送信"
-    },
-    "footer": {
-        "copyright": "© 2025 あなたの組織名。全著作権所有。",
-        "slogan": "成電に幻想郷を探せ",
-        "disclaimer": "非公式の東方Project同好会サイト · 東方Project © ZUN / 上海アリス幻樂団"
-    }
+    "doujinshi_yanyin_title": "同人小説集『贋飲同酔』",
+    "doujinshi_yanyin_desc": "サークル2017年制作、21万字A5判の記念アンソロジー。部員書下ろし小説に加え、特製USBと幽谷響子バッジを同梱。",
+    "doujinshi_rd_title": "『凋叶棕研究計画 2』同人誌",
+    "doujinshi_rd_desc": "RD-Sounds同人音楽を多角的に考察する評論誌第2弾。阿求＆小鈴の表紙とともに楽曲分析と歌詞文学を深掘り。",
+    "poster_marisa_title": "『餍饮同醉』テーマ記念ポスター",
+    "poster_marisa_desc": "魔理沙と「Cardiac Sparkling」を配した展示ポスター。伝統的な和風波濤文様と金箔風テクスチャで上質に仕上げました。",
+    "bookmark_reimu_title": "東方印形しおり · 博麗霊夢",
+    "bookmark_reimu_desc": "博麗神社の巫女をモチーフに、紅白の伝統文様とお札の意匠を和紙調の手触りで再現した記念栞。",
+    "bookmark_marisa_title": "東方印形しおり · 霧雨魔理沙",
+    "bookmark_marisa_desc": "箒で駆ける白黒の魔法使い。淡い彩りの草花と『凋叶棕研究計画』の特別タイポグラフィを配置。",
+    "bookmark_alice_title": "東方印形しおり · アリス・マーガトロイド",
+    "bookmark_alice_desc": "魔導書を手に佇む七色の人形遣い。優しい桃色の背景とレースの意匠が醸し出す優雅な一品。",
+    "bookmark_akyuu_title": "東方印形しおり · 稗田阿求",
+    "bookmark_akyuu_desc": "幻想郷の記憶を継ぐ御阿礼の子。木箱を抱える紫の袴装束に研究誌の特別ロゴを刻印。",
+    "bookmark_kosuzu_title": "東方印形しおり · 本居小鈴",
+    "bookmark_kosuzu_desc": "鈴奈庵の看板娘。元気な橙のお団子髪と市松模様の袂から、妖魔本への好奇心が伝わります。",
+    "bookmark_renko_title": "東方印形しおり · 秘封倶楽部",
+    "bookmark_renko_desc": "宇佐見蓮子とマエリベリー・ハーンの記念栞。学生服と星夜が織りなす近未来の探索譚。",
+    "acrylic_medicine_title": "ラメ入りアクリルブロック · メディスン・メランコリー",
+    "acrylic_medicine_desc": "満開の向日葵と星空に佇む小さな人形。赤と金の上品なグリッターが光を受けて煌めきます。",
+    "acrylic_byakuren_title": "オーロラアクリルブロック · 聖白蓮",
+    "acrylic_byakuren_desc": "命蓮寺の導師のなびく髪と虹色の反射フィルム。魔法と仏道の優美な調和を捉えた記念品。",
+    "acrylic_tenshi_title": "色紙＆アクリル展示 · 比那名居天子",
+    "acrylic_tenshi_desc": "『東方緋想天』の緋想の剣と要石を携えた不良天人。サークル展示ブースに並んだ実物展示です。",
+    "acrylic_flandre_title": "クリスタルアクリルスタンド · フランドール・スカーレット",
+    "acrylic_flandre_desc": "七色の翼と無邪気な笑み。幾何学的な破砕クリスタル模様が光の屈折を鮮やかに演出します。",
+    "acrylic_hifuu_title": "二層アクリルアート · 秘封倶楽部",
+    "acrylic_hifuu_desc": "結界の狭間を行く蓮子とメリー。日常の部室と電脳星空が二層のアクリルで美しく重なり合います。",
+    "acrylic_sekibanki_title": "星夜アクリルブロック · 赤蛮奇",
+    "acrylic_sekibanki_desc": "星図と揺らめくリボンに囲まれて夜空を舞うろくろ首。幻想的な深い青の世界観を凝縮。",
+    "acrylic_sakuya_title": "セピア調アクリルブロック · 十六夜咲夜",
+    "acrylic_sakuya_desc": "紅魔館のメイド長と書斎のティータイム。クラシックなセピアとゴールドの諧調で表現。",
+    "acrylic_shiki_title": "審判アクリルブロック · 四季映姫・ヤマザナドゥ",
+    "acrylic_shiki_desc": "悔悟の棒を握り正義を司る閻魔様。法衣の色彩と厳かな佇まいをクリアブロックに封入。"
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "form_name": "お名前",
+    "form_email": "メールアドレス",
+    "form_message": "メッセージ",
+    "form_submit": "送信",
+    "status_sending": "送信中...",
+    "status_success": "送信成功！",
+    "status_error": "送信失敗しました。再試行してください。"
+  },
+  "footer": {
+    "copyright": "© 2026 UESTC幻想郷。全著作権所有。",
+    "slogan": "成電に幻想郷を探せ",
+    "disclaimer": "非公式の東方Project同好会サイト · 東方Project © ZUN / 上海アリス幻樂団"
+  }
 }

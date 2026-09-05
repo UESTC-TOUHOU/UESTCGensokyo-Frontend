@@ -1,5 +1,5 @@
 .site-header {
-    background: rgba(255, 249, 242, 0.92);
+    background-color: var(--color-bg-overlay, rgba(255, 249, 242, 0.95));
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--g-vermilion-line);
     padding: 0 1.5rem;
@@ -39,7 +39,7 @@
 }
 
 .logo-text {
-    font-family: var(--g-font-serif);
+    font-family: var(--font-title, var(--g-font-serif));
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -80,26 +80,36 @@
 }
 
 .lang-btn {
-    background: none;
-    border: 1px solid var(--g-vermilion-line);
-    border-radius: 6px;
-    padding: 4px 10px;
-    min-width: 44px;
+    background: var(--color-bg-card, #ffffff);
+    border: 1.5px solid var(--color-accent-gold, #f4c542);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    padding: 0;
     cursor: pointer;
-    color: var(--g-ink-soft);
+    color: var(--color-primary-dark, var(--g-ink-soft));
     font-size: 0.9rem;
-    transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+    font-weight: 600;
+    font-family: var(--font-title, var(--g-font-serif));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 6px rgba(244, 197, 66, 0.2);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .lang-btn:hover {
-    background-color: var(--g-card);
-    color: var(--g-vermilion);
+    transform: translateY(-2px) scale(1.05);
+    border-color: var(--color-accent-gold);
+    box-shadow: 0 0 12px rgba(244, 197, 66, 0.45);
+    color: var(--color-primary-dark);
 }
 
 .lang-btn.active {
-    background-color: var(--g-vermilion);
+    background: linear-gradient(135deg, var(--color-primary, #4a9d5f), var(--color-primary-dark, #2d5d3f));
     color: #fff;
-    border-color: var(--g-vermilion);
+    border-color: var(--color-accent-gold);
+    box-shadow: 0 0 10px rgba(244, 197, 66, 0.4);
     cursor: default;
 }
 

@@ -4,6 +4,8 @@ import Welcome from '../pages/Welcome';
 import Homepage from '../pages/Homepage';
 import Products from '../pages/Products';
 import Contact from '../pages/Contact';
+import Admin from '../pages/Admin';
+import AdminLogin from '../pages/AdminLogin';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
       {
         path: 'contact',
         element: <Contact />,
+      },
+      {
+        path: 'admin',
+        element: <Admin />,
+      },
+      {
+        path: 'admin/login',
+        element: <AdminLogin />,
       },
     ],
   },
