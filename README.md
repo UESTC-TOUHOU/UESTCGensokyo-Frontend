@@ -23,7 +23,7 @@ pnpm build          # 生产构建
 VITE_API_BASE=https://your-backend.example.com
 ```
 
-未设置时默认 `http://debian:18080`（docker compose 后端映射端口）。
+未设置时默认 `http://localhost:18080`（docker compose 后端映射端口）。
 
 ## CI / CD（GitHub Actions）
 
