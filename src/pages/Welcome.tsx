@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import kyoukoLogo from '../assets/kyouko-logo.png';
 import './Welcome.css';
@@ -150,6 +151,12 @@ function Welcome() {
         </div>
 
         <p className="welcome-sub">{t('welcome.subtitle')}</p>
+
+        <div className="welcome-action">
+          <Link to="/home" className="welcome-cta">
+            <span>{t('welcome.cta')}</span>
+          </Link>
+        </div>
       </div>
     </div>
   );

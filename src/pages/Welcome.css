@@ -126,19 +126,78 @@
     border-bottom-right-radius: 6px;
 }
 
-/* 旋转 logo：原地自转（旧动画已从大位移改为自转，杜绝横向滚动） */
+/* 呼吸 logo：平稳呼吸微光，告别大幅机械旋转 */
 .animated-logo {
     width: 62%;
     height: auto;
     border-radius: 50%;
     object-fit: cover;
-    animation: logo-orbit 9s linear infinite;
+    animation: logo-breathe 4s ease-in-out infinite;
     box-shadow: 0 0 18px rgba(47, 117, 113, 0.25);
 }
 
-@keyframes logo-orbit {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
+@keyframes logo-breathe {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 16px rgba(47, 117, 113, 0.25);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 28px rgba(47, 117, 113, 0.5), 0 0 12px rgba(201, 151, 56, 0.35);
+    }
+}
+
+/* 欢迎页引导行动按钮 */
+.welcome-action {
+    position: relative;
+    z-index: 1;
+    margin-top: 2rem;
+}
+
+.welcome-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 2.2rem;
+    font-family: var(--font-title, var(--g-font-serif));
+    font-size: 1.08rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: #FFF9F2;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--g-vermilion, #8E1E26), var(--g-vermilion-deep, #6B161C));
+    border: 1px solid var(--g-gold, #C99738);
+    border-radius: var(--g-radius-sm, 4px);
+    box-shadow: 0 4px 16px rgba(142, 30, 38, 0.32), 0 0 12px rgba(201, 151, 56, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(201, 151, 56, 0.35), transparent);
+    transition: left 0.5s ease;
+}
+
+.welcome-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(142, 30, 38, 0.42), 0 0 20px rgba(201, 151, 56, 0.4);
+    border-color: #E8C172;
+    color: #FFFFFF;
+}
+
+.welcome-cta:hover::before {
+    left: 100%;
+}
+
+.welcome-cta:active {
+    transform: translateY(-1px);
 }
 
 /* 窄屏收紧 */

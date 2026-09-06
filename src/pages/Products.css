@@ -120,16 +120,23 @@
 .products-loading,
 .products-error {
     text-align: center;
-    padding: 3rem 1.5rem;
+    padding: 2.5rem 1.5rem;
     font-size: 1.05rem;
+    max-width: 480px;
+    margin: 2rem auto 3rem;
+    border-radius: var(--g-radius-sm, 4px);
 }
 
 .products-loading {
     color: var(--g-teal, #2F7571);
+    background-color: rgba(47, 117, 113, 0.08);
+    border: 1px dashed rgba(47, 117, 113, 0.35);
 }
 
 .products-error {
     color: var(--g-vermilion, #8E1E26);
+    background-color: rgba(142, 30, 38, 0.08);
+    border: 1px dashed rgba(142, 30, 38, 0.35);
 }
 
 .products-footer-note {

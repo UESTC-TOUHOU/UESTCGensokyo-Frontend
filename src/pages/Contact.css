@@ -54,8 +54,8 @@
 .contact-form input:focus,
 .contact-form textarea:focus {
     outline: none;
-    border-color: var(--color-accent-purple, #8b5a8e);
-    box-shadow: 0 0 0 3px rgba(139, 90, 142, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.04);
+    border-color: var(--g-teal, #2F7571);
+    box-shadow: 0 0 0 3px rgba(47, 117, 113, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .contact-form input::placeholder,
@@ -72,15 +72,16 @@
     width: 100%;
     margin-top: 0.5rem;
     padding: 0.85rem 1.5rem;
-    background: var(--color-accent-gold);
-    color: #fff;
-    border: 1px solid var(--color-accent-gold, #f4c542);
+    background: linear-gradient(135deg, var(--g-vermilion, #8E1E26), var(--g-vermilion-deep, #6B161C));
+    color: #FFF9F2;
+    border: 1px solid var(--g-gold, #C99738);
     border-radius: var(--g-radius-sm, 4px);
     font-family: var(--font-title, var(--g-font-serif));
     font-size: 1.05rem;
-    letter-spacing: 0.12em;
+    font-weight: 600;
+    letter-spacing: 0.15em;
     cursor: pointer;
-    box-shadow: 0 0 12px rgba(244, 197, 66, 0.35), 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 14px rgba(142, 30, 38, 0.28);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -93,7 +94,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(244, 197, 66, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(201, 151, 56, 0.3), transparent);
     transition: left 0.5s ease;
 }
 
@@ -103,8 +104,9 @@
 
 .submit-button:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(244, 197, 66, 0.5), 0 6px 18px rgba(0, 0, 0, 0.25);
-    border-color: #fff;
+    background: linear-gradient(135deg, #A82831, var(--g-vermilion, #8E1E26));
+    box-shadow: 0 6px 20px rgba(142, 30, 38, 0.38), 0 0 12px rgba(201, 151, 56, 0.3);
+    border-color: var(--g-gold, #C99738);
 }
 
 .submit-button:active:not(:disabled) {
