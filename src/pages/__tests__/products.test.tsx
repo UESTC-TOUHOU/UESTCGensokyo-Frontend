@@ -165,6 +165,8 @@ describe('Products page', () => {
 
     await waitFor(() => {
       expect(screen.getByText('未能同步最新制品，请稍后重试')).toBeInTheDocument();
+      expect(screen.getByText('同人小说集《赝饮同醉》')).toBeInTheDocument();
+      expect(screen.getByText('闪粉亚克力砖 · 桑尼·米尔克')).toBeInTheDocument();
     });
   });
 
