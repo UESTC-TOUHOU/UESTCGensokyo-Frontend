@@ -29,10 +29,10 @@ describe('Homepage content and API integration', () => {
     const mockActivities = [
       {
         id: 101,
-        title_key: 'act_hyxk_2023',
-        date: '2023-12-23',
-        location: '九洲厅',
-        summary_key: 'act_hyxk_2023_summary',
+        title_key: 'act_btdz_2023',
+        date: '2023-09',
+        location: '电子科技大学',
+        summary_key: 'act_btdz_2023_summary',
         sort_order: 1,
       },
     ];
@@ -67,7 +67,7 @@ describe('Homepage content and API integration', () => {
     renderWithRouter([{ path: '/', element: <Homepage /> }]);
 
     await waitFor(() => {
-      expect(screen.getByText('成止「幻夜巡行」东方Project交流展')).toBeInTheDocument();
+      expect(screen.getByText('2023百团大战招新与PV发布')).toBeInTheDocument();
       expect(screen.getByText('博丽灵梦')).toBeInTheDocument();
     });
 
