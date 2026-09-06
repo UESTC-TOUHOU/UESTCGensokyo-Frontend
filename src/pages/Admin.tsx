@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getApiBase } from '../config';
 import './Admin.css';
 
 interface Activity {
@@ -48,7 +49,7 @@ export default function Admin() {
   });
   const [showMemberForm, setShowMemberForm] = useState(false);
 
-  const apiBase = import.meta.env.VITE_API_BASE || 'http://debian:18080';
+  const apiBase = getApiBase();
 
   const apiFetch = useCallback(
     async (path: string, opts?: RequestInit) => {

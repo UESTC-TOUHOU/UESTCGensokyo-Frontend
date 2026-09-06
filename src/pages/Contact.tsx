@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SpellCardFrame from '../components/SpellCardFrame';
+import { getApiBase } from '../config';
 import './Contact.css';
 
-const apiBase = import.meta.env.VITE_API_BASE || 'http://debian:18080';
+const apiBase = getApiBase();
 
 function Contact() {
   const { t } = useTranslation();
