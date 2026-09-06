@@ -56,7 +56,7 @@ VITE_API_BASE=https://your-backend.example.com
 | `/` | Welcome | 封面欢迎页 |
 | `/home` | Homepage | 社团简介 + 最近3条活动 + 组织架构 |
 | `/activities` | Activities | 完整活动列表，`type=call` 征集活动置顶高亮，普通活动按年份分组 |
-| `/products` | Products | 社团制品展示 |
-| `/contact` | Contact | 联系表单 |
-| `/admin` | Admin | 内容管理后台（activities/members/products CRUD） |
+| `/products` | Products | 社团制品展示（支持分类标签筛选与三语切换） |
+| `/contact` | Contact | 联系与社群（QQ群/GitHub/Discord展示与扫码 + 商务/匿名留言信箱） |
+| `/admin` | Admin | 内容管理后台（活动/成员/制品/制品类型标签 CRUD + 全站数据备份与还原） |
 | `/admin/login` | AdminLogin | 后台登录 |
