@@ -119,7 +119,7 @@
   padding: 0.6rem 0.8rem;
   border: 1px solid rgba(142, 30, 38, 0.2);
   border-radius: var(--g-radius-sm);
-  background: #fff;
+  background: var(--g-card);
   color: var(--g-ink);
   font-family: inherit;
   font-size: 0.95rem;
@@ -173,12 +173,12 @@
 
 .admin-btn-danger {
   background: transparent;
-  border-color: #c93b2b;
-  color: #c93b2b;
+  border-color: var(--g-vermilion);
+  color: var(--g-vermilion);
 }
 
 .admin-btn-danger:hover {
-  background: #c93b2b;
+  background: var(--g-vermilion);
   color: #fff;
 }
 
@@ -218,18 +218,18 @@
 }
 
 .admin-error-banner {
-  background: #fdf2f2;
-  border: 1px solid #f8b4b4;
-  color: #9b1c1c;
+  background: rgba(201, 74, 82, 0.08);
+  border: 1px solid rgba(201, 74, 82, 0.3);
+  color: var(--g-vermilion);
   padding: 0.6rem 0.8rem;
   border-radius: var(--g-radius-sm);
   font-size: 0.85rem;
 }
 
 .admin-success-banner {
-  background: #f3faf7;
-  border: 1px solid #84e1bc;
-  color: #03543f;
+  background: rgba(47, 117, 113, 0.08);
+  border: 1px solid rgba(47, 117, 113, 0.3);
+  color: var(--g-teal);
   padding: 0.6rem 0.8rem;
   border-radius: var(--g-radius-sm);
   font-size: 0.85rem;
@@ -245,7 +245,7 @@
 .admin-form-panel {
   margin-bottom: 1.5rem;
   padding: 1.25rem;
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--g-card-strong);
   border-radius: var(--g-radius-sm);
   border: 1px dashed var(--g-vermilion-line);
 }

@@ -41,11 +41,66 @@
   --border-radius-base: 8px;
 }
 
+/* ============================================================
+   深色模式 — 深墨和纸
+   data-theme="dark" 由 ThemeContext 动态切换
+   ============================================================ */
+:root[data-theme='dark'] {
+  /* 主色 */
+  --color-primary: #5BB8B3;
+  --color-primary-dark: #3A9E98;
+  --color-primary-light: #7CCCC8;
+
+  /* 强调色 */
+  --color-accent-gold: #D4A94E;
+  --color-accent-gold-hover: #C49B3D;
+  --color-accent-red: #C94A52;
+  --color-accent-vermilion: #D4604A;
+  --color-accent-purple: #9B6E9E;
+
+  /* 背景色 */
+  --color-bg-light: #1A1515;
+  --color-bg-dark: #110F0F;
+  --color-bg-card: #241E1E;
+  --color-bg-overlay: rgba(26, 21, 21, 0.96);
+
+  /* 文字色 */
+  --color-text-primary: #E8DCC8;
+  --color-text-secondary: #A89888;
+  --color-text-muted: #7A6E66;
+
+  /* 边框和分隔 */
+  --color-border: #3A3030;
+  --color-border-active: var(--color-accent-gold);
+
+  /* 阴影 */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-spellcard: 0 0 16px rgba(212, 169, 78, 0.18), 0 4px 16px rgba(0, 0, 0, 0.3);
+
+  /* --g-* 覆盖 */
+  --g-paper: #1A1515;
+  --g-card: #241E1E;
+  --g-card-strong: #2E2626;
+  --g-ink: #E8DCC8;
+  --g-ink-soft: #A89888;
+  --g-vermilion: #C94A52;
+  --g-vermilion-deep: #A83A42;
+  --g-gold: #D4A94E;
+  --g-teal: #5BB8B3;
+  --g-teal-soft: #7CCCC8;
+  --g-vermilion-line: rgba(201, 74, 82, 0.18);
+  --g-teal-glow: rgba(91, 184, 179, 0.10);
+  --g-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --g-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
 /* 符卡边框通用组件样式 */
 .spellcard-frame {
   position: relative;
   background: var(--color-bg-card);
-  border: 1px solid rgba(142, 30, 38, 0.18);
+  border: 1px solid var(--g-vermilion-line, rgba(142, 30, 38, 0.18));
   border-radius: var(--border-radius-base);
   padding: 1.5rem;
   box-shadow: var(--shadow-sm);

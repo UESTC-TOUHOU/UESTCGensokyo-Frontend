@@ -10,7 +10,7 @@
 }
 
 .activities-subtitle {
-  color: var(--color-text-muted, #9a8e7c);
+  color: var(--g-ink-soft);
   font-size: 1.05rem;
   margin-top: 0.5rem;
 }
@@ -20,11 +20,11 @@
 .activities-empty {
   text-align: center;
   padding: 2rem;
-  color: var(--color-text-muted, #9a8e7c);
+  color: var(--g-ink-soft);
 }
 
 .activities-error {
-  color: var(--color-accent-red, #c0392b);
+  color: var(--g-vermilion);
 }
 
 /* Call for submissions section */
@@ -39,16 +39,16 @@
 
 .activity-card--call {
   position: relative;
-  border: 2px solid var(--color-gold, #c8a84e);
-  background: linear-gradient(135deg, rgba(200, 168, 78, 0.08), rgba(200, 168, 78, 0.02));
+  border: 2px solid var(--g-gold);
+  background: linear-gradient(135deg, rgba(201, 151, 56, 0.10), rgba(201, 151, 56, 0.03));
 }
 
 .activity-call-badge {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  background: var(--color-gold, #c8a84e);
-  color: #1a1510;
+  background: var(--g-vermilion);
+  color: #fff;
   font-size: 0.75rem;
   font-weight: 700;
   padding: 0.2rem 0.6rem;
@@ -68,8 +68,8 @@
 .activities-year-label {
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-gold, #c8a84e);
-  border-bottom: 1px solid var(--color-border, rgba(200, 168, 78, 0.25));
+  color: var(--g-vermilion);
+  border-bottom: 1px solid var(--g-vermilion-line);
   padding-bottom: 0.4rem;
   margin-bottom: 1rem;
 }
@@ -79,17 +79,19 @@
   gap: 1rem;
 }
 
-/* Card styles (reuse homepage patterns) */
+/* Card styles — aligned with Homepage tokens */
 .activities-page .activity-card {
-  background: var(--color-card-bg, rgba(26, 21, 16, 0.6));
-  border: 1px solid var(--color-border, rgba(200, 168, 78, 0.15));
-  border-radius: 8px;
+  background: var(--g-card);
+  border: 1px solid var(--g-vermilion-line);
+  border-radius: var(--g-radius-sm);
   padding: 1.25rem;
-  transition: border-color 0.2s;
+  box-shadow: var(--g-shadow);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .activities-page .activity-card:hover {
-  border-color: var(--color-gold, #c8a84e);
+  border-color: var(--g-gold);
+  box-shadow: var(--g-shadow-hover);
 }
 
 .activities-page .card-top {
@@ -97,7 +99,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   font-size: 0.85rem;
-  color: var(--color-text-muted, #9a8e7c);
+  color: var(--g-ink-soft);
   margin-bottom: 0.5rem;
 }
 
@@ -105,15 +107,24 @@
   font-weight: 600;
 }
 
+.activities-page .activity-date {
+  color: var(--g-vermilion);
+}
+
+.activities-page .activity-location {
+  color: var(--g-teal);
+}
+
 .activities-page .activity-title {
+  font-family: var(--g-font-serif);
   font-size: 1.1rem;
-  color: var(--color-text, #e8dcc8);
+  color: var(--g-ink);
   margin-bottom: 0.4rem;
 }
 
 .activities-page .activity-summary {
   font-size: 0.95rem;
-  color: var(--color-text-muted, #9a8e7c);
+  color: var(--g-ink-soft);
   line-height: 1.6;
 }
 
