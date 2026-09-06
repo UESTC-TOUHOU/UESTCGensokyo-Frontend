@@ -10,14 +10,15 @@ COPY . .
 
 RUN bun run build
 
-FROM node:20-alpine
+# 生产阶段：纯静态文件 serve
+FROM oven/bun:1-alpine
 
 WORKDIR /app
 
-COPY --from=builder /app/dist ./
+RUN bun add -g serve
 
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
 
 EXPOSE 8443
 
-CMD [ "npx", "serve", "-s", ".", "-l", "8443" ]
+CMD ["serve", "-s", "dist", "-l", "8443"]
