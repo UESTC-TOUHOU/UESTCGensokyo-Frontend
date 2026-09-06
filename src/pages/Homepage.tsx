@@ -25,18 +25,18 @@ type MemberItem = {
 const FALLBACK_ACTIVITIES: ActivityItem[] = [
   {
     id: 1,
-    title_key: 'act_hyxk_2023',
-    date: '2023-12-23 ~ 12-24',
-    location: '清水河校区 学生活动中心九洲厅',
-    summary_key: 'act_hyxk_2023_summary',
-    sort_order: 1,
-  },
-  {
-    id: 2,
     title_key: 'seed_activity_welcome',
     date: '每年秋季 (9-10月)',
     location: '清水河校区 百团大战展台',
     summary_key: 'seed_activity_welcome_summary',
+    sort_order: 1,
+  },
+  {
+    id: 2,
+    title_key: 'act_btdz_2023',
+    date: '2023-09',
+    location: '电子科技大学 / 线上',
+    summary_key: 'act_btdz_2023_summary',
     sort_order: 2,
   },
   {
