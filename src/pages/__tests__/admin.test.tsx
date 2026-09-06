@@ -135,6 +135,21 @@ describe('Admin dashboard', () => {
           ],
         });
       }
+      if (url.includes('/api/product-tags')) {
+        return Promise.resolve({
+          ok: true,
+          json: async () => [
+            {
+              id: 1,
+              tag_key: 'acrylic',
+              name_zh: '亚克力制品',
+              name_en: 'Acrylic Goods',
+              name_ja: 'アクリル製品',
+              sort_order: 1,
+            },
+          ],
+        });
+      }
       return Promise.resolve({ ok: true, json: async () => ({}) });
     });
     vi.stubGlobal('fetch', fetchMock);
@@ -145,6 +160,8 @@ describe('Admin dashboard', () => {
       expect(screen.getByText('内容管理后台')).toBeInTheDocument();
       expect(screen.getByText('东方红魔乡展')).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /社团制品/ })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /制品类型/ })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /导出全站数据/ })).toBeInTheDocument();
     });
 
     // Switch to products tab
@@ -153,6 +170,14 @@ describe('Admin dashboard', () => {
     await waitFor(() => {
       expect(screen.getByText('博丽灵梦亚克力立牌')).toBeInTheDocument();
       expect(screen.getByRole('button', { name: '+ 添加制品' })).toBeInTheDocument();
+    });
+
+    // Switch to product-tags tab
+    fireEvent.click(screen.getByRole('button', { name: /制品类型/ }));
+
+    await waitFor(() => {
+      expect(screen.getByText('亚克力制品')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: '+ 添加类型标签' })).toBeInTheDocument();
     });
 
     vi.unstubAllGlobals();
