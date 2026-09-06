@@ -1,0 +1,73 @@
+/* ============================================================
+   灵梦像素光标 - Hakurei Reimu Pixel Cursor
+   使用从 .ani 提取的 PNG 第一帧，全浏览器兼容
+   .ani 作为 fallback（仅 Windows 浏览器支持动画）
+   ============================================================ */
+
+/* 默认指针 */
+.reimu-cursor,
+.reimu-cursor * {
+  cursor: url('/cursors/Normal.png') 5 2, url('/cursors/Normal.ani'), auto;
+}
+
+/* 可点击元素 */
+.reimu-cursor a,
+.reimu-cursor button,
+.reimu-cursor select,
+.reimu-cursor input[type="submit"],
+.reimu-cursor input[type="button"],
+.reimu-cursor input[type="checkbox"],
+.reimu-cursor input[type="radio"],
+.reimu-cursor input[type="file"],
+.reimu-cursor label[class*="btn"],
+.reimu-cursor [role="button"],
+.reimu-cursor .clickable {
+  cursor: url('/cursors/Link.png') 10 2, url('/cursors/Link.ani'), pointer;
+}
+
+/* 文本输入 */
+.reimu-cursor input[type="text"],
+.reimu-cursor input[type="email"],
+.reimu-cursor input[type="password"],
+.reimu-cursor input[type="search"],
+.reimu-cursor input[type="url"],
+.reimu-cursor input[type="number"],
+.reimu-cursor textarea,
+.reimu-cursor [contenteditable="true"] {
+  cursor: url('/cursors/Text.png') 12 12, url('/cursors/Text.ani'), text;
+}
+
+/* 加载中 */
+.reimu-cursor.loading,
+.reimu-cursor .loading {
+  cursor: url('/cursors/Working.png') 12 12, url('/cursors/Working.ani'), wait;
+}
+
+/* 繁忙 */
+.reimu-cursor.busy,
+.reimu-cursor .busy {
+  cursor: url('/cursors/Busy.png') 12 12, url('/cursors/Busy.ani'), wait;
+}
+
+/* 禁用 */
+.reimu-cursor [disabled],
+.reimu-cursor .disabled,
+.reimu-cursor [aria-disabled="true"] {
+  cursor: url('/cursors/Unavailable.png') 12 12, url('/cursors/Unavailable.ani'), not-allowed;
+}
+
+/* 帮助提示 */
+.reimu-cursor .help {
+  cursor: url('/cursors/Help.png') 12 12, url('/cursors/Help.ani'), help;
+}
+
+/* 拖拽移动 */
+.reimu-cursor .movable,
+.reimu-cursor [draggable="true"] {
+  cursor: url('/cursors/Move.png') 12 12, url('/cursors/Move.ani'), move;
+}
+
+/* 精确选择 */
+.reimu-cursor .precision {
+  cursor: url('/cursors/Precision.png') 12 12, url('/cursors/Precision.ani'), crosshair;
+}
