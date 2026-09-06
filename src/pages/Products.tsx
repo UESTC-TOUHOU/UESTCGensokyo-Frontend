@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import SpellCardFrame from '../components/SpellCardFrame';
+import { getApiBase } from '../config';
 import './Products.css';
 
 export type Product = {
@@ -17,16 +18,6 @@ export type Product = {
   image_url: string;
   tag?: string;
   sort_order: number;
-};
-
-const getApiBase = (): string => {
-  if (import.meta.env.VITE_API_BASE) {
-    return import.meta.env.VITE_API_BASE;
-  }
-  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-    return 'http://localhost:18080';
-  }
-  return 'http://debian:18080';
 };
 
 const API_BASE = getApiBase();

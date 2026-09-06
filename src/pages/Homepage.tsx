@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import heroAbout from '../assets/hero-about.jpg';
+import { getApiBase } from '../config';
 import './Homepage.css';
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://debian:18080';
+const API_BASE = getApiBase();
 
 type ActivityItem = {
   id: number;

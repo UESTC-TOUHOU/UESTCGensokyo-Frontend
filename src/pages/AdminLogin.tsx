@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getApiBase } from '../config';
 import './Admin.css';
 
 export default function AdminLogin() {
@@ -13,7 +14,7 @@ export default function AdminLogin() {
     setError('');
     setLoading(true);
 
-    const apiBase = import.meta.env.VITE_API_BASE || 'http://debian:18080';
+    const apiBase = getApiBase();
 
     try {
       const res = await fetch(`${apiBase}/api/admin/login`, {
