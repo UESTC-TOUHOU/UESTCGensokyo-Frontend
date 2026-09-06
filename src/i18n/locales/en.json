@@ -60,6 +60,8 @@
     "title": "Club Works & Exhibition Merch",
     "subtitle": "Anthology doujinshi, limited convention posters, customized bookmarks, and real acrylic exhibits",
     "copyright_note": "All images on this site are genuine club goods and exhibition photos. Copyright belongs to UESTC Gensokyo.",
+    "loading": "Loading exhibition goods...",
+    "error": "Failed to sync latest products, please try again later",
     "tags": {
       "doujinshi": "Doujinshi",
       "poster": "Poster",

@@ -1,156 +1,134 @@
 import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
 import SpellCardFrame from '../components/SpellCardFrame';
 import './Products.css';
 
-import doujinshiMockupImg from '../assets/products/doujinshi-mockup.jpg';
-import marisaPosterImg from '../assets/products/marisa-poster.jpg';
-import bookmarkReimuImg from '../assets/products/bookmark-reimu.jpg';
-import bookmarkMarisaImg from '../assets/products/bookmark-marisa.jpg';
-import bookmarkAliceImg from '../assets/products/bookmark-alice.jpg';
-import bookmarkAkyuuImg from '../assets/products/bookmark-akyuu.jpg';
-import bookmarkKosuzuImg from '../assets/products/bookmark-kosuzu.jpg';
-import bookmarkSumirekoImg from '../assets/products/bookmark-sumireko.jpg';
-import acrylicSunnyImg from '../assets/products/acrylic-sunny.jpg';
-import acrylicTenshiImg from '../assets/products/acrylic-tenshi.jpg';
-import acrylicByakurenImg from '../assets/products/acrylic-byakuren.jpg';
-import acrylicHifuuImg from '../assets/products/acrylic-hifuu.jpg';
-import acrylicFlandreImg from '../assets/products/acrylic-flandre.jpg';
-import acrylicLunaImg from '../assets/products/acrylic-luna.jpg';
-import acrylicSuwakoImg from '../assets/products/acrylic-suwako.jpg';
-import acrylicShikiImg from '../assets/products/acrylic-shiki.jpg';
-
 export type Product = {
-  id: string;
-  img: string;
-  titleKey: string;
-  descKey: string;
-  tag?: 'doujinshi' | 'poster' | 'bookmark' | 'acrylic';
+  id: number | string;
+  name_zh?: string;
+  name_en?: string;
+  name_ja?: string;
+  description_zh?: string;
+  description_en?: string;
+  description_ja?: string;
+  name?: string;
+  category?: string;
+  description_key?: string;
+  image_url: string;
+  tag?: string;
+  sort_order: number;
 };
 
-const PRODUCTS_DATA: Product[] = [
-  {
-    id: 'doujinshi-yanyin',
-    img: doujinshiMockupImg,
-    titleKey: 'products.doujinshi_yanyin_title',
-    descKey: 'products.doujinshi_yanyin_desc',
-    tag: 'doujinshi',
-  },
-  {
-    id: 'doujinshi-rd',
-    img: doujinshiMockupImg,
-    titleKey: 'products.doujinshi_rd_title',
-    descKey: 'products.doujinshi_rd_desc',
-    tag: 'doujinshi',
-  },
-  {
-    id: 'poster-marisa',
-    img: marisaPosterImg,
-    titleKey: 'products.poster_marisa_title',
-    descKey: 'products.poster_marisa_desc',
-    tag: 'poster',
-  },
-  {
-    id: 'bookmark-reimu',
-    img: bookmarkReimuImg,
-    titleKey: 'products.bookmark_reimu_title',
-    descKey: 'products.bookmark_reimu_desc',
-    tag: 'bookmark',
-  },
-  {
-    id: 'bookmark-marisa',
-    img: bookmarkMarisaImg,
-    titleKey: 'products.bookmark_marisa_title',
-    descKey: 'products.bookmark_marisa_desc',
-    tag: 'bookmark',
-  },
-  {
-    id: 'bookmark-alice',
-    img: bookmarkAliceImg,
-    titleKey: 'products.bookmark_alice_title',
-    descKey: 'products.bookmark_alice_desc',
-    tag: 'bookmark',
-  },
-  {
-    id: 'bookmark-akyuu',
-    img: bookmarkAkyuuImg,
-    titleKey: 'products.bookmark_akyuu_title',
-    descKey: 'products.bookmark_akyuu_desc',
-    tag: 'bookmark',
-  },
-  {
-    id: 'bookmark-kosuzu',
-    img: bookmarkKosuzuImg,
-    titleKey: 'products.bookmark_kosuzu_title',
-    descKey: 'products.bookmark_kosuzu_desc',
-    tag: 'bookmark',
-  },
-  {
-    id: 'bookmark-sumireko',
-    img: bookmarkSumirekoImg,
-    titleKey: 'products.bookmark_sumireko_title',
-    descKey: 'products.bookmark_sumireko_desc',
-    tag: 'bookmark',
-  },
-  {
-    id: 'acrylic-sunny',
-    img: acrylicSunnyImg,
-    titleKey: 'products.acrylic_sunny_title',
-    descKey: 'products.acrylic_sunny_desc',
-    tag: 'acrylic',
-  },
-  {
-    id: 'acrylic-tenshi',
-    img: acrylicTenshiImg,
-    titleKey: 'products.acrylic_tenshi_title',
-    descKey: 'products.acrylic_tenshi_desc',
-    tag: 'acrylic',
-  },
-  {
-    id: 'acrylic-byakuren',
-    img: acrylicByakurenImg,
-    titleKey: 'products.acrylic_byakuren_title',
-    descKey: 'products.acrylic_byakuren_desc',
-    tag: 'acrylic',
-  },
-  {
-    id: 'acrylic-hifuu',
-    img: acrylicHifuuImg,
-    titleKey: 'products.acrylic_hifuu_title',
-    descKey: 'products.acrylic_hifuu_desc',
-    tag: 'acrylic',
-  },
-  {
-    id: 'acrylic-flandre',
-    img: acrylicFlandreImg,
-    titleKey: 'products.acrylic_flandre_title',
-    descKey: 'products.acrylic_flandre_desc',
-    tag: 'acrylic',
-  },
-  {
-    id: 'acrylic-luna',
-    img: acrylicLunaImg,
-    titleKey: 'products.acrylic_luna_title',
-    descKey: 'products.acrylic_luna_desc',
-    tag: 'acrylic',
-  },
-  {
-    id: 'acrylic-suwako',
-    img: acrylicSuwakoImg,
-    titleKey: 'products.acrylic_suwako_title',
-    descKey: 'products.acrylic_suwako_desc',
-    tag: 'acrylic',
-  },
-  {
-    id: 'acrylic-shiki',
-    img: acrylicShikiImg,
-    titleKey: 'products.acrylic_shiki_title',
-    descKey: 'products.acrylic_shiki_desc',
-    tag: 'acrylic',
-  },
-];
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
 
 function Products() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+
+    fetch(`${API_BASE}/api/products`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch products');
+        return res.json();
+      })
+      .then((data: Product[]) => {
+        if (active && Array.isArray(data)) {
+          const sorted = [...data].sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
+          setProducts(sorted);
+          setError(null);
+        }
+      })
+      .catch((err) => {
+        if (active) {
+          setError(err instanceof Error ? err.message : 'Network error');
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const getProductTitle = (product: Product): string => {
+    const lang = i18n.language || 'zh';
+    if (lang.startsWith('en') && product.name_en) return product.name_en;
+    if (lang.startsWith('ja') && product.name_ja) return product.name_ja;
+    if (product.name_zh) return product.name_zh;
+    if (product.name) {
+      const translated = t(product.name);
+      return translated !== product.name ? translated : product.name;
+    }
+    return '';
+  };
+
+  const getProductDesc = (product: Product): string => {
+    const lang = i18n.language || 'zh';
+    if (lang.startsWith('en') && product.description_en) return product.description_en;
+    if (lang.startsWith('ja') && product.description_ja) return product.description_ja;
+    if (product.description_zh) return product.description_zh;
+    if (product.description_key) {
+      const translated = t(product.description_key);
+      return translated !== product.description_key ? translated : product.description_key;
+    }
+    return '';
+  };
+
+  const getTagInfo = (product: Product) => {
+    const tagKey = product.tag || product.category;
+    if (!tagKey) return { tagKey: '', tagLabel: null };
+    const i18nKey = `products.tags.${tagKey}`;
+    const translated = t(i18nKey);
+    return {
+      tagKey,
+      tagLabel: translated !== i18nKey ? translated : tagKey,
+    };
+  };
+
+  const resolveImageUrl = (url: string): string => {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
+      return url;
+    }
+    if (url.startsWith('/static/')) {
+      return API_BASE ? `${API_BASE}${url}` : url;
+    }
+    return url;
+  };
+
+  if (loading) {
+    return (
+      <div className="page-container products-page">
+        <header className="products-header">
+          <h1 className="page-title">{t('products.title')}</h1>
+          <p className="products-subtitle">{t('products.subtitle')}</p>
+        </header>
+        <p className="products-loading">{t('products.loading', '正在获取制品列表...')}</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="page-container products-page">
+        <header className="products-header">
+          <h1 className="page-title">{t('products.title')}</h1>
+          <p className="products-subtitle">{t('products.subtitle')}</p>
+        </header>
+        <p className="products-error">
+          {t('products.error', '未能同步最新制品，请稍后重试')}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="page-container products-page">
@@ -160,17 +138,17 @@ function Products() {
       </header>
 
       <div className="products-grid">
-        {PRODUCTS_DATA.map((product) => {
-          const title = t(product.titleKey);
-          const desc = t(product.descKey);
-          const tagLabel = product.tag ? t(`products.tags.${product.tag}`) : null;
+        {products.map((product) => {
+          const title = getProductTitle(product);
+          const desc = getProductDesc(product);
+          const { tagKey, tagLabel } = getTagInfo(product);
 
           return (
             <SpellCardFrame variant="gold" className="product-card" key={product.id}>
               <div className="product-image-wrap">
-                {tagLabel && <span className={`product-tag tag-${product.tag}`}>{tagLabel}</span>}
+                {tagLabel && <span className={`product-tag tag-${tagKey}`}>{tagLabel}</span>}
                 <img
-                  src={product.img}
+                  src={resolveImageUrl(product.image_url)}
                   alt={title}
                   loading="lazy"
                   className="product-img"

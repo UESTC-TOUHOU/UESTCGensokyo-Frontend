@@ -117,6 +117,21 @@
     line-height: 1.6;
 }
 
+.products-loading,
+.products-error {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    font-size: 1.05rem;
+}
+
+.products-loading {
+    color: var(--g-teal, #2F7571);
+}
+
+.products-error {
+    color: var(--g-vermilion, #8E1E26);
+}
+
 .products-footer-note {
     margin-top: 2rem;
     padding: 1.25rem;
