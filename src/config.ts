@@ -10,7 +10,8 @@ export const getApiBase = (): string => {
   }
   if (typeof window !== 'undefined' && window.location && window.location.hostname) {
     const host = window.location.hostname;
-    return `http://${host}:18080`;
+    const proto = window.location.protocol; // http: or https:
+    return `${proto}//${host}:18080`;
   }
   return 'http://localhost:18080';
 };
