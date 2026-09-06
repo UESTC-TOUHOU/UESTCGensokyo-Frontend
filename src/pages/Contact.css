@@ -1,19 +1,286 @@
 /* ============================================================
-   联系页 — 东方Project 符卡纸卡风格
+   联系与社群页 — 东方Project 幽谷响子 (Yamabiko) 符卡与回音信标风格
    ============================================================ */
 
 .contact-page {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 4rem;
+}
+
+.contact-hero {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.contact-emblem {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(142, 30, 38, 0.12), rgba(201, 151, 56, 0.2));
+    border: 1px solid var(--g-gold, #C99738);
+    font-family: var(--g-font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--g-vermilion);
+    margin-bottom: 0.75rem;
+    box-shadow: 0 0 16px rgba(201, 151, 56, 0.25);
+    position: relative;
+}
+
+.contact-emblem::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px dashed rgba(201, 151, 56, 0.4);
+    animation: contact-pulse 4s linear infinite;
+}
+
+@keyframes contact-pulse {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.06);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+.contact-subtitle {
+    font-family: var(--g-font-serif);
+    font-size: 1.05rem;
+    color: var(--g-ink-soft);
+    margin: 0.5rem 0 0;
+    letter-spacing: 0.04em;
+    max-width: 680px;
+}
+
+/* 三大道标卡片网格 */
+.contact-channels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1080px;
+    margin-bottom: 2.5rem;
+}
+
+.channel-card {
+    background: var(--g-card);
+    border: 1px solid var(--g-vermilion-line);
+    border-radius: var(--g-radius);
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: var(--g-shadow);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    backdrop-filter: blur(8px);
+}
+
+.channel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(142, 30, 38, 0.12), 0 0 16px rgba(201, 151, 56, 0.15);
+    border-color: var(--g-gold, #C99738);
+}
+
+.channel-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    font-size: 0.75rem;
+    font-family: var(--g-font-serif);
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    background: rgba(142, 30, 38, 0.08);
+    border: 1px solid var(--g-vermilion-line);
+    color: var(--g-vermilion);
+    letter-spacing: 0.05em;
+}
+
+.channel-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.channel-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.qq-icon {
+    background: rgba(142, 30, 38, 0.1);
+    color: var(--g-vermilion);
+    border: 1px solid rgba(142, 30, 38, 0.25);
+}
+
+.github-icon {
+    background: rgba(47, 117, 113, 0.12);
+    color: var(--g-teal);
+    border: 1px solid rgba(47, 117, 113, 0.25);
+}
+
+.discord-icon {
+    background: rgba(88, 101, 242, 0.12);
+    color: #5865F2;
+    border: 1px solid rgba(88, 101, 242, 0.25);
+}
+
+.channel-title {
+    margin: 0;
+    font-family: var(--g-font-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--g-ink);
+}
+
+.channel-code {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--g-ink-soft);
+    margin-top: 0.15rem;
+}
+
+.channel-desc {
+    font-size: 0.88rem;
+    color: var(--g-ink);
+    line-height: 1.55;
+    margin: 0 0 1.25rem;
+    flex-grow: 1;
+}
+
+.channel-qr-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--g-paper, #FFFBF5);
+    border: 1px dashed var(--g-vermilion-line);
+    border-radius: var(--g-radius-sm);
+    margin-bottom: 1.25rem;
+}
+
+.channel-qr-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 6px;
+    background: #fff;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease;
+}
+
+.channel-qr-wrap:hover .channel-qr-img {
+    transform: scale(1.04);
+}
+
+.channel-qr-tip {
+    font-size: 0.78rem;
+    color: var(--g-ink-soft);
+    margin-top: 0.5rem;
+}
+
+.channel-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.channel-btn {
+    flex: 1;
+    padding: 0.6rem 0.5rem;
+    border-radius: var(--g-radius-sm);
+    font-family: var(--g-font-sans);
+    font-size: 0.85rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+.channel-btn-primary {
+    background: linear-gradient(135deg, var(--g-vermilion), var(--g-vermilion-deep, #6B161C));
+    color: #fff;
+    font-weight: 500;
+}
+
+.channel-btn-primary:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 3px 10px rgba(142, 30, 38, 0.3);
+}
+
+.channel-btn-ghost {
+    background: transparent;
+    border-color: var(--g-vermilion-line);
+    color: var(--g-ink);
+}
+
+.channel-btn-ghost:hover {
+    background: rgba(142, 30, 38, 0.06);
+    border-color: var(--g-vermilion);
+}
+
+/* 留言表单折叠区 */
+.contact-form-section {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-toggle-btn {
+    background: transparent;
+    border: 1px dashed var(--g-vermilion-line);
+    padding: 0.65rem 1.25rem;
+    border-radius: var(--g-radius-sm);
+    font-family: var(--g-font-serif);
+    font-size: 0.92rem;
+    color: var(--g-ink-soft);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.2s ease;
+}
+
+.contact-toggle-btn:hover {
+    border-color: var(--g-vermilion);
+    color: var(--g-vermilion);
+    background: rgba(142, 30, 38, 0.04);
+}
+
+.toggle-arrow {
+    font-size: 0.75rem;
+    transition: transform 0.2s;
 }
 
 .contact-card {
     width: 100%;
-    max-width: 580px;
-    margin: 1.5rem auto 0;
-    padding: 2.5rem 2rem;
-    position: relative;
+    margin-top: 1.5rem;
+    padding: 2rem 1.75rem;
 }
 
 .contact-form {
@@ -41,7 +308,7 @@
     width: 100%;
     padding: 0.75rem 0.9rem;
     background-color: var(--color-bg-light, var(--g-paper));
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-border, rgba(142, 30, 38, 0.2));
     border-radius: var(--g-radius-sm, 4px);
     font-family: var(--font-body, var(--g-font-sans));
     font-size: 0.95rem;
@@ -87,38 +354,15 @@
     overflow: hidden;
 }
 
-.submit-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(201, 151, 56, 0.3), transparent);
-    transition: left 0.5s ease;
-}
-
-.submit-button:hover:not(:disabled)::before {
-    left: 100%;
-}
-
 .submit-button:hover:not(:disabled) {
     transform: translateY(-2px);
     background: linear-gradient(135deg, #A82831, var(--g-vermilion, #8E1E26));
     box-shadow: 0 6px 20px rgba(142, 30, 38, 0.38), 0 0 12px rgba(201, 151, 56, 0.3);
-    border-color: var(--g-gold, #C99738);
-}
-
-.submit-button:active:not(:disabled) {
-    transform: translateY(0);
-    filter: brightness(0.95);
 }
 
 .submit-button:disabled {
     opacity: 0.65;
     cursor: not-allowed;
-    filter: grayscale(0.2);
-    box-shadow: none;
 }
 
 .form-status {
@@ -142,38 +386,24 @@
     border: 1px solid rgba(142, 30, 38, 0.3);
 }
 
-/* 移动端响应式适配 */
-@media (max-width: 767px) {
-    .contact-card {
-        padding: 2rem 1.5rem;
-        margin-top: 1rem;
+/* 响应式断点 */
+@media (max-width: 960px) {
+    .contact-channels-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
+    .contact-channels-grid {
+        grid-template-columns: 1fr;
+        padding: 0 0.5rem;
+    }
+
+    .channel-card {
+        padding: 1.5rem 1.25rem;
+    }
+
     .contact-card {
         padding: 1.5rem 1rem;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-        font-size: 1rem; /* 防止 iOS 聚焦时自动缩放 */
-        padding: 0.7rem 0.75rem;
-    }
-
-    .submit-button {
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 360px) {
-    .contact-card {
-        padding: 1.25rem 0.75rem;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-        padding: 0.65rem 0.6rem;
     }
 }

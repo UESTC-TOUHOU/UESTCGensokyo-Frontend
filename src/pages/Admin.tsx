@@ -34,14 +34,37 @@ interface Product {
   sort_order: number;
 }
 
+interface ProductTag {
+  id: number;
+  tag_key: string;
+  name_zh: string;
+  name_en: string;
+  name_ja: string;
+  sort_order: number;
+}
+
 export default function Admin() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'activities' | 'members' | 'products'>('activities');
+  const [activeTab, setActiveTab] = useState<'activities' | 'members' | 'products' | 'product-tags'>('activities');
   const [activities, setActivities] = useState<Activity[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
+  const [productTags, setProductTags] = useState<ProductTag[]>([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [isBackingUp, setIsBackingUp] = useState(false);
+  const [isRestoring, setIsRestoring] = useState(false);
+
+  // Product Tag Form State
+  const [editingProductTag, setEditingProductTag] = useState<ProductTag | null>(null);
+  const [productTagForm, setProductTagForm] = useState({
+    tag_key: '',
+    name_zh: '',
+    name_en: '',
+    name_ja: '',
+    sort_order: 0,
+  });
+  const [showProductTagForm, setShowProductTagForm] = useState(false);
 
   // Activity Form State
   const [editingActivity, setEditingActivity] = useState<Activity | null>(null);
@@ -150,6 +173,18 @@ export default function Admin() {
     }
   }, [apiBase]);
 
+  const fetchProductTags = useCallback(async () => {
+    try {
+      const res = await fetch(`${apiBase}/api/product-tags`);
+      if (res.ok) {
+        const data = await res.json();
+        setProductTags(Array.isArray(data) ? data : []);
+      }
+    } catch (err) {
+      console.error('Failed to fetch product tags:', err);
+    }
+  }, [apiBase]);
+
   useEffect(() => {
     const token = localStorage.getItem('admin_token');
     if (!token) {
@@ -157,10 +192,10 @@ export default function Admin() {
       return;
     }
     setLoading(true);
-    Promise.all([fetchActivities(), fetchMembers(), fetchProducts()]).finally(() =>
+    Promise.all([fetchActivities(), fetchMembers(), fetchProducts(), fetchProductTags()]).finally(() =>
       setLoading(false)
     );
-  }, [navigate, fetchActivities, fetchMembers, fetchProducts]);
+  }, [navigate, fetchActivities, fetchMembers, fetchProducts, fetchProductTags]);
 
   const handleLogout = async () => {
     try {
@@ -409,6 +444,164 @@ export default function Admin() {
     }
   };
 
+  // ---- Product Tag Handlers ----
+  const handleProductTagSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMessage(null);
+
+    const tagKey = productTagForm.tag_key.trim();
+    const nameZh = productTagForm.name_zh.trim();
+    const nameEn = productTagForm.name_en.trim();
+    const nameJa = productTagForm.name_ja.trim();
+
+    if (!tagKey) {
+      setMessage({ type: 'error', text: '标签标识 (tag_key) 不能为空' });
+      return;
+    }
+    if (!nameZh || !nameEn || !nameJa) {
+      setMessage({ type: 'error', text: '标签必须提供三种语言名称（中文、英文、日文均必填）' });
+      return;
+    }
+
+    try {
+      const payload = {
+        tag_key: tagKey,
+        name_zh: nameZh,
+        name_en: nameEn,
+        name_ja: nameJa,
+        sort_order: productTagForm.sort_order,
+      };
+
+      if (editingProductTag) {
+        const res = await apiFetch('/api/admin/product-tags', {
+          method: 'PUT',
+          body: JSON.stringify({ ...payload, id: editingProductTag.id }),
+        });
+        if (res.ok) {
+          setMessage({ type: 'success', text: '制品标签更新成功' });
+        } else {
+          const errText = await res.text();
+          throw new Error(errText || '更新失败');
+        }
+      } else {
+        const res = await apiFetch('/api/admin/product-tags', {
+          method: 'POST',
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          setMessage({ type: 'success', text: '制品标签添加成功' });
+        } else {
+          const errText = await res.text();
+          throw new Error(errText || '创建失败');
+        }
+      }
+      setShowProductTagForm(false);
+      setEditingProductTag(null);
+      setProductTagForm({ tag_key: '', name_zh: '', name_en: '', name_ja: '', sort_order: 0 });
+      fetchProductTags();
+    } catch (err) {
+      setMessage({ type: 'error', text: err instanceof Error ? err.message : '操作失败' });
+    }
+  };
+
+  const handleEditProductTag = (tag: ProductTag) => {
+    setEditingProductTag(tag);
+    setProductTagForm({
+      tag_key: tag.tag_key,
+      name_zh: tag.name_zh,
+      name_en: tag.name_en,
+      name_ja: tag.name_ja,
+      sort_order: tag.sort_order,
+    });
+    setShowProductTagForm(true);
+  };
+
+  const handleDeleteProductTag = async (id: number) => {
+    if (!window.confirm('确定要删除此标签吗？关联此标签的制品可能会失去分类显示。')) return;
+    try {
+      const res = await apiFetch(`/api/admin/product-tags/delete?id=${id}`, {
+        method: 'DELETE',
+      });
+      if (res.ok) {
+        setMessage({ type: 'success', text: '标签已删除' });
+        fetchProductTags();
+      } else {
+        throw new Error('删除失败');
+      }
+    } catch (err) {
+      setMessage({ type: 'error', text: err instanceof Error ? err.message : '删除失败' });
+    }
+  };
+
+  // ---- Backup & Restore Handlers ----
+  const handleBackup = async () => {
+    setIsBackingUp(true);
+    setMessage(null);
+    try {
+      const res = await apiFetch('/api/admin/backup', { method: 'POST' });
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText || '导出备份失败');
+      }
+      const blob = await res.blob();
+      const contentDisposition = res.headers.get('Content-Disposition') || '';
+      let filename = `backup-${new Date().toISOString().slice(0, 10)}.tar.gz`;
+      const match = contentDisposition.match(/filename="?([^"]+)"?/);
+      if (match && match[1]) {
+        filename = match[1];
+      }
+
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+
+      setMessage({ type: 'success', text: `全站数据导出成功 (${filename})` });
+    } catch (err) {
+      setMessage({ type: 'error', text: err instanceof Error ? err.message : '导出备份失败' });
+    } finally {
+      setIsBackingUp(false);
+    }
+  };
+
+  const handleRestoreFile = async (file: File) => {
+    if (!window.confirm(`警告：确认导入备份文件「${file.name}」？此操作将覆盖当前数据库记录与静态文件，且无法撤销！`)) {
+      return;
+    }
+
+    setIsRestoring(true);
+    setMessage(null);
+    try {
+      const formData = new FormData();
+      formData.append('backup', file);
+
+      const res = await apiFetch('/api/admin/restore', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText || '数据恢复失败');
+      }
+
+      setMessage({ type: 'success', text: '全站数据恢复成功，已重新同步数据库与静态文件' });
+      // 重新加载所有数据
+      fetchActivities();
+      fetchMembers();
+      fetchProducts();
+      fetchProductTags();
+    } catch (err) {
+      setMessage({ type: 'error', text: err instanceof Error ? err.message : '恢复失败' });
+    } finally {
+      setIsRestoring(false);
+    }
+  };
+
   const resolveImageUrl = (url: string): string => {
     if (!url) return '';
     if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
@@ -425,11 +618,41 @@ export default function Admin() {
       <div className="admin-header">
         <div>
           <h1 className="admin-title">内容管理后台</h1>
-          <p className="admin-subtitle">维护主页的社团活动、组织架构与社团制品</p>
+          <p className="admin-subtitle">维护主页的社团活动、组织架构、社团制品与标签分类</p>
         </div>
-        <button onClick={handleLogout} className="admin-btn admin-btn-secondary">
-          退出登录
-        </button>
+        <div className="admin-header-actions">
+          <button
+            onClick={handleBackup}
+            disabled={isBackingUp || isRestoring}
+            className="admin-btn admin-btn-outline"
+            title="导出包含数据库 SQL 与 static/ 静态资源目录的完整压缩包"
+          >
+            {isBackingUp ? '正在导出...' : '📦 导出全站数据'}
+          </button>
+          <label
+            className={`admin-btn admin-btn-outline ${isBackingUp || isRestoring ? 'disabled' : ''}`}
+            style={{ cursor: isBackingUp || isRestoring ? 'not-allowed' : 'pointer' }}
+            title="上传并恢复 .tar.gz 备份包"
+          >
+            {isRestoring ? '正在恢复...' : '📥 恢复全站数据'}
+            <input
+              type="file"
+              accept=".tar.gz,.tgz,application/gzip"
+              disabled={isBackingUp || isRestoring}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  handleRestoreFile(file);
+                }
+                e.target.value = '';
+              }}
+              style={{ display: 'none' }}
+            />
+          </label>
+          <button onClick={handleLogout} className="admin-btn admin-btn-secondary">
+            退出登录
+          </button>
+        </div>
       </div>
 
       {message && (
@@ -459,6 +682,12 @@ export default function Admin() {
           onClick={() => setActiveTab('products')}
         >
           社团制品 ({products.length})
+        </button>
+        <button
+          className={`admin-tab-btn ${activeTab === 'product-tags' ? 'active' : ''}`}
+          onClick={() => setActiveTab('product-tags')}
+        >
+          制品类型 ({productTags.length})
         </button>
       </div>
 
@@ -871,20 +1100,39 @@ export default function Admin() {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="prod-tag">类型标签</label>
-                      <select
+                      <label htmlFor="prod-tag">类型标签 (可输入新标签或从列表选择)</label>
+                      <input
                         id="prod-tag"
+                        type="text"
+                        list="prod-tag-datalist"
                         value={productForm.tag}
                         onChange={(e) =>
                           setProductForm({ ...productForm, tag: e.target.value })
                         }
-                      >
-                        <option value="acrylic">亚克力立牌 (acrylic)</option>
-                        <option value="bookmark">书签 (bookmark)</option>
-                        <option value="poster">海报 (poster)</option>
-                        <option value="doujinshi">同人志 (doujinshi)</option>
-                        <option value="other">其他 (other)</option>
-                      </select>
+                        placeholder="例: acrylic, poster, 或自定义标签"
+                      />
+                      <datalist id="prod-tag-datalist">
+                        {productTags.map((tag) => (
+                          <option key={tag.id} value={tag.tag_key}>
+                            {tag.name_zh} ({tag.tag_key})
+                          </option>
+                        ))}
+                      </datalist>
+                      {productTags.length > 0 && (
+                        <div className="admin-tag-chips">
+                          <span className="admin-tag-chips-label">常用标签:</span>
+                          {productTags.map((tag) => (
+                            <button
+                              key={tag.id}
+                              type="button"
+                              className={`admin-tag-chip ${productForm.tag === tag.tag_key ? 'active' : ''}`}
+                              onClick={() => setProductForm({ ...productForm, tag: tag.tag_key })}
+                            >
+                              {tag.name_zh}
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
                     <div className="form-group">
@@ -1076,6 +1324,193 @@ export default function Admin() {
                               </button>
                               <button
                                 onClick={() => handleDeleteProduct(prod.id)}
+                                className="admin-btn admin-btn-danger"
+                              >
+                                删除
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'product-tags' && (
+            <div className="admin-section">
+              <div className="admin-section-header">
+                <div>
+                  <h2 className="admin-section-title">制品类型标签</h2>
+                  <p style={{ margin: '0.25rem 0 0', fontSize: '0.85rem', color: 'var(--g-ink-soft)' }}>
+                    管理制品分类标签；添加时中文、英文、日文三种语言均为必填。
+                  </p>
+                </div>
+                {!showProductTagForm && (
+                  <button
+                    onClick={() => {
+                      setEditingProductTag(null);
+                      setProductTagForm({
+                        tag_key: '',
+                        name_zh: '',
+                        name_en: '',
+                        name_ja: '',
+                        sort_order: productTags.length + 1,
+                      });
+                      setShowProductTagForm(true);
+                    }}
+                    className="admin-btn admin-btn-primary"
+                  >
+                    + 添加类型标签
+                  </button>
+                )}
+              </div>
+
+              {showProductTagForm && (
+                <div className="admin-form-panel">
+                  <h3>{editingProductTag ? '编辑制品标签' : '新增制品标签'}</h3>
+                  <form onSubmit={handleProductTagSubmit} className="admin-form">
+                    <div className="form-group">
+                      <label htmlFor="tag-key">
+                        标签英文标识 (Key) *
+                      </label>
+                      <input
+                        id="tag-key"
+                        type="text"
+                        required
+                        value={productTagForm.tag_key}
+                        onChange={(e) =>
+                          setProductTagForm({ ...productTagForm, tag_key: e.target.value.toLowerCase() })
+                        }
+                        placeholder="例: acrylic, doujinshi, cd, poster"
+                        disabled={!!editingProductTag}
+                      />
+                      {editingProductTag && (
+                        <span style={{ fontSize: '0.8rem', color: 'var(--g-ink-soft)' }}>
+                          标签标识作为唯一关联键，不可更改
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="tag-name-zh">中文名称 *</label>
+                      <input
+                        id="tag-name-zh"
+                        type="text"
+                        required
+                        value={productTagForm.name_zh}
+                        onChange={(e) =>
+                          setProductTagForm({ ...productTagForm, name_zh: e.target.value })
+                        }
+                        placeholder="例: 亚克力制品"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="tag-name-en">英文名称 *</label>
+                      <input
+                        id="tag-name-en"
+                        type="text"
+                        required
+                        value={productTagForm.name_en}
+                        onChange={(e) =>
+                          setProductTagForm({ ...productTagForm, name_en: e.target.value })
+                        }
+                        placeholder="例: Acrylic Goods"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="tag-name-ja">日文名称 *</label>
+                      <input
+                        id="tag-name-ja"
+                        type="text"
+                        required
+                        value={productTagForm.name_ja}
+                        onChange={(e) =>
+                          setProductTagForm({ ...productTagForm, name_ja: e.target.value })
+                        }
+                        placeholder="例: アクリル製品"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="tag-order">排序权重 (数字越小越靠前)</label>
+                      <input
+                        id="tag-order"
+                        type="number"
+                        value={productTagForm.sort_order}
+                        onChange={(e) =>
+                          setProductTagForm({
+                            ...productTagForm,
+                            sort_order: parseInt(e.target.value) || 0,
+                          })
+                        }
+                      />
+                    </div>
+
+                    <div className="admin-form-actions">
+                      <button type="submit" className="admin-btn admin-btn-primary">
+                        {editingProductTag ? '保存修改' : '确认添加'}
+                      </button>
+                      <button
+                        type="button"
+                        className="admin-btn admin-btn-secondary"
+                        onClick={() => {
+                          setShowProductTagForm(false);
+                          setEditingProductTag(null);
+                        }}
+                      >
+                        取消
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
+
+              <div className="admin-table-container">
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>标识 (Key)</th>
+                      <th>中文名</th>
+                      <th>英文名</th>
+                      <th>日文名</th>
+                      <th>排序</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {productTags.length === 0 ? (
+                      <tr>
+                        <td colSpan={7} style={{ textAlign: 'center', padding: '1.5rem' }}>
+                          暂无标签记录
+                        </td>
+                      </tr>
+                    ) : (
+                      productTags.map((tag) => (
+                        <tr key={tag.id}>
+                          <td>{tag.id}</td>
+                          <td>
+                            <code>{tag.tag_key}</code>
+                          </td>
+                          <td><strong>{tag.name_zh}</strong></td>
+                          <td>{tag.name_en}</td>
+                          <td>{tag.name_ja}</td>
+                          <td>{tag.sort_order}</td>
+                          <td>
+                            <div className="admin-table-actions">
+                              <button
+                                onClick={() => handleEditProductTag(tag)}
+                                className="admin-btn admin-btn-secondary"
+                              >
+                                编辑
+                              </button>
+                              <button
+                                onClick={() => handleDeleteProductTag(tag.id)}
                                 className="admin-btn admin-btn-danger"
                               >
                                 删除

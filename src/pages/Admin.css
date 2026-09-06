@@ -35,6 +35,13 @@
   border-bottom: 1px solid var(--g-vermilion-line);
 }
 
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .admin-title {
   margin: 0;
   font-size: 1.8rem;
@@ -171,6 +178,23 @@
   background: rgba(0, 0, 0, 0.05);
 }
 
+.admin-btn-outline {
+  background: rgba(201, 151, 56, 0.08);
+  border-color: var(--g-gold, #C99738);
+  color: var(--g-ink);
+  font-weight: 500;
+}
+
+.admin-btn-outline:hover:not(:disabled):not(.disabled) {
+  background: var(--g-gold, #C99738);
+  color: #fff;
+}
+
+.admin-btn-outline.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .admin-btn-danger {
   background: transparent;
   border-color: var(--g-vermilion);
@@ -253,6 +277,42 @@
 .admin-form-panel h3 {
   margin: 0 0 1rem;
   font-size: 1.1rem;
+}
+
+.admin-tag-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.admin-tag-chips-label {
+  font-size: 0.8rem;
+  color: var(--g-ink-soft);
+  margin-right: 0.2rem;
+}
+
+.admin-tag-chip {
+  background: transparent;
+  border: 1px solid var(--g-vermilion-line);
+  color: var(--g-ink);
+  font-size: 0.78rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-tag-chip:hover {
+  background: rgba(142, 30, 38, 0.08);
+  border-color: var(--g-vermilion);
+}
+
+.admin-tag-chip.active {
+  background: var(--g-vermilion);
+  border-color: var(--g-vermilion);
+  color: #fff;
 }
 
 /* 响应式适配 */
