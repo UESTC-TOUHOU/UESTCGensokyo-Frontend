@@ -121,6 +121,20 @@ describe('Admin dashboard', () => {
           ],
         });
       }
+      if (url.includes('/api/products')) {
+        return Promise.resolve({
+          ok: true,
+          json: async () => [
+            {
+              id: 1,
+              name_zh: '博丽灵梦亚克力立牌',
+              tag: 'acrylic',
+              image_url: '/static/products/acrylic-reimu.jpg',
+              sort_order: 1,
+            },
+          ],
+        });
+      }
       return Promise.resolve({ ok: true, json: async () => ({}) });
     });
     vi.stubGlobal('fetch', fetchMock);
@@ -130,6 +144,15 @@ describe('Admin dashboard', () => {
     await waitFor(() => {
       expect(screen.getByText('内容管理后台')).toBeInTheDocument();
       expect(screen.getByText('东方红魔乡展')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /社团制品/ })).toBeInTheDocument();
+    });
+
+    // Switch to products tab
+    fireEvent.click(screen.getByRole('button', { name: /社团制品/ }));
+
+    await waitFor(() => {
+      expect(screen.getByText('博丽灵梦亚克力立牌')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: '+ 添加制品' })).toBeInTheDocument();
     });
 
     vi.unstubAllGlobals();
