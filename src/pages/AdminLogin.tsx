@@ -45,7 +45,7 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="page-container admin-login-page">
+    <div className="page-container admin-login-page reimu-cursor">
       <div className="admin-login-card">
         <h1 className="admin-title">管理后台登录</h1>
         <p className="admin-subtitle">UESTC幻想乡 · 内部内容管理</p>

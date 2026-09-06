@@ -1,0 +1,341 @@
+/* ============================================================
+   管理后台东方 Project 技术力展现效果
+   符卡边框、弹幕计数、八卦炉 loading、灵力进度条
+   ============================================================ */
+
+/* ============================================================
+   符卡边框动画 - 用于备份/恢复功能区
+   ============================================================ */
+.spellcard-backup {
+  position: relative;
+  background: linear-gradient(135deg,
+    rgba(201, 151, 56, 0.03) 0%,
+    transparent 50%,
+    rgba(47, 117, 113, 0.03) 100%);
+  border: 2px solid transparent;
+  border-image: linear-gradient(
+    135deg,
+    rgba(196, 30, 58, 0.4),
+    rgba(212, 169, 78, 0.6),
+    rgba(91, 184, 179, 0.4)
+  ) 1;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spellcard-backup::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 169, 78, 0.15),
+    transparent 30%,
+    transparent 70%,
+    rgba(91, 184, 179, 0.15)
+  );
+  border-radius: 12px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.spellcard-backup:hover::before {
+  opacity: 1;
+}
+
+/* 御札飘落粒子效果 */
+@keyframes ofuda-fall {
+  0% {
+    transform: translateY(-100%) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.ofuda-particle {
+  position: fixed;
+  width: 8px;
+  height: 24px;
+  background: linear-gradient(180deg, #C41E3A 0%, #FFFFFF 50%, #C41E3A 100%);
+  pointer-events: none;
+  z-index: 9999;
+  animation: ofuda-fall 3s ease-in forwards;
+  box-shadow: 0 0 8px rgba(196, 30, 58, 0.6);
+}
+
+/* ============================================================
+   弹幕计数器样式 - 数据统计面板
+   ============================================================ */
+.danmaku-counter {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: 'SF Mono', 'Consolas', monospace;
+  font-weight: 600;
+  font-size: 2rem;
+  color: var(--g-teal, #5BB8B3);
+  text-shadow:
+    0 0 8px rgba(91, 184, 179, 0.6),
+    0 0 16px rgba(91, 184, 179, 0.3);
+  letter-spacing: 0.05em;
+}
+
+/* Tab 内小号计数器 */
+.admin-tab-btn .danmaku-counter {
+  font-size: 0.85rem !important;
+  font-weight: 500;
+  margin-left: 0.3rem !important;
+  text-shadow:
+    0 0 4px rgba(91, 184, 179, 0.4),
+    0 0 8px rgba(91, 184, 179, 0.2);
+}
+
+.admin-tab-btn.active .danmaku-counter {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.5),
+    0 0 12px rgba(212, 169, 78, 0.3);
+}
+
+.danmaku-counter-label {
+  font-family: var(--g-font-serif, serif);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--g-ink-soft);
+  text-shadow: none;
+}
+
+@keyframes danmaku-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 8px rgba(91, 184, 179, 0.6),
+      0 0 16px rgba(91, 184, 179, 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 12px rgba(91, 184, 179, 0.9),
+      0 0 24px rgba(91, 184, 179, 0.5),
+      0 0 32px rgba(91, 184, 179, 0.2);
+  }
+}
+
+.danmaku-counter.updating {
+  animation: danmaku-pulse 0.6s ease-out;
+}
+
+/* ============================================================
+   八卦炉旋转动画 - 替代普通 loading spinner
+   ============================================================ */
+.hakke-spinner {
+  width: 48px;
+  height: 48px;
+  position: relative;
+  display: inline-block;
+}
+
+.hakke-spinner::before,
+.hakke-spinner::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  animation: hakke-rotate 1.8s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.hakke-spinner::before {
+  width: 48px;
+  height: 48px;
+  border: 4px solid transparent;
+  border-top-color: #C41E3A;
+  border-right-color: #D4A94E;
+  border-bottom-color: #5BB8B3;
+  border-left-color: #C41E3A;
+}
+
+.hakke-spinner::after {
+  width: 32px;
+  height: 32px;
+  top: 8px;
+  left: 8px;
+  border: 3px solid transparent;
+  border-top-color: #D4A94E;
+  border-right-color: #5BB8B3;
+  border-bottom-color: #C41E3A;
+  border-left-color: #D4A94E;
+  animation-duration: 1.2s;
+  animation-direction: reverse;
+}
+
+@keyframes hakke-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 八卦符阵背景装饰 */
+.hakke-spinner-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 1rem;
+}
+
+.hakke-spinner-container::before {
+  content: '';
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  background: radial-gradient(
+    circle,
+    rgba(212, 169, 78, 0.1) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  animation: hakke-glow 2s ease-in-out infinite;
+}
+
+@keyframes hakke-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+/* ============================================================
+   灵力充填进度条 - 表单操作反馈
+   ============================================================ */
+.reimu-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--g-card-strong, #2E2626);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.reimu-progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #4A90E2 0%,
+    #5BB8B3 50%,
+    #7CCCC8 100%
+  );
+  border-radius: 999px;
+  position: relative;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 0 8px rgba(74, 144, 226, 0.6),
+    0 0 16px rgba(91, 184, 179, 0.4);
+}
+
+.reimu-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: reimu-shine 1.5s ease-in-out infinite;
+}
+
+@keyframes reimu-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* 错误状态 - 红色警告符 */
+.reimu-progress-fill.error {
+  background: linear-gradient(
+    90deg,
+    #C41E3A 0%,
+    #C94A52 50%,
+    #D4604A 100%
+  );
+  box-shadow:
+    0 0 8px rgba(196, 30, 58, 0.6),
+    0 0 16px rgba(201, 74, 82, 0.4);
+}
+
+/* ============================================================
+   上传图片预览卡片
+   ============================================================ */
+.upload-preview-card {
+  position: relative;
+  background: var(--g-card-strong, #2E2626);
+  border: 1px dashed var(--g-vermilion-line, rgba(196, 30, 58, 0.3));
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.upload-preview-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 2px solid var(--g-teal, #5BB8B3);
+  box-shadow: 0 0 12px rgba(91, 184, 179, 0.3);
+}
+
+.upload-preview-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.upload-preview-name {
+  font-size: 0.9rem;
+  color: var(--g-ink, #E8DCC8);
+  margin: 0 0 0.25rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.upload-preview-url {
+  font-size: 0.75rem;
+  color: var(--g-ink-soft, #A89888);
+  font-family: 'SF Mono', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

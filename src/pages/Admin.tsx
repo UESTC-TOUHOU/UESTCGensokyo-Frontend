@@ -728,27 +728,35 @@ export default function Admin() {
   };
 
   return (
-    <div className="page-container admin-page">
+    <div className="page-container admin-page reimu-cursor">
       <div className="admin-header">
         <div>
           <h1 className="admin-title">内容管理后台</h1>
           <p className="admin-subtitle">维护主页的社团活动、组织架构、社团制品、标签分类与站点配置</p>
         </div>
-        <div className="admin-header-actions">
+        <div className="admin-header-actions spellcard-backup">
           <button
             onClick={handleBackup}
             disabled={isBackingUp || isRestoring}
             className="admin-btn admin-btn-outline"
             title="导出包含数据库 SQL 与 static/ 静态资源目录的完整压缩包"
           >
-            {isBackingUp ? '正在导出...' : '📦 导出全站数据'}
+            {isBackingUp ? (
+              <span className="hakke-spinner-container">
+                <span className="hakke-spinner"></span>
+              </span>
+            ) : '📦 导出全站数据'}
           </button>
           <label
             className={`admin-btn admin-btn-outline ${isBackingUp || isRestoring ? 'disabled' : ''}`}
             style={{ cursor: isBackingUp || isRestoring ? 'not-allowed' : 'pointer' }}
             title="上传并恢复 .tar.gz 备份包"
           >
-            {isRestoring ? '正在恢复...' : '📥 恢复全站数据'}
+            {isRestoring ? (
+              <span className="hakke-spinner-container">
+                <span className="hakke-spinner"></span>
+              </span>
+            ) : '📥 恢复全站数据'}
             <input
               type="file"
               accept=".tar.gz,.tgz,application/gzip"
@@ -783,25 +791,25 @@ export default function Admin() {
           className={`admin-tab-btn ${activeTab === 'activities' ? 'active' : ''}`}
           onClick={() => setActiveTab('activities')}
         >
-          社团活动 ({activities.length})
+          社团活动 <span className="danmaku-counter" style={{ fontSize: '1rem', marginLeft: '0.5rem' }}>({activities.length})</span>
         </button>
         <button
           className={`admin-tab-btn ${activeTab === 'members' ? 'active' : ''}`}
           onClick={() => setActiveTab('members')}
         >
-          组织架构与成员 ({members.length})
+          组织架构与成员 <span className="danmaku-counter" style={{ fontSize: '1rem', marginLeft: '0.5rem' }}>({members.length})</span>
         </button>
         <button
           className={`admin-tab-btn ${activeTab === 'products' ? 'active' : ''}`}
           onClick={() => setActiveTab('products')}
         >
-          社团制品 ({products.length})
+          社团制品 <span className="danmaku-counter" style={{ fontSize: '1rem', marginLeft: '0.5rem' }}>({products.length})</span>
         </button>
         <button
           className={`admin-tab-btn ${activeTab === 'product-tags' ? 'active' : ''}`}
           onClick={() => setActiveTab('product-tags')}
         >
-          制品类型 ({productTags.length})
+          制品类型 <span className="danmaku-counter" style={{ fontSize: '1rem', marginLeft: '0.5rem' }}>({productTags.length})</span>
         </button>
         <button
           className={`admin-tab-btn ${activeTab === 'site-settings' ? 'active' : ''}`}
