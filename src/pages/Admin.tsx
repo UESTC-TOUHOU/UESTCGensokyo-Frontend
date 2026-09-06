@@ -43,17 +43,36 @@ interface ProductTag {
   sort_order: number;
 }
 
+interface SiteSetting {
+  id: number;
+  key: string;
+  value_zh: string;
+  value_en: string;
+  value_ja: string;
+}
+
 export default function Admin() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'activities' | 'members' | 'products' | 'product-tags'>('activities');
+  const [activeTab, setActiveTab] = useState<'activities' | 'members' | 'products' | 'product-tags' | 'site-settings'>('activities');
   const [activities, setActivities] = useState<Activity[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [productTags, setProductTags] = useState<ProductTag[]>([]);
+  const [siteSettings, setSiteSettings] = useState<SiteSetting[]>([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [isBackingUp, setIsBackingUp] = useState(false);
   const [isRestoring, setIsRestoring] = useState(false);
+
+  // Site Setting Form State
+  const [editingSetting, setEditingSetting] = useState<SiteSetting | null>(null);
+  const [settingForm, setSettingForm] = useState({
+    key: '',
+    value_zh: '',
+    value_en: '',
+    value_ja: '',
+  });
+  const [showSettingForm, setShowSettingForm] = useState(false);
 
   // Product Tag Form State
   const [editingProductTag, setEditingProductTag] = useState<ProductTag | null>(null);
@@ -185,6 +204,18 @@ export default function Admin() {
     }
   }, [apiBase]);
 
+  const fetchSiteSettings = useCallback(async () => {
+    try {
+      const res = await fetch(`${apiBase}/api/site-settings`);
+      if (res.ok) {
+        const data = await res.json();
+        setSiteSettings(Array.isArray(data) ? data : []);
+      }
+    } catch (err) {
+      console.error('Failed to fetch site settings:', err);
+    }
+  }, [apiBase]);
+
   useEffect(() => {
     const token = localStorage.getItem('admin_token');
     if (!token) {
@@ -192,10 +223,10 @@ export default function Admin() {
       return;
     }
     setLoading(true);
-    Promise.all([fetchActivities(), fetchMembers(), fetchProducts(), fetchProductTags()]).finally(() =>
+    Promise.all([fetchActivities(), fetchMembers(), fetchProducts(), fetchProductTags(), fetchSiteSettings()]).finally(() =>
       setLoading(false)
     );
-  }, [navigate, fetchActivities, fetchMembers, fetchProducts, fetchProductTags]);
+  }, [navigate, fetchActivities, fetchMembers, fetchProducts, fetchProductTags, fetchSiteSettings]);
 
   const handleLogout = async () => {
     try {
@@ -533,6 +564,88 @@ export default function Admin() {
     }
   };
 
+  // ---- Site Setting Handlers ----
+  const handleSettingSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMessage(null);
+
+    const key = settingForm.key.trim();
+    const valueZh = settingForm.value_zh.trim();
+    const valueEn = settingForm.value_en.trim();
+    const valueJa = settingForm.value_ja.trim();
+
+    if (!key) {
+      setMessage({ type: 'error', text: '配置键 (key) 不能为空' });
+      return;
+    }
+    if (!valueZh || !valueEn || !valueJa) {
+      setMessage({ type: 'error', text: '三种语言的值均为必填（中文、英文、日文）' });
+      return;
+    }
+
+    try {
+      const payload = { key, value_zh: valueZh, value_en: valueEn, value_ja: valueJa };
+
+      if (editingSetting) {
+        const res = await apiFetch('/api/admin/site-settings', {
+          method: 'PUT',
+          body: JSON.stringify({ ...payload, id: editingSetting.id }),
+        });
+        if (res.ok) {
+          setMessage({ type: 'success', text: '配置更新成功' });
+        } else {
+          const errText = await res.text();
+          throw new Error(errText || '更新失败');
+        }
+      } else {
+        const res = await apiFetch('/api/admin/site-settings', {
+          method: 'POST',
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          setMessage({ type: 'success', text: '配置添加成功' });
+        } else {
+          const errText = await res.text();
+          throw new Error(errText || '创建失败');
+        }
+      }
+      setShowSettingForm(false);
+      setEditingSetting(null);
+      setSettingForm({ key: '', value_zh: '', value_en: '', value_ja: '' });
+      fetchSiteSettings();
+    } catch (err) {
+      setMessage({ type: 'error', text: err instanceof Error ? err.message : '操作失败' });
+    }
+  };
+
+  const handleEditSetting = (s: SiteSetting) => {
+    setEditingSetting(s);
+    setSettingForm({
+      key: s.key,
+      value_zh: s.value_zh,
+      value_en: s.value_en,
+      value_ja: s.value_ja,
+    });
+    setShowSettingForm(true);
+  };
+
+  const handleDeleteSetting = async (id: number) => {
+    if (!window.confirm('确定要删除此配置项吗？相关页面可能无法正常显示内容。')) return;
+    try {
+      const res = await apiFetch(`/api/admin/site-settings/delete?id=${id}`, {
+        method: 'DELETE',
+      });
+      if (res.ok) {
+        setMessage({ type: 'success', text: '配置已删除' });
+        fetchSiteSettings();
+      } else {
+        throw new Error('删除失败');
+      }
+    } catch (err) {
+      setMessage({ type: 'error', text: err instanceof Error ? err.message : '删除失败' });
+    }
+  };
+
   // ---- Backup & Restore Handlers ----
   const handleBackup = async () => {
     setIsBackingUp(true);
@@ -595,6 +708,7 @@ export default function Admin() {
       fetchMembers();
       fetchProducts();
       fetchProductTags();
+      fetchSiteSettings();
     } catch (err) {
       setMessage({ type: 'error', text: err instanceof Error ? err.message : '恢复失败' });
     } finally {
@@ -618,7 +732,7 @@ export default function Admin() {
       <div className="admin-header">
         <div>
           <h1 className="admin-title">内容管理后台</h1>
-          <p className="admin-subtitle">维护主页的社团活动、组织架构、社团制品与标签分类</p>
+          <p className="admin-subtitle">维护主页的社团活动、组织架构、社团制品、标签分类与站点配置</p>
         </div>
         <div className="admin-header-actions">
           <button
@@ -688,6 +802,12 @@ export default function Admin() {
           onClick={() => setActiveTab('product-tags')}
         >
           制品类型 ({productTags.length})
+        </button>
+        <button
+          className={`admin-tab-btn ${activeTab === 'site-settings' ? 'active' : ''}`}
+          onClick={() => setActiveTab('site-settings')}
+        >
+          站点配置 ({siteSettings.length})
         </button>
       </div>
 
@@ -1511,6 +1631,166 @@ export default function Admin() {
                               </button>
                               <button
                                 onClick={() => handleDeleteProductTag(tag.id)}
+                                className="admin-btn admin-btn-danger"
+                              >
+                                删除
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'site-settings' && (
+            <div className="admin-section">
+              <div className="admin-section-header">
+                <div>
+                  <h2 className="admin-section-title">站点配置</h2>
+                  <p style={{ margin: '0.25rem 0 0', fontSize: '0.85rem', color: 'var(--g-ink-soft)' }}>
+                    管理页面显示的三语文案（社团简介、口号等），修改后前端实时生效。
+                  </p>
+                </div>
+                {!showSettingForm && (
+                  <button
+                    onClick={() => {
+                      setEditingSetting(null);
+                      setSettingForm({ key: '', value_zh: '', value_en: '', value_ja: '' });
+                      setShowSettingForm(true);
+                    }}
+                    className="admin-btn admin-btn-primary"
+                  >
+                    + 添加配置
+                  </button>
+                )}
+              </div>
+
+              {showSettingForm && (
+                <div className="admin-form-panel">
+                  <h3>{editingSetting ? '编辑配置' : '新增配置'}</h3>
+                  <form onSubmit={handleSettingSubmit} className="admin-form">
+                    <div className="form-group">
+                      <label htmlFor="setting-key">配置键 (Key) *</label>
+                      <input
+                        id="setting-key"
+                        type="text"
+                        required
+                        value={settingForm.key}
+                        onChange={(e) =>
+                          setSettingForm({ ...settingForm, key: e.target.value })
+                        }
+                        placeholder="例: home.club_intro, home.slogan"
+                        disabled={!!editingSetting}
+                      />
+                      {editingSetting && (
+                        <span style={{ fontSize: '0.8rem', color: 'var(--g-ink-soft)' }}>
+                          配置键作为唯一标识，不可更改
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="setting-zh">中文内容 *</label>
+                      <textarea
+                        id="setting-zh"
+                        rows={3}
+                        required
+                        value={settingForm.value_zh}
+                        onChange={(e) =>
+                          setSettingForm({ ...settingForm, value_zh: e.target.value })
+                        }
+                        placeholder="中文文案内容"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="setting-en">英文内容 *</label>
+                      <textarea
+                        id="setting-en"
+                        rows={3}
+                        required
+                        value={settingForm.value_en}
+                        onChange={(e) =>
+                          setSettingForm({ ...settingForm, value_en: e.target.value })
+                        }
+                        placeholder="English content"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="setting-ja">日文内容 *</label>
+                      <textarea
+                        id="setting-ja"
+                        rows={3}
+                        required
+                        value={settingForm.value_ja}
+                        onChange={(e) =>
+                          setSettingForm({ ...settingForm, value_ja: e.target.value })
+                        }
+                        placeholder="日本語の内容"
+                      />
+                    </div>
+
+                    <div className="admin-form-actions">
+                      <button type="submit" className="admin-btn admin-btn-primary">
+                        {editingSetting ? '保存修改' : '确认添加'}
+                      </button>
+                      <button
+                        type="button"
+                        className="admin-btn admin-btn-secondary"
+                        onClick={() => {
+                          setShowSettingForm(false);
+                          setEditingSetting(null);
+                        }}
+                      >
+                        取消
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
+
+              <div className="admin-table-container">
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>配置键</th>
+                      <th>中文值</th>
+                      <th>英文值</th>
+                      <th>日文值</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {siteSettings.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} style={{ textAlign: 'center', padding: '1.5rem' }}>
+                          暂无站点配置
+                        </td>
+                      </tr>
+                    ) : (
+                      siteSettings.map((s) => (
+                        <tr key={s.id}>
+                          <td>{s.id}</td>
+                          <td><code>{s.key}</code></td>
+                          <td style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={s.value_zh}>{s.value_zh}</td>
+                          <td style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={s.value_en}>{s.value_en}</td>
+                          <td style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={s.value_ja}>{s.value_ja}</td>
+                          <td>
+                            <div className="admin-table-actions">
+                              <button
+                                onClick={() => handleEditSetting(s)}
+                                className="admin-btn admin-btn-secondary"
+                              >
+                                编辑
+                              </button>
+                              <button
+                                onClick={() => handleDeleteSetting(s.id)}
                                 className="admin-btn admin-btn-danger"
                               >
                                 删除
