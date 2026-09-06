@@ -1,78 +1,120 @@
 /* 东方 Project 风格主题 - 响子（幽谷响子）*/
 
 :root {
-  /* 主色 - 响子青绿 */
-  --color-primary: #4a9d5f;
-  --color-primary-dark: #2d5d3f;
-  --color-primary-light: #6bc785;
+  /* 主色 - 响子山彦青绿（与 main.css --g-teal 统一） */
+  --color-primary: #2F7571;
+  --color-primary-dark: #1E4D4A;
+  --color-primary-light: #4E8B88;
 
-  /* 强调色 */
-  --color-accent-gold: #f4c542;
-  --color-accent-purple: #8b5a8e;
-  --color-accent-red: #c94a4a;
+  /* 强调色：金箔暗金 + 朱砂红 + 幽紫 */
+  --color-accent-gold: #C99738;
+  --color-accent-gold-hover: #B8852B;
+  --color-accent-red: #8E1E26;
+  --color-accent-vermilion: #C8402A;
+  --color-accent-purple: #6B3E6E;
 
   /* 背景色 */
-  --color-bg-light: #f9f5f0; /* 和纸米白 */
-  --color-bg-dark: #1a1a1a; /* 深墨 */
-  --color-bg-card: #ffffff;
-  --color-bg-overlay: rgba(249, 245, 240, 0.95);
+  --color-bg-light: #FFF9F2; /* 和纸米白 */
+  --color-bg-dark: #1F1717; /* 深墨 */
+  --color-bg-card: #FFFFFF;
+  --color-bg-overlay: rgba(255, 249, 242, 0.96);
 
   /* 文字色 */
-  --color-text-primary: #2c2c2c; /* 墨黑 */
-  --color-text-secondary: #5a6c7d; /* 灰蓝 */
-  --color-text-muted: #8a8a8a;
+  --color-text-primary: #221516; /* 墨黑 */
+  --color-text-secondary: #6B5C58; /* 灰褐 */
+  --color-text-muted: #8A7A76;
 
   /* 边框和分隔 */
-  --color-border: #e0d5c7;
+  --color-border: #E8DC CE;
   --color-border-active: var(--color-accent-gold);
 
-  /* 阴影 */
-  --shadow-sm: 0 2px 8px rgba(42, 42, 42, 0.08);
-  --shadow-md: 0 4px 16px rgba(42, 42, 42, 0.12);
-  --shadow-lg: 0 8px 32px rgba(42, 42, 42, 0.16);
-  --shadow-spellcard: 0 0 20px rgba(244, 197, 66, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2);
+  /* 阴影与光晕 */
+  --shadow-sm: 0 2px 8px rgba(57, 28, 24, 0.08);
+  --shadow-md: 0 4px 16px rgba(57, 28, 24, 0.12);
+  --shadow-lg: 0 8px 32px rgba(57, 28, 24, 0.16);
+  --shadow-spellcard: 0 0 16px rgba(201, 151, 56, 0.22), 0 4px 16px rgba(57, 28, 24, 0.1);
 
-  /* 字体栈 */
-  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif;
-  --font-title: "STKaiti", "KaiTi", "Noto Serif CJK SC", "Noto Serif SC", serif, var(--font-body);
+  /* 字体栈：完整支持中、日（明朝体）、英楷体衬线 */
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans SC", "Noto Sans JP", sans-serif;
+  --font-title: "Noto Serif SC", "Source Han Serif SC", "STKaiti", "KaiTi", "Noto Serif JP", "Yu Mincho", serif;
   --font-mono: "SF Mono", Monaco, "Cascadia Code", "Courier New", monospace;
+  --border-radius-base: 8px;
 }
 
-/* 符卡边框样式 */
+/* 符卡边框通用组件样式 */
 .spellcard-frame {
   position: relative;
   background: var(--color-bg-card);
-  border: 2px solid var(--color-accent-gold);
-  border-radius: 4px;
+  border: 1px solid rgba(142, 30, 38, 0.18);
+  border-radius: var(--border-radius-base);
   padding: 1.5rem;
-  box-shadow: var(--shadow-spellcard);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease;
+}
+
+/* 东方符卡朱砂四角角标 */
+.spellcard-frame::before,
+.spellcard-frame::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--color-accent-vermilion);
+  border-style: solid;
+  pointer-events: none;
+  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
 }
 
 .spellcard-frame::before {
-  content: '';
-  position: absolute;
   top: -2px;
   left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(135deg,
-    var(--color-accent-gold) 0%,
-    var(--color-accent-purple) 50%,
-    var(--color-accent-gold) 100%);
-  border-radius: 4px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
+  border-width: 2.5px 0 0 2.5px;
+  border-top-left-radius: 4px;
 }
 
-.spellcard-frame:hover::before {
-  opacity: 0.7;
+.spellcard-frame::after {
+  bottom: -2px;
+  right: -2px;
+  border-width: 0 2.5px 2.5px 0;
+  border-bottom-right-radius: 4px;
 }
 
 .spellcard-frame:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 30px rgba(244, 197, 66, 0.5), 0 8px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(142, 30, 38, 0.14), 0 0 16px rgba(201, 151, 56, 0.18);
+  border-color: rgba(142, 30, 38, 0.35);
+}
+
+.spellcard-frame:hover::before,
+.spellcard-frame:hover::after {
+  width: 18px;
+  height: 18px;
+  border-color: var(--color-accent-gold);
+}
+
+/* 变体微调 */
+.spellcard-variant-gold {
+  border-color: rgba(201, 151, 56, 0.35);
+}
+.spellcard-variant-gold::before,
+.spellcard-variant-gold::after {
+  border-color: var(--color-accent-gold);
+}
+
+.spellcard-variant-green {
+  border-color: rgba(47, 117, 113, 0.3);
+}
+.spellcard-variant-green::before,
+.spellcard-variant-green::after {
+  border-color: var(--color-primary);
+}
+
+.spellcard-variant-purple {
+  border-color: rgba(107, 62, 110, 0.3);
+}
+.spellcard-variant-purple::before,
+.spellcard-variant-purple::after {
+  border-color: var(--color-accent-purple);
 }
 
 /* 符卡标题 */

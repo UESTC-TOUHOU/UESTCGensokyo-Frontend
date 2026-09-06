@@ -48,7 +48,7 @@ function Contact() {
   return (
     <div className="page-container contact-page">
       <h1 className="page-title">{t('contact.title')}</h1>
-      <SpellCardFrame variant="purple" className="contact-card">
+      <SpellCardFrame variant="green" className="contact-card">
         <form onSubmit={handleSubmit} className="contact-form">
           <div className="form-group">
             <label htmlFor="name">{t('contact.form_name')}</label>
