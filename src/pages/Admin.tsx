@@ -10,6 +10,7 @@ interface Activity {
   location: string;
   summary_key: string;
   sort_order: number;
+  type: string;
 }
 
 interface Member {
@@ -36,6 +37,7 @@ export default function Admin() {
     location: '',
     summary_key: '',
     sort_order: 0,
+    type: 'event',
   });
   const [showActivityForm, setShowActivityForm] = useState(false);
 
@@ -152,7 +154,7 @@ export default function Admin() {
       }
       setShowActivityForm(false);
       setEditingActivity(null);
-      setActivityForm({ title_key: '', date: '', location: '', summary_key: '', sort_order: 0 });
+      setActivityForm({ title_key: '', date: '', location: '', summary_key: '', sort_order: 0, type: 'event' });
       fetchActivities();
     } catch (err) {
       setMessage({ type: 'error', text: err instanceof Error ? err.message : '操作失败' });
@@ -167,6 +169,7 @@ export default function Admin() {
       location: act.location,
       summary_key: act.summary_key,
       sort_order: act.sort_order,
+      type: act.type || 'event',
     });
     setShowActivityForm(true);
   };
@@ -305,6 +308,7 @@ export default function Admin() {
                         location: '',
                         summary_key: '',
                         sort_order: activities.length + 1,
+                        type: 'event',
                       });
                       setShowActivityForm(true);
                     }}
@@ -372,6 +376,19 @@ export default function Admin() {
 />
                     </div>
                     <div className="form-group">
+                      <label htmlFor="act-type">类型</label>
+                      <select
+                        id="act-type"
+                        value={activityForm.type}
+                        onChange={(e) =>
+                          setActivityForm({ ...activityForm, type: e.target.value })
+                        }
+                      >
+                        <option value="event">普通活动 (event)</option>
+                        <option value="call">创作征集 / 当前活动 (call)</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
                       <label htmlFor="act-order">排序权重 (数字越小越靠前)</label>
                       <input
                         id="act-order"
@@ -413,6 +430,7 @@ export default function Admin() {
                       <th>日期</th>
                       <th>地点</th>
                       <th>排序</th>
+                      <th>类型</th>
                       <th>操作</th>
                     </tr>
                   </thead>
@@ -431,6 +449,7 @@ export default function Admin() {
                           <td>{act.date}</td>
                           <td>{act.location}</td>
                           <td>{act.sort_order}</td>
+                          <td>{act.type === 'call' ? '征集 (call)' : '活动 (event)'}</td>
                           <td>
                             <div className="admin-table-actions">
                               <button

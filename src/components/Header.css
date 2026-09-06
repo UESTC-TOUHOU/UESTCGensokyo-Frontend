@@ -114,6 +114,28 @@
     cursor: default;
 }
 
+/* ---- 主题切换 ---- */
+.theme-toggle {
+    background: var(--color-bg-card, #ffffff);
+    border: 1.5px solid var(--color-accent-gold, #C99738);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    cursor: pointer;
+    font-size: 1.15rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 6px rgba(201, 151, 56, 0.2);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 12px rgba(201, 151, 56, 0.45);
+}
+
 /* ---- 汉堡按钮（默认隐藏） ---- */
 .menu-toggle {
     display: none;
@@ -171,7 +193,7 @@
         right: 0;
         flex-direction: column;
         gap: 0;
-        background: rgba(255, 249, 242, 0.97);
+        background: var(--color-bg-overlay);
         border-bottom: 1px solid var(--g-vermilion-line);
         padding: 0.5rem 1.5rem 1rem;
         display: none;
@@ -210,6 +232,12 @@
         font-size: 0.82rem;
     }
 
+    .theme-toggle {
+        width: 38px;
+        height: 38px;
+        font-size: 1.05rem;
+    }
+
     .menu-toggle {
         width: 38px;
         height: 38px;
@@ -234,6 +262,12 @@
         width: 36px;
         height: 36px;
         font-size: 0.8rem;
+    }
+
+    .theme-toggle {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
     }
 
     .language-switcher {

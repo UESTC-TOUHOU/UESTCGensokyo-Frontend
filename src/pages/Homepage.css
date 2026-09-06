@@ -234,6 +234,35 @@
   line-height: 1.65;
 }
 
+.activities-view-all {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  background: var(--g-card);
+  border: 1px solid var(--g-vermilion-line);
+  border-radius: var(--g-radius);
+  color: var(--g-ink);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: var(--g-shadow);
+}
+
+.view-all-link:hover {
+  background: var(--g-vermilion);
+  color: #fff9f2;
+  border-color: var(--g-vermilion);
+  transform: translateY(-2px);
+  box-shadow: var(--g-shadow-hover);
+}
+
 /* 组织成员网格 */
 .members-grid {
   display: grid;

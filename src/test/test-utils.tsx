@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import { render } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
+import { ThemeProvider } from '../contexts/ThemeContext';
 import i18n from 'i18next';
 import zhLocale from '../i18n/locales/zh.json';
 import enLocale from '../i18n/locales/en.json';
@@ -37,9 +38,11 @@ beforeEach(async () => {
 export function renderWithRouter(routes: { path: string; element: ReactElement }[]) {
   const router = createMemoryRouter(routes, { initialEntries: ['/'] });
   return render(
-    <I18nextProvider i18n={i18n}>
-      <RouterProvider router={router} />
-    </I18nextProvider>
+    <ThemeProvider>
+      <I18nextProvider i18n={i18n}>
+        <RouterProvider router={router} />
+      </I18nextProvider>
+    </ThemeProvider>
   );
 }
 

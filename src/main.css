@@ -63,6 +63,7 @@ body {
     color: var(--g-ink);
     line-height: 1.7;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4 {

@@ -2,6 +2,7 @@
   "header": {
     "welcome": "欢迎",
     "homepage": "主页",
+    "activities": "活动",
     "products": "产品",
     "contact": "联系我们"
   },
@@ -33,7 +34,19 @@
     "members_error": "未能同步最新成员，显示离线记录",
     "members_empty": "暂无成员信息",
     "date": "时间",
-    "location": "地点"
+    "location": "地点",
+    "activities_view_all": "查看全部活动 →"
+  },
+  "activities": {
+    "title": "社团活动",
+    "subtitle": "历年社团活动与当前创作征集",
+    "loading": "正在获取活动记录...",
+    "error": "未能同步最新活动，请稍后重试",
+    "empty": "暂无活动记录",
+    "calls_title": "🔥 创作征集 / 当前活动",
+    "call_badge": "征集中",
+    "past_title": "往期活动",
+    "unknown_year": "其他"
   },
   "activities_data": {
     "seed_activity_welcome": "秋季社团联合招新",

@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../contexts/ThemeContext';
 import kyoukoLogo from '../assets/kyouko-logo.png';
 import './Header.css';
 
 function Header() {
   const { t, i18n } = useTranslation();
+  const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -62,6 +64,7 @@ function Header() {
         <nav className={menuOpen ? 'main-nav open' : 'main-nav'} ref={navRef}>
           <NavLink to="/" onClick={() => setMenuOpen(false)}>{t('header.welcome')}</NavLink>
           <NavLink to="/home" onClick={() => setMenuOpen(false)}>{t('header.homepage')}</NavLink>
+          <NavLink to="/activities" onClick={() => setMenuOpen(false)}>{t('header.activities')}</NavLink>
           <NavLink to="/products" onClick={() => setMenuOpen(false)}>{t('header.products')}</NavLink>
           <NavLink to="/contact" onClick={() => setMenuOpen(false)}>{t('header.contact')}</NavLink>
         </nav>
@@ -84,6 +87,14 @@ function Header() {
               aria-label="日本語"
             >日</button>
           </div>
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? '切换到亮色模式' : '切换到暗色模式'}
+            title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+          >
+            {theme === 'dark' ? '☀' : '🌙'}
+          </button>
           <button
             ref={toggleRef}
             className="menu-toggle"

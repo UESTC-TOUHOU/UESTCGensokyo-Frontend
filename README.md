@@ -48,3 +48,15 @@ VITE_API_BASE=https://your-backend.example.com
 - 视觉设计体系：和纸象牙底 + 朱红/金箔/山彦青，见 `src/main.css` 的 CSS 变量
 - 提交规范：不直接 push main，一律 feature 分支 + PR（见仓库根 `CLAUDE.md`）
 - 工单跟踪：`.scratch/redesign-2026/`（本地 md tracker，spec + 工单）
+
+### 路由
+
+| 路由 | 页面 | 说明 |
+|---|---|---|
+| `/` | Welcome | 封面欢迎页 |
+| `/home` | Homepage | 社团简介 + 最近3条活动 + 组织架构 |
+| `/activities` | Activities | 完整活动列表，`type=call` 征集活动置顶高亮，普通活动按年份分组 |
+| `/products` | Products | 社团制品展示 |
+| `/contact` | Contact | 联系表单 |
+| `/admin` | Admin | 内容管理后台（activities/members/products CRUD） |
+| `/admin/login` | AdminLogin | 后台登录 |

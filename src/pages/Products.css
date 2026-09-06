@@ -36,6 +36,7 @@
     aspect-ratio: 3 / 4;
     overflow: hidden;
     background-color: rgba(34, 21, 22, 0.05);
+    background-color: var(--g-card-strong);
     border-bottom: 1px solid var(--color-border, #e0d5c7);
 }
 
@@ -82,14 +83,14 @@
 }
 
 .product-tag.tag-bookmark {
-    background: #8b5a8e;
+    background: var(--color-accent-purple, #8b5a8e);
     color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .product-tag.tag-acrylic {
-    background: #c99738;
-    color: #221516;
+    background: var(--g-gold);
+    color: var(--g-ink);
     font-weight: 700;
     border: 1px solid rgba(34, 21, 22, 0.2);
 }
