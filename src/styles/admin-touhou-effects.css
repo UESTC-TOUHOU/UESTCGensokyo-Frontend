@@ -142,73 +142,73 @@
 }
 
 /* ============================================================
-   八卦炉旋转动画 - 替代普通 loading spinner
+   八卦炉旋转动画 - 阴阳玉太极图 + 外环
+   纯 CSS 实现，无需额外图片
    ============================================================ */
 .hakke-spinner {
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   position: relative;
   display: inline-block;
+  animation: hakke-rotate 2s linear infinite;
 }
 
-.hakke-spinner::before,
-.hakke-spinner::after {
+/* 外环 - 八卦纹边框 */
+.hakke-spinner::before {
   content: '';
   position: absolute;
+  inset: -5px;
   border-radius: 50%;
-  animation: hakke-rotate 1.8s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-}
-
-.hakke-spinner::before {
-  width: 48px;
-  height: 48px;
-  border: 4px solid transparent;
+  border: 2.5px solid transparent;
   border-top-color: #C41E3A;
   border-right-color: #D4A94E;
   border-bottom-color: #5BB8B3;
   border-left-color: #C41E3A;
+  animation: hakke-rotate 1.2s linear infinite reverse;
 }
 
+/* 太极图本体 - 用 radial-gradient 绘制阴阳鱼 */
 .hakke-spinner::after {
-  width: 32px;
-  height: 32px;
-  top: 8px;
-  left: 8px;
-  border: 3px solid transparent;
-  border-top-color: #D4A94E;
-  border-right-color: #5BB8B3;
-  border-bottom-color: #C41E3A;
-  border-left-color: #D4A94E;
-  animation-duration: 1.2s;
-  animation-direction: reverse;
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* 左白右红的太极底色 */
+  background:
+    /* 上鱼眼（白色小圆） */
+    radial-gradient(circle at 50% 25%, #FFF9F2 3px, transparent 3px),
+    /* 下鱼眼（红色小圆） */
+    radial-gradient(circle at 50% 75%, #C41E3A 3px, transparent 3px),
+    /* 上半鱼身（红色半圆） */
+    radial-gradient(circle at 50% 25%, #C41E3A 9px, transparent 9px),
+    /* 下半鱼身（白色半圆） */
+    radial-gradient(circle at 50% 75%, #FFF9F2 9px, transparent 9px),
+    /* 左右底色 */
+    linear-gradient(90deg, #FFF9F2 50%, #C41E3A 50%);
 }
 
 @keyframes hakke-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
-/* 八卦符阵背景装饰 */
+/* 八卦符阵背景光晕 */
 .hakke-spinner-container {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 1rem;
+  padding: 0.25rem;
 }
 
 .hakke-spinner-container::before {
   content: '';
   position: absolute;
-  width: 72px;
-  height: 72px;
+  width: 52px;
+  height: 52px;
   background: radial-gradient(
     circle,
-    rgba(212, 169, 78, 0.1) 0%,
+    rgba(196, 30, 58, 0.12) 0%,
+    rgba(212, 169, 78, 0.06) 50%,
     transparent 70%
   );
   border-radius: 50%;
@@ -222,7 +222,7 @@
   }
   50% {
     opacity: 0.8;
-    transform: scale(1.1);
+    transform: scale(1.15);
   }
 }
 
