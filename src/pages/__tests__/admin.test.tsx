@@ -150,6 +150,20 @@ describe('Admin dashboard', () => {
           ],
         });
       }
+      if (url.includes('/api/site-settings')) {
+        return Promise.resolve({
+          ok: true,
+          json: async () => [
+            {
+              id: 1,
+              key: 'home.slogan',
+              value_zh: '在成电，寻找幻想乡',
+              value_en: 'Finding Gensokyo at UESTC',
+              value_ja: '成電で幻想郷を見つける',
+            },
+          ],
+        });
+      }
       return Promise.resolve({ ok: true, json: async () => ({}) });
     });
     vi.stubGlobal('fetch', fetchMock);
