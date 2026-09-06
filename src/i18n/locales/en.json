@@ -2,6 +2,7 @@
   "header": {
     "welcome": "Welcome",
     "homepage": "Home",
+    "activities": "Activities",
     "products": "Products",
     "contact": "Contact"
   },
@@ -33,7 +34,19 @@
     "members_error": "Could not sync latest members; showing archived records.",
     "members_empty": "No member details available.",
     "date": "Date",
-    "location": "Location"
+    "location": "Location",
+    "activities_view_all": "View all activities →"
+  },
+  "activities": {
+    "title": "Club Activities",
+    "subtitle": "Club events and current calls for submissions",
+    "loading": "Loading activities...",
+    "error": "Could not load activities, please try again later",
+    "empty": "No activities yet",
+    "calls_title": "🔥 Calls for Submissions",
+    "call_badge": "OPEN",
+    "past_title": "Past Events",
+    "unknown_year": "Other"
   },
   "activities_data": {
     "seed_activity_welcome": "Autumn Club Fair & Recruitment",

@@ -1,0 +1,124 @@
+.activities-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.activities-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.activities-subtitle {
+  color: var(--color-text-muted, #9a8e7c);
+  font-size: 1.05rem;
+  margin-top: 0.5rem;
+}
+
+.activities-loading,
+.activities-error,
+.activities-empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-text-muted, #9a8e7c);
+}
+
+.activities-error {
+  color: var(--color-accent-red, #c0392b);
+}
+
+/* Call for submissions section */
+.activities-calls-section {
+  margin-bottom: 2.5rem;
+}
+
+.activities-calls-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.activity-card--call {
+  position: relative;
+  border: 2px solid var(--color-gold, #c8a84e);
+  background: linear-gradient(135deg, rgba(200, 168, 78, 0.08), rgba(200, 168, 78, 0.02));
+}
+
+.activity-call-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: var(--color-gold, #c8a84e);
+  color: #1a1510;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+}
+
+/* Events by year */
+.activities-events-section {
+  margin-top: 1rem;
+}
+
+.activities-year-group {
+  margin-bottom: 2rem;
+}
+
+.activities-year-label {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-gold, #c8a84e);
+  border-bottom: 1px solid var(--color-border, rgba(200, 168, 78, 0.25));
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.activities-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Card styles (reuse homepage patterns) */
+.activities-page .activity-card {
+  background: var(--color-card-bg, rgba(26, 21, 16, 0.6));
+  border: 1px solid var(--color-border, rgba(200, 168, 78, 0.15));
+  border-radius: 8px;
+  padding: 1.25rem;
+  transition: border-color 0.2s;
+}
+
+.activities-page .activity-card:hover {
+  border-color: var(--color-gold, #c8a84e);
+}
+
+.activities-page .card-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted, #9a8e7c);
+  margin-bottom: 0.5rem;
+}
+
+.activities-page .meta-label {
+  font-weight: 600;
+}
+
+.activities-page .activity-title {
+  font-size: 1.1rem;
+  color: var(--color-text, #e8dcc8);
+  margin-bottom: 0.4rem;
+}
+
+.activities-page .activity-summary {
+  font-size: 0.95rem;
+  color: var(--color-text-muted, #9a8e7c);
+  line-height: 1.6;
+}
+
+@media (min-width: 640px) {
+  .activities-grid {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  }
+}

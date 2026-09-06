@@ -62,6 +62,7 @@ function Header() {
         <nav className={menuOpen ? 'main-nav open' : 'main-nav'} ref={navRef}>
           <NavLink to="/" onClick={() => setMenuOpen(false)}>{t('header.welcome')}</NavLink>
           <NavLink to="/home" onClick={() => setMenuOpen(false)}>{t('header.homepage')}</NavLink>
+          <NavLink to="/activities" onClick={() => setMenuOpen(false)}>{t('header.activities')}</NavLink>
           <NavLink to="/products" onClick={() => setMenuOpen(false)}>{t('header.products')}</NavLink>
           <NavLink to="/contact" onClick={() => setMenuOpen(false)}>{t('header.contact')}</NavLink>
         </nav>

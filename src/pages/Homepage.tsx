@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import heroAbout from '../assets/hero-about.jpg';
 import { getApiBase } from '../config';
@@ -194,7 +195,7 @@ function Homepage() {
           <p className="state-notice error-notice">{t('homepage.activities_error')}</p>
         )}
         <div className="activities-grid">
-          {activities.map((act) => (
+          {activities.slice(0, 3).map((act) => (
             <article key={act.id} className="activity-card">
               <div className="card-top">
                 <span className="activity-date">
@@ -214,6 +215,11 @@ function Homepage() {
               </p>
             </article>
           ))}
+        </div>
+        <div className="activities-view-all">
+          <NavLink to="/activities" className="view-all-link">
+            {t('homepage.activities_view_all')}
+          </NavLink>
         </div>
       </section>
 

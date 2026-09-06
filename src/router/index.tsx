@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Layout from '../components/Layout';
 import Welcome from '../pages/Welcome';
 import Homepage from '../pages/Homepage';
+import Activities from '../pages/Activities';
 import Products from '../pages/Products';
 import Contact from '../pages/Contact';
 import Admin from '../pages/Admin';
@@ -20,6 +21,10 @@ const router = createBrowserRouter(
         {
           path: 'home',
           element: <Homepage />,
+        },
+        {
+          path: 'activities',
+          element: <Activities />,
         },
         {
           path: 'products',

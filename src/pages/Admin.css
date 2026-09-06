@@ -114,7 +114,8 @@
 }
 
 .admin-form input,
-.admin-form textarea {
+.admin-form textarea,
+.admin-form select {
   padding: 0.6rem 0.8rem;
   border: 1px solid rgba(142, 30, 38, 0.2);
   border-radius: var(--g-radius-sm);
@@ -125,7 +126,8 @@
 }
 
 .admin-form input:focus,
-.admin-form textarea:focus {
+.admin-form textarea:focus,
+.admin-form select:focus {
   outline: none;
   border-color: var(--g-vermilion);
   box-shadow: 0 0 0 2px rgba(142, 30, 38, 0.15);
