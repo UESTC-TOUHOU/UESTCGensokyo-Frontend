@@ -47,38 +47,38 @@ src/i18n/locales/
 
 ### 产品图片（制品展示）
 
-**位置**：`src/assets/products/`
+⚠️ **重要变更**：产品图片现已改为 **API 驱动**，通过后台管理系统动态管理，无需修改前端代码。
+
+**位置**：`public/products/`
 
 #### 替换现有图片
 
 1. 准备新图片（推荐 `.jpg` 格式，尺寸 800×1200 左右）
-2. **重命名为原文件名**（如 `acrylic1.jpg`）
-3. 替换 `src/assets/products/` 中的同名文件
+2. 登录后台管理系统（详见后端 CONTENT_GUIDE.md）
+3. 在"产品管理"页面点击"编辑"按钮
+4. 上传新图片并保存
 
 #### 添加新产品
 
-需要修改代码文件 `src/pages/Products.tsx`：
-
-1. 将新图片放入 `src/assets/products/`（如 `acrylic9.jpg`）
-2. 在文件顶部导入：
-   ```tsx
-   import acrylic9Img from '../assets/products/acrylic9.jpg';
-   ```
-3. 在 `PRODUCTS_DATA` 数组末尾添加：
-   ```tsx
-   {
-     id: 'acrylic-reimu',           // 唯一ID（英文+数字）
-     img: acrylic9Img,              // 导入的图片变量
-     titleKey: 'products.acrylic_reimu_title',     // 翻译key
-     descKey: 'products.acrylic_reimu_desc',       // 翻译key
-     tag: 'acrylic',                // 标签：doujinshi | poster | bookmark | acrylic
-   },
-   ```
-4. 在 `src/i18n/locales/zh.json` 的 `products` 部分添加翻译：
+1. 登录后台管理系统
+2. 进入"产品管理"页面
+3. 点击"添加产品"按钮
+4. 填写产品信息：
+   - **名称**：填写 i18n key（如 `products.new_product_title`）
+   - **分类**：选择 doujinshi / poster / bookmark / acrylic
+   - **描述 key**：填写描述的 i18n key（如 `products.new_product_desc`）
+   - **图片**：上传产品图片
+   - **排序**：数字越小越靠前
+5. 在翻译文件 `src/i18n/locales/zh.json` 中添加对应的文案：
    ```json
-   "acrylic_reimu_title": "博丽灵梦亚克力立牌",
-   "acrylic_reimu_desc": "尺寸：15cm 高"
+   "products": {
+     "new_product_title": "新产品标题",
+     "new_product_desc": "新产品描述"
+   }
    ```
+6. 同步更新 `en.json` 和 `ja.json` 的翻译
+
+⚠️ **注意**：产品数据存储在数据库中，图片上传后立即生效，但翻译文案修改后需要重新构建前端。
 
 ### Logo 和图标
 
@@ -95,22 +95,14 @@ src/i18n/locales/
 
 ## 🗑️ 删除产品
 
-1. 打开 `src/pages/Products.tsx`
-2. 找到 `PRODUCTS_DATA` 数组，删除对应的整个对象块（从 `{` 到 `},`）
-3. 保存文件
+1. 登录后台管理系统
+2. 进入"产品管理"页面
+3. 找到要删除的产品，点击"删除"按钮
+4. 确认删除
 
-**示例**（删除 `acrylic-medicine`）：
+产品删除后立即生效，前端页面会自动更新。
 
-```tsx
-// ❌ 删除这整块
-{
-  id: 'acrylic-medicine',
-  img: acrylic1Img,
-  titleKey: 'products.acrylic_medicine_title',
-  descKey: 'products.acrylic_medicine_desc',
-  tag: 'acrylic',
-},
-```
+⚠️ **注意**：删除产品后，对应的翻译文案可以保留在翻译文件中，不会造成错误。
 
 ---
 
