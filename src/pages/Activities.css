@@ -40,7 +40,7 @@
 .activity-card--call {
   position: relative;
   border: 2px solid var(--g-gold);
-  background: linear-gradient(135deg, rgba(201, 151, 56, 0.10), rgba(201, 151, 56, 0.03));
+  background: linear-gradient(135deg, rgba(201, 160, 74, 0.10), rgba(201, 160, 74, 0.03));
 }
 
 .activity-call-badge {

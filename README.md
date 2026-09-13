@@ -45,7 +45,7 @@ VITE_API_BASE=https://your-backend.example.com
 ## 结构与约定
 
 - `src/` — 应用源码；`src/i18n/locales/` — 三语文案；`src/assets/` — 站点素材（自社团资料库提取）
-- 视觉设计体系：和纸象牙底 + 朱红/金箔/山彦青，见 `src/main.css` 的 CSS 变量
+- 视觉设计体系：双主题设计。亮色模式为神社深绯 × 鸟子暖白和纸与箔金（沉稳温润）；暗色模式为永夜抄 · 星夜暗绀夜（深邃幽静）。详见 `DESIGN-SYSTEM.md` 及 `src/main.css`。
 - 提交规范：不直接 push main，一律 feature 分支 + PR（见仓库根 `CLAUDE.md`）
 - 工单跟踪：`.scratch/redesign-2026/`（本地 md tracker，spec + 工单）
 
@@ -57,6 +57,8 @@ VITE_API_BASE=https://your-backend.example.com
 | `/home` | Homepage | 社团简介 + 最近3条活动 + 组织架构 |
 | `/activities` | Activities | 完整活动列表，`type=call` 征集活动置顶高亮，普通活动按年份分组 |
 | `/products` | Products | 社团制品展示（支持分类标签筛选与三语切换） |
+| `/products/:id` | ProductDetail | 制品详情页（三语内容、元数据表、相关链接） |
+| `/activities/:id` | ActivityDetail | 活动详情页（三语内容、相关链接） |
 | `/contact` | Contact | 联系与社群（QQ群/GitHub/Discord展示与扫码 + 商务/匿名留言信箱） |
-| `/admin` | Admin | 内容管理后台（活动/成员/制品/制品类型标签 CRUD + 全站数据备份与还原） |
+| `/admin` | Admin | 内容管理后台（活动/成员/制品/制品类型/站点配置/主页内容/联系渠道/留言 CRUD + 全站数据备份与还原） |
 | `/admin/login` | AdminLogin | 后台登录 |

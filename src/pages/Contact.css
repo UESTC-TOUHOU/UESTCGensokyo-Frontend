@@ -22,14 +22,14 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(142, 30, 38, 0.12), rgba(201, 151, 56, 0.2));
-    border: 1px solid var(--g-gold, #C99738);
+    background: linear-gradient(135deg, var(--g-vermilion-line), rgba(200, 152, 56, 0.2));
+    border: 1px solid var(--g-gold, #C89838);
     font-family: var(--g-font-serif);
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--g-vermilion);
     margin-bottom: 0.75rem;
-    box-shadow: 0 0 16px rgba(201, 151, 56, 0.25);
+    box-shadow: 0 0 16px rgba(200, 152, 56, 0.25);
     position: relative;
 }
 
@@ -38,7 +38,7 @@
     position: absolute;
     inset: -6px;
     border-radius: 50%;
-    border: 1px dashed rgba(201, 151, 56, 0.4);
+    border: 1px dashed rgba(200, 152, 56, 0.4);
     animation: contact-pulse 4s linear infinite;
 }
 
@@ -88,8 +88,8 @@
 
 .channel-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 24px rgba(142, 30, 38, 0.12), 0 0 16px rgba(201, 151, 56, 0.15);
-    border-color: var(--g-gold, #C99738);
+    box-shadow: var(--g-shadow-hover), 0 0 16px rgba(200, 152, 56, 0.15);
+    border-color: var(--g-gold, #C89838);
 }
 
 .channel-badge {
@@ -101,7 +101,7 @@
     font-weight: 600;
     padding: 0.2rem 0.6rem;
     border-radius: 12px;
-    background: rgba(142, 30, 38, 0.08);
+    background: var(--g-vermilion-line);
     border: 1px solid var(--g-vermilion-line);
     color: var(--g-vermilion);
     letter-spacing: 0.05em;
@@ -112,6 +112,7 @@
     align-items: center;
     gap: 0.85rem;
     margin-bottom: 1rem;
+    padding-right: 4.5rem; /* leave room for the absolute-positioned badge */
 }
 
 .channel-icon-box {
@@ -125,15 +126,15 @@
 }
 
 .qq-icon {
-    background: rgba(142, 30, 38, 0.1);
+    background: var(--g-vermilion-line);
     color: var(--g-vermilion);
-    border: 1px solid rgba(142, 30, 38, 0.25);
+    border: 1px solid var(--g-vermilion-line);
 }
 
 .github-icon {
-    background: rgba(47, 117, 113, 0.12);
+    background: var(--g-teal-glow);
     color: var(--g-teal);
-    border: 1px solid rgba(47, 117, 113, 0.25);
+    border: 1px solid rgba(42, 107, 94, 0.25);
 }
 
 .discord-icon {
@@ -220,14 +221,14 @@
 }
 
 .channel-btn-primary {
-    background: linear-gradient(135deg, var(--g-vermilion), var(--g-vermilion-deep, #6B161C));
+    background: linear-gradient(135deg, var(--g-vermilion), var(--g-vermilion-deep, #7D1B22));
     color: #fff;
     font-weight: 500;
 }
 
 .channel-btn-primary:hover {
     filter: brightness(1.1);
-    box-shadow: 0 3px 10px rgba(142, 30, 38, 0.3);
+    box-shadow: 0 3px 10px rgba(158, 42, 43, 0.3);
 }
 
 .channel-btn-ghost {
@@ -237,7 +238,7 @@
 }
 
 .channel-btn-ghost:hover {
-    background: rgba(142, 30, 38, 0.06);
+    background: var(--g-vermilion-line);
     border-color: var(--g-vermilion);
 }
 
@@ -269,7 +270,7 @@
 .contact-toggle-btn:hover {
     border-color: var(--g-vermilion);
     color: var(--g-vermilion);
-    background: rgba(142, 30, 38, 0.04);
+    background: var(--g-vermilion-line);
 }
 
 .toggle-arrow {
@@ -308,7 +309,7 @@
     width: 100%;
     padding: 0.75rem 0.9rem;
     background-color: var(--color-bg-light, var(--g-paper));
-    border: 1px solid var(--color-border, rgba(142, 30, 38, 0.2));
+    border: 1px solid var(--color-border, rgba(158, 42, 43, 0.2));
     border-radius: var(--g-radius-sm, 4px);
     font-family: var(--font-body, var(--g-font-sans));
     font-size: 0.95rem;
@@ -321,8 +322,8 @@
 .contact-form input:focus,
 .contact-form textarea:focus {
     outline: none;
-    border-color: var(--g-teal, #2F7571);
-    box-shadow: 0 0 0 3px rgba(47, 117, 113, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.04);
+    border-color: var(--g-teal, #2A6B5E);
+    box-shadow: 0 0 0 3px rgba(42, 107, 94, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .contact-form input::placeholder,
@@ -339,16 +340,16 @@
     width: 100%;
     margin-top: 0.5rem;
     padding: 0.85rem 1.5rem;
-    background: linear-gradient(135deg, var(--g-vermilion, #8E1E26), var(--g-vermilion-deep, #6B161C));
+    background: linear-gradient(135deg, var(--g-vermilion, #9E2A2B), var(--g-vermilion-deep, #7D1B22));
     color: #FFF9F2;
-    border: 1px solid var(--g-gold, #C99738);
+    border: 1px solid var(--g-gold, #C89838);
     border-radius: var(--g-radius-sm, 4px);
     font-family: var(--font-title, var(--g-font-serif));
     font-size: 1.05rem;
     font-weight: 600;
     letter-spacing: 0.15em;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(142, 30, 38, 0.28);
+    box-shadow: 0 4px 14px rgba(158, 42, 43, 0.25);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -356,8 +357,8 @@
 
 .submit-button:hover:not(:disabled) {
     transform: translateY(-2px);
-    background: linear-gradient(135deg, #A82831, var(--g-vermilion, #8E1E26));
-    box-shadow: 0 6px 20px rgba(142, 30, 38, 0.38), 0 0 12px rgba(201, 151, 56, 0.3);
+    background: linear-gradient(135deg, #B83A3C, var(--g-vermilion, #9E2A2B));
+    box-shadow: 0 6px 20px rgba(158, 42, 43, 0.35), 0 0 12px rgba(200, 152, 56, 0.3);
 }
 
 .submit-button:disabled {
@@ -375,15 +376,15 @@
 }
 
 .status-success {
-    background-color: rgba(47, 117, 113, 0.12);
+    background-color: rgba(42, 107, 94, 0.12);
     color: var(--g-teal);
-    border: 1px solid rgba(47, 117, 113, 0.3);
+    border: 1px solid rgba(42, 107, 94, 0.3);
 }
 
 .status-error {
-    background-color: rgba(142, 30, 38, 0.1);
+    background-color: rgba(158, 42, 43, 0.1);
     color: var(--g-vermilion);
-    border: 1px solid rgba(142, 30, 38, 0.3);
+    border: 1px solid rgba(158, 42, 43, 0.3);
 }
 
 /* 响应式断点 */

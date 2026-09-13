@@ -72,7 +72,7 @@
 }
 
 .admin-tab-btn:hover {
-  background: rgba(142, 30, 38, 0.05);
+  background: var(--g-vermilion-line);
 }
 
 .admin-tab-btn.active {
@@ -124,7 +124,7 @@
 .admin-form textarea,
 .admin-form select {
   padding: 0.6rem 0.8rem;
-  border: 1px solid rgba(142, 30, 38, 0.2);
+  border: 1px solid var(--g-vermilion-line);
   border-radius: var(--g-radius-sm);
   background: var(--g-card);
   color: var(--g-ink);
@@ -137,7 +137,7 @@
 .admin-form select:focus {
   outline: none;
   border-color: var(--g-vermilion);
-  box-shadow: 0 0 0 2px rgba(142, 30, 38, 0.15);
+  box-shadow: 0 0 0 2px var(--g-vermilion-line);
 }
 
 .admin-form-actions {
@@ -179,7 +179,7 @@
 }
 
 .admin-btn-outline {
-  background: rgba(201, 151, 56, 0.08);
+  background: rgba(201, 160, 74, 0.08);
   border-color: var(--g-gold, #C99738);
   color: var(--g-ink);
   font-weight: 500;
@@ -232,7 +232,7 @@
 .admin-table th {
   font-family: var(--g-font-serif);
   color: var(--g-ink);
-  background: rgba(142, 30, 38, 0.04);
+  background: var(--g-vermilion-line);
   white-space: nowrap;
 }
 
@@ -251,8 +251,8 @@
 }
 
 .admin-success-banner {
-  background: rgba(47, 117, 113, 0.08);
-  border: 1px solid rgba(47, 117, 113, 0.3);
+  background: rgba(42, 107, 94, 0.08);
+  border: 1px solid rgba(42, 107, 94, 0.3);
   color: var(--g-teal);
   padding: 0.6rem 0.8rem;
   border-radius: var(--g-radius-sm);
@@ -305,7 +305,7 @@
 }
 
 .admin-tag-chip:hover {
-  background: rgba(142, 30, 38, 0.08);
+  background: var(--g-vermilion-line);
   border-color: var(--g-vermilion);
 }
 
@@ -365,3 +365,134 @@
     font-size: 0.82rem;
   }
 }
+
+/* ============================================================
+   Homepage Config — Accordion + Trilingual Tab Editor
+   ============================================================ */
+
+.admin-accordion {
+  border: 1px solid var(--g-vermilion-line);
+  border-radius: var(--g-radius);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  background: var(--g-card);
+}
+
+.admin-accordion-header {
+  padding: 0.85rem 1.25rem;
+  margin: 0;
+  background: var(--g-vermilion-line);
+  font-family: var(--g-font-serif);
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.admin-accordion-header:hover {
+  background: var(--g-vermilion-line);
+  filter: brightness(0.95);
+}
+
+.admin-accordion-saved {
+  color: var(--g-teal);
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.15rem 0.5rem;
+  background: rgba(42, 107, 94, 0.08);
+  border-radius: var(--g-radius-sm);
+}
+
+.admin-accordion-body {
+  padding: 1.25rem;
+  border-top: 1px solid var(--g-vermilion-line);
+}
+
+/* Trilingual field with tab switcher */
+.admin-trilingual {
+  margin-bottom: 1.25rem;
+}
+
+.admin-trilingual-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.admin-trilingual-field-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--g-ink);
+}
+
+.admin-lang-tabs {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--g-vermilion-line);
+  border-radius: var(--g-radius-sm);
+  overflow: hidden;
+}
+
+.admin-lang-tab {
+  padding: 0.25rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--g-vermilion-line);
+  color: var(--g-ink-soft);
+  cursor: pointer;
+  font-family: var(--g-font-sans);
+  transition: all 0.15s;
+}
+
+.admin-lang-tab:last-child {
+  border-right: none;
+}
+
+.admin-lang-tab:hover {
+  background: var(--g-vermilion-line);
+}
+
+.admin-lang-tab.active {
+  background: var(--g-vermilion);
+  color: #fff;
+}
+
+.admin-trilingual-input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--g-vermilion-line);
+  border-radius: var(--g-radius-sm);
+  background: var(--g-card);
+  color: var(--g-ink);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.admin-trilingual-input:focus {
+  outline: none;
+  border-color: var(--g-vermilion);
+  box-shadow: 0 0 0 2px var(--g-vermilion-line);
+}
+
+textarea.admin-trilingual-input {
+  resize: vertical;
+  min-height: 3.5rem;
+}
+
+/* Save button row within accordion */
+.admin-accordion-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--g-vermilion-line);
+}
+

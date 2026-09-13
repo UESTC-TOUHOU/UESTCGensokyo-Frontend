@@ -46,7 +46,8 @@
 
 .about-hero-overlay .spellcard-banner {
   margin-bottom: 0.75rem;
-  background: rgba(142, 30, 38, 0.85);
+  background: linear-gradient(120deg, var(--g-vermilion), var(--g-vermilion-deep));
+  border: 1px solid var(--g-gold);
   color: #fff9f2;
 }
 
@@ -108,8 +109,8 @@
 
 .error-notice {
   color: var(--g-ink-soft);
-  background: rgba(201, 151, 56, 0.12);
-  border: 1px dashed rgba(201, 151, 56, 0.4);
+  background: rgba(201, 160, 74, 0.12);
+  border: 1px dashed rgba(201, 160, 74, 0.4);
 }
 
 /* 简介文字与三列亮点 */
@@ -144,7 +145,7 @@
 .feature-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--g-shadow-hover);
-  border-color: rgba(142, 30, 38, 0.3);
+  border-color: var(--g-gold);
 }
 
 .feature-marker {
@@ -190,7 +191,7 @@
 .activity-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--g-shadow-hover);
-  border-color: rgba(142, 30, 38, 0.35);
+  border-color: var(--g-gold);
 }
 
 .activity-card .card-top {
@@ -302,7 +303,7 @@
   font-family: var(--g-font-serif);
   font-weight: bold;
   font-size: 1.4rem;
-  box-shadow: 0 0 10px rgba(201, 151, 56, 0.2);
+  box-shadow: 0 0 10px rgba(201, 160, 74, 0.2);
 }
 
 .member-info {

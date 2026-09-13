@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import TrilingualField from '../components/TrilingualField';
+import { useTranslation } from 'react-i18next';
 import { getApiBase } from '../config';
 import './Admin.css';
 
@@ -11,6 +13,11 @@ interface Activity {
   summary_key: string;
   sort_order: number;
   type: string;
+  image_url: string;
+  detail_content_zh: string;
+  detail_content_en: string;
+  detail_content_ja: string;
+  related_link: string;
 }
 
 interface Member {
@@ -30,6 +37,11 @@ interface Product {
   description_en: string;
   description_ja: string;
   image_url: string;
+  detail_content_zh: string;
+  detail_content_en: string;
+  detail_content_ja: string;
+  related_link: string;
+  metadata: Record<string, string>;
   tag: string;
   sort_order: number;
 }
@@ -51,9 +63,22 @@ interface SiteSetting {
   value_ja: string;
 }
 
+interface HomepageContentField {
+  zh: string;
+  en: string;
+  ja: string;
+}
+
+interface HomepageContentData {
+  hero: Record<string, HomepageContentField>;
+  intro: Record<string, HomepageContentField>;
+  features: Array<Record<string, HomepageContentField>>;
+}
+
 export default function Admin() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'activities' | 'members' | 'products' | 'product-tags' | 'site-settings'>('activities');
+  const [activeTab, setActiveTab] = useState<'activities' | 'members' | 'products' | 'product-tags' | 'site-settings' | 'homepage' | 'contacts' | 'contact-channels'>('activities');
   const [activities, setActivities] = useState<Activity[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
@@ -63,6 +88,17 @@ export default function Admin() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [isBackingUp, setIsBackingUp] = useState(false);
   const [isRestoring, setIsRestoring] = useState(false);
+  const [homepageContent, setHomepageContent] = useState<HomepageContentData | null>(null);
+  const [homepageSaving, setHomepageSaving] = useState<Record<string, boolean>>({});
+  const [homepageSaved, setHomepageSaved] = useState<Record<string, boolean>>({});
+  const [contacts, setContacts] = useState<{id: number; name: string; email: string; message: string; created_at: string}[]>([]);
+
+  // Contact Channels
+  interface ContactChannelItem { id: number; channel_key: string; badge: string; title_zh: string; title_en: string; title_ja: string; code: string; description_zh: string; description_en: string; description_ja: string; link: string; icon_svg: string; icon_color: string; sort_order: number; }
+  const [contactChannels, setContactChannels] = useState<ContactChannelItem[]>([]);
+  const [editingChannel, setEditingChannel] = useState<ContactChannelItem | null>(null);
+  const [channelForm, setChannelForm] = useState({ channel_key: '', badge: '', title_zh: '', title_en: '', title_ja: '', code: '', description_zh: '', description_en: '', description_ja: '', link: '', icon_svg: '', icon_color: '', sort_order: 0 });
+  const [showChannelForm, setShowChannelForm] = useState(false);
 
   // Site Setting Form State
   const [editingSetting, setEditingSetting] = useState<SiteSetting | null>(null);
@@ -94,6 +130,11 @@ export default function Admin() {
     summary_key: '',
     sort_order: 0,
     type: 'event',
+    image_url: '',
+    detail_content_zh: '',
+    detail_content_en: '',
+    detail_content_ja: '',
+    related_link: '',
   });
   const [showActivityForm, setShowActivityForm] = useState(false);
 
@@ -117,6 +158,11 @@ export default function Admin() {
     description_en: '',
     description_ja: '',
     image_url: '',
+    detail_content_zh: '',
+    detail_content_en: '',
+    detail_content_ja: '',
+    related_link: '',
+    metadata: {} as Record<string, string>,
     tag: 'acrylic',
     sort_order: 0,
   });
@@ -216,6 +262,42 @@ export default function Admin() {
     }
   }, [apiBase]);
 
+  const fetchHomepageContent = useCallback(async () => {
+    try {
+      const res = await fetch(apiBase + '/api/homepage-content');
+      if (res.ok) {
+        const data = await res.json();
+        setHomepageContent(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch homepage content:', err);
+    }
+  }, [apiBase]);
+
+  const fetchContacts = useCallback(async () => {
+    try {
+      const res = await apiFetch('/api/admin/contacts');
+      if (res.ok) {
+        const data = await res.json();
+        setContacts(Array.isArray(data) ? data : []);
+      }
+    } catch (err) {
+      console.error('Failed to fetch contacts:', err);
+    }
+  }, [apiFetch]);
+
+  const fetchContactChannels = useCallback(async () => {
+    try {
+      const res = await fetch(`${apiBase}/api/contact-channels`);
+      if (res.ok) {
+        const data = await res.json();
+        setContactChannels(Array.isArray(data) ? data : []);
+      }
+    } catch (err) {
+      console.error('Failed to fetch contact channels:', err);
+    }
+  }, [apiBase]);
+
   useEffect(() => {
     const token = localStorage.getItem('admin_token');
     if (!token) {
@@ -223,10 +305,10 @@ export default function Admin() {
       return;
     }
     setLoading(true);
-    Promise.all([fetchActivities(), fetchMembers(), fetchProducts(), fetchProductTags(), fetchSiteSettings()]).finally(() =>
+    Promise.all([fetchActivities(), fetchMembers(), fetchProducts(), fetchProductTags(), fetchSiteSettings(), fetchHomepageContent(), fetchContacts(), fetchContactChannels()]).finally(() =>
       setLoading(false)
     );
-  }, [navigate, fetchActivities, fetchMembers, fetchProducts, fetchProductTags, fetchSiteSettings]);
+  }, [navigate, fetchActivities, fetchMembers, fetchProducts, fetchProductTags, fetchSiteSettings, fetchHomepageContent, fetchContacts, fetchContactChannels]);
 
   const handleLogout = async () => {
     try {
@@ -267,7 +349,19 @@ export default function Admin() {
       }
       setShowActivityForm(false);
       setEditingActivity(null);
-      setActivityForm({ title_key: '', date: '', location: '', summary_key: '', sort_order: 0, type: 'event' });
+      setActivityForm({
+        title_key: '',
+        date: '',
+        location: '',
+        summary_key: '',
+        sort_order: 0,
+        type: 'event',
+        image_url: '',
+        detail_content_zh: '',
+        detail_content_en: '',
+        detail_content_ja: '',
+        related_link: '',
+      });
       fetchActivities();
     } catch (err) {
       setMessage({ type: 'error', text: err instanceof Error ? err.message : '操作失败' });
@@ -283,6 +377,11 @@ export default function Admin() {
       summary_key: act.summary_key,
       sort_order: act.sort_order,
       type: act.type || 'event',
+      image_url: act.image_url || '',
+      detail_content_zh: act.detail_content_zh || '',
+      detail_content_en: act.detail_content_en || '',
+      detail_content_ja: act.detail_content_ja || '',
+      related_link: act.related_link || '',
     });
     setShowActivityForm(true);
   };
@@ -403,6 +502,11 @@ export default function Admin() {
         description_en: '',
         description_ja: '',
         image_url: '',
+        detail_content_zh: '',
+        detail_content_en: '',
+        detail_content_ja: '',
+        related_link: '',
+        metadata: {},
         tag: 'acrylic',
         sort_order: 0,
       });
@@ -422,6 +526,11 @@ export default function Admin() {
       description_en: p.description_en || '',
       description_ja: p.description_ja || '',
       image_url: p.image_url || '',
+      detail_content_zh: p.detail_content_zh || '',
+      detail_content_en: p.detail_content_en || '',
+      detail_content_ja: p.detail_content_ja || '',
+      related_link: p.related_link || '',
+      metadata: p.metadata || {},
       tag: p.tag || 'acrylic',
       sort_order: p.sort_order || 0,
     });
@@ -473,6 +582,26 @@ export default function Admin() {
       setUploadingImage(false);
       e.target.value = '';
     }
+  };
+
+  const handleActivityImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('type', 'activities');
+    setUploadingImage(true);
+    setMessage(null);
+    try {
+      const res = await apiFetch('/api/admin/upload', { method: 'POST', body: formData });
+      if (res.ok) {
+        const data = await res.json();
+        setActivityForm((prev) => ({ ...prev, image_url: data.url }));
+        setMessage({ type: 'success', text: 'Image uploaded' });
+      } else { throw new Error('Upload failed'); }
+    } catch (err) {
+      setMessage({ type: 'error', text: err instanceof Error ? err.message : 'Upload failed' });
+    } finally { setUploadingImage(false); e.target.value = ''; }
   };
 
   // ---- Product Tag Handlers ----
@@ -716,6 +845,37 @@ export default function Admin() {
     }
   };
 
+  const saveHomepageSection = async (section: string) => {
+    if (!homepageContent) return;
+    setHomepageSaving(prev => ({ ...prev, [section]: true }));
+    setHomepageSaved(prev => ({ ...prev, [section]: false }));
+    let updates: Array<{ field: string; content_zh: string; content_en: string; content_ja: string }> = [];
+    if (section === 'hero' || section === 'intro') {
+      const sectionData = homepageContent[section];
+      updates = Object.entries(sectionData).map(([field, content]) => ({ field, content_zh: content.zh, content_en: content.en, content_ja: content.ja }));
+    } else if (section.startsWith('feature')) {
+      const idx = parseInt(section.replace('feature', '')) - 1;
+      const featureData = homepageContent.features[idx];
+      if (featureData) updates = Object.entries(featureData).map(([field, content]) => ({ field, content_zh: content.zh, content_en: content.en, content_ja: content.ja }));
+    }
+    try {
+      const res = await apiFetch('/api/admin/homepage-content/' + section, { method: 'PUT', body: JSON.stringify({ updates }) });
+      if (res.ok) { setHomepageSaved(prev => ({ ...prev, [section]: true })); setMessage({ type: 'success', text: section + ' saved' }); }
+      else throw new Error('Save failed');
+    } catch (err) { setMessage({ type: 'error', text: err instanceof Error ? err.message : 'Save failed' }); }
+    finally { setHomepageSaving(prev => ({ ...prev, [section]: false })); }
+  };
+
+  const updateHomepageField = (section: 'hero' | 'intro', field: string, lang: 'zh' | 'en' | 'ja', value: string) => {
+    if (!homepageContent) return;
+    setHomepageContent(prev => { if (!prev) return prev; return { ...prev, [section]: { ...prev[section], [field]: { ...prev[section][field], [lang]: value } } }; });
+  };
+
+  const updateHomepageFeature = (featureIdx: number, field: string, lang: 'zh' | 'en' | 'ja', value: string) => {
+    if (!homepageContent) return;
+    setHomepageContent(prev => { if (!prev) return prev; const features = [...prev.features]; features[featureIdx] = { ...features[featureIdx], [field]: { ...features[featureIdx][field], [lang]: value } }; return { ...prev, features }; });
+  };
+
   const resolveImageUrl = (url: string): string => {
     if (!url) return '';
     if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
@@ -817,6 +977,24 @@ export default function Admin() {
         >
           站点配置 ({siteSettings.length})
         </button>
+        <button
+          className={String('admin-tab-btn') + (activeTab === 'homepage' ? ' active' : '')}
+          onClick={() => { setActiveTab('homepage'); fetchHomepageContent(); }}
+        >
+          {t('admin.homepage')}
+        </button>
+        <button
+          className={String('admin-tab-btn') + (activeTab === 'contacts' ? ' active' : '')}
+          onClick={() => { setActiveTab('contacts'); fetchContacts(); }}
+        >
+          留言 ({contacts.length})
+        </button>
+        <button
+          className={String('admin-tab-btn') + (activeTab === 'contact-channels' ? ' active' : '')}
+          onClick={() => { setActiveTab('contact-channels'); fetchContactChannels(); }}
+        >
+          联系渠道 ({contactChannels.length})
+        </button>
       </div>
 
       {loading ? (
@@ -838,6 +1016,11 @@ export default function Admin() {
                         summary_key: '',
                         sort_order: activities.length + 1,
                         type: 'event',
+                        image_url: '',
+                        detail_content_zh: '',
+                        detail_content_en: '',
+                        detail_content_ja: '',
+                        related_link: '',
                       });
                       setShowActivityForm(true);
                     }}
@@ -916,6 +1099,37 @@ export default function Admin() {
                         <option value="event">普通活动 (event)</option>
                         <option value="call">创作征集 / 当前活动 (call)</option>
                       </select>
+                    </div>
+                    <div className="form-group">
+                      <label>{t('admin.activity_cover')}</label>
+                      {activityForm.image_url && (
+                        <div style={{ marginBottom: '0.5rem' }}>
+                          <img src={resolveImageUrl(activityForm.image_url)} alt="preview" style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 4 }} />
+                        </div>
+                      )}
+                      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                        <input type="text" value={activityForm.image_url} onChange={(e) => setActivityForm({ ...activityForm, image_url: e.target.value })} placeholder="/static/images/activities/xxx.jpg" style={{ flex: 1 }} />
+                        <label className="admin-btn admin-btn-secondary" style={{ cursor: uploadingImage ? 'not-allowed' : 'pointer', whiteSpace: 'nowrap' }}>
+                          {uploadingImage ? t('admin.uploading') : t('admin.upload')}
+                          <input type="file" accept=".jpg,.jpeg,.png,.webp" disabled={uploadingImage} onChange={handleActivityImageUpload} style={{ display: 'none' }} />
+                        </label>
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label>{t('admin.detail_zh')}</label>
+                      <textarea rows={4} value={activityForm.detail_content_zh} onChange={(e) => setActivityForm({ ...activityForm, detail_content_zh: e.target.value })} placeholder={t('admin.detail_zh')} />
+                    </div>
+                    <div className="form-group">
+                      <label>{t('admin.detail_en')}</label>
+                      <textarea rows={4} value={activityForm.detail_content_en} onChange={(e) => setActivityForm({ ...activityForm, detail_content_en: e.target.value })} placeholder={t('admin.detail_en')} />
+                    </div>
+                    <div className="form-group">
+                      <label>{t('admin.detail_ja')}</label>
+                      <textarea rows={4} value={activityForm.detail_content_ja} onChange={(e) => setActivityForm({ ...activityForm, detail_content_ja: e.target.value })} placeholder={t('admin.detail_ja')} />
+                    </div>
+                    <div className="form-group">
+                      <label>{t('admin.related_link')}</label>
+                      <input type="url" value={activityForm.related_link} onChange={(e) => setActivityForm({ ...activityForm, related_link: e.target.value })} placeholder="https://..." />
                     </div>
                     <div className="form-group">
                       <label htmlFor="act-order">排序权重 (数字越小越靠前)</label>
@@ -1171,6 +1385,11 @@ export default function Admin() {
                         description_en: '',
                         description_ja: '',
                         image_url: '',
+                        detail_content_zh: '',
+                        detail_content_en: '',
+                        detail_content_ja: '',
+                        related_link: '',
+                        metadata: {},
                         tag: 'acrylic',
                         sort_order: products.length + 1,
                       });
@@ -1353,6 +1572,44 @@ export default function Admin() {
                         }
                         placeholder="例: 両面アクリルスタンド..."
                       />
+                    </div>
+
+                    <div className="form-group">
+                      <label>{t('admin.detail_zh')}</label>
+                      <textarea rows={4} value={productForm.detail_content_zh} onChange={(e) => setProductForm({ ...productForm, detail_content_zh: e.target.value })} placeholder={t('admin.detail_zh')} />
+                    </div>
+                    <div className="form-group">
+                      <label>{t('admin.detail_en')}</label>
+                      <textarea rows={4} value={productForm.detail_content_en} onChange={(e) => setProductForm({ ...productForm, detail_content_en: e.target.value })} placeholder={t('admin.detail_en')} />
+                    </div>
+                    <div className="form-group">
+                      <label>{t('admin.detail_ja')}</label>
+                      <textarea rows={4} value={productForm.detail_content_ja} onChange={(e) => setProductForm({ ...productForm, detail_content_ja: e.target.value })} placeholder={t('admin.detail_ja')} />
+                    </div>
+                    <div className="form-group">
+                      <label>{t('admin.related_link')}</label>
+                      <input type="url" value={productForm.related_link} onChange={(e) => setProductForm({ ...productForm, related_link: e.target.value })} placeholder="https://..." />
+                    </div>
+
+                    <div className="form-group">
+                      <label>制品属性 (可选，如价格、作者、页数、开本等)</label>
+                      {Object.entries(productForm.metadata).map(([key, val]) => (
+                        <div key={key} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.4rem', alignItems: 'center' }}>
+                          <input type="text" value={key} readOnly style={{ width: '6em', background: 'var(--g-card-strong)' }} />
+                          <input type="text" value={val} onChange={(e) => setProductForm({ ...productForm, metadata: { ...productForm.metadata, [key]: e.target.value } })} style={{ flex: 1 }} />
+                          <button type="button" className="admin-btn admin-btn-danger" onClick={() => {
+                            const next = { ...productForm.metadata };
+                            delete next[key];
+                            setProductForm({ ...productForm, metadata: next });
+                          }}>✕</button>
+                        </div>
+                      ))}
+                      <button type="button" className="admin-btn admin-btn-secondary" onClick={() => {
+                        const label = window.prompt('属性名（如：价格、作者、页数、开本）');
+                        if (label && label.trim()) {
+                          setProductForm({ ...productForm, metadata: { ...productForm.metadata, [label.trim()]: '' } });
+                        }
+                      }}>+ 添加属性</button>
                     </div>
 
                     <div className="form-group">
@@ -1804,6 +2061,297 @@ export default function Admin() {
                                 删除
                               </button>
                             </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'homepage' && (
+            <div className="admin-section">
+              <div className="admin-section-header">
+                <h2 className="admin-section-title">{t('admin.homepage_content')}</h2>
+              </div>
+              {!homepageContent ? (
+                <div className="admin-loading">{t('admin.loading_homepage')}</div>
+              ) : (
+                <div>
+                  {/* Hero */}
+                  <div className="admin-accordion">
+                    <h3 className="admin-accordion-header">
+                      {t('admin.hero_section')}
+                      {homepageSaved['hero'] && <span className="admin-accordion-saved">{t('admin.save_success')}</span>}
+                    </h3>
+                    <div className="admin-accordion-body">
+                      <TrilingualField
+                        label={t('admin.title_field')}
+                        values={homepageContent.hero?.title || { zh: '', en: '', ja: '' }}
+                        onChange={(lang, val) => updateHomepageField('hero', 'title', lang, val)}
+                      />
+                      <TrilingualField
+                        label={t('admin.subtitle_field')}
+                        values={homepageContent.hero?.subtitle || { zh: '', en: '', ja: '' }}
+                        onChange={(lang, val) => updateHomepageField('hero', 'subtitle', lang, val)}
+                      />
+                      <div className="admin-accordion-actions">
+                        <button className="admin-btn admin-btn-primary" onClick={() => saveHomepageSection('hero')} disabled={homepageSaving['hero']}>
+                          {homepageSaving['hero'] ? t('admin.saving') : t('admin.save')}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Intro */}
+                  <div className="admin-accordion">
+                    <h3 className="admin-accordion-header">
+                      {t('admin.intro_section')}
+                      {homepageSaved['intro'] && <span className="admin-accordion-saved">{t('admin.save_success')}</span>}
+                    </h3>
+                    <div className="admin-accordion-body">
+                      <TrilingualField
+                        label={t('admin.paragraph1')}
+                        values={homepageContent.intro?.paragraph1 || { zh: '', en: '', ja: '' }}
+                        onChange={(lang, val) => updateHomepageField('intro', 'paragraph1', lang, val)}
+                        multiline
+                      />
+                      <TrilingualField
+                        label={t('admin.paragraph2')}
+                        values={homepageContent.intro?.paragraph2 || { zh: '', en: '', ja: '' }}
+                        onChange={(lang, val) => updateHomepageField('intro', 'paragraph2', lang, val)}
+                        multiline
+                      />
+                      <div className="admin-accordion-actions">
+                        <button className="admin-btn admin-btn-primary" onClick={() => saveHomepageSection('intro')} disabled={homepageSaving['intro']}>
+                          {homepageSaving['intro'] ? t('admin.saving') : t('admin.save')}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Features */}
+                  {homepageContent.features?.map((feature, idx) => (
+                    <div key={idx} className="admin-accordion">
+                      <h3 className="admin-accordion-header">
+                        {`${t('admin.feature')} ${idx + 1}`}
+                        {homepageSaved['feature' + (idx + 1)] && <span className="admin-accordion-saved">{t('admin.save_success')}</span>}
+                      </h3>
+                      <div className="admin-accordion-body">
+                        <TrilingualField
+                          label={t('admin.title_field')}
+                          values={feature?.title || { zh: '', en: '', ja: '' }}
+                          onChange={(lang, val) => updateHomepageFeature(idx, 'title', lang, val)}
+                        />
+                        <TrilingualField
+                          label={t('admin.description_field')}
+                          values={feature?.description || { zh: '', en: '', ja: '' }}
+                          onChange={(lang, val) => updateHomepageFeature(idx, 'description', lang, val)}
+                          multiline
+                        />
+                        <div className="admin-accordion-actions">
+                          <button className="admin-btn admin-btn-primary" onClick={() => saveHomepageSection('feature' + (idx + 1))} disabled={homepageSaving['feature' + (idx + 1)]}>
+                            {homepageSaving['feature' + (idx + 1)] ? t('admin.saving') : t('admin.save')}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeTab === 'contact-channels' && (
+            <div className="admin-section">
+              <div className="admin-section-header">
+                <h2 className="admin-section-title">联系渠道管理</h2>
+                {!showChannelForm && (
+                  <button
+                    onClick={() => {
+                      setEditingChannel(null);
+                      setChannelForm({ channel_key: '', badge: '', title_zh: '', title_en: '', title_ja: '', code: '', description_zh: '', description_en: '', description_ja: '', link: '', icon_svg: '', icon_color: '', sort_order: 0 });
+                      setShowChannelForm(true);
+                    }}
+                    className="admin-btn admin-btn-primary"
+                  >
+                    + 添加渠道
+                  </button>
+                )}
+              </div>
+
+              {showChannelForm && (
+                <form
+                  className="admin-form admin-form-panel"
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    setMessage(null);
+                    try {
+                      const payload = editingChannel ? { ...channelForm, id: editingChannel.id } : channelForm;
+                      const res = await apiFetch('/api/admin/contact-channels', {
+                        method: editingChannel ? 'PUT' : 'POST',
+                        body: JSON.stringify(payload),
+                      });
+                      if (res.ok) {
+                        setMessage({ type: 'success', text: editingChannel ? '渠道更新成功' : '渠道添加成功' });
+                        setShowChannelForm(false);
+                        setEditingChannel(null);
+                        fetchContactChannels();
+                      } else { throw new Error('操作失败'); }
+                    } catch (err) {
+                      setMessage({ type: 'error', text: err instanceof Error ? err.message : '操作失败' });
+                    }
+                  }}
+                >
+                  <div className="form-group">
+                    <label>渠道标识 (channel_key)</label>
+                    <input value={channelForm.channel_key} onChange={(e) => setChannelForm({ ...channelForm, channel_key: e.target.value })} required />
+                  </div>
+                  <div className="form-group">
+                    <label>徽章文字 (badge)</label>
+                    <input value={channelForm.badge} onChange={(e) => setChannelForm({ ...channelForm, badge: e.target.value })} />
+                  </div>
+                  <TrilingualField label="标题" values={{ zh: channelForm.title_zh, en: channelForm.title_en, ja: channelForm.title_ja }} onChange={(lang, val) => setChannelForm({ ...channelForm, [`title_${lang}`]: val })} />
+                  <div className="form-group">
+                    <label>代号 (code)</label>
+                    <input value={channelForm.code} onChange={(e) => setChannelForm({ ...channelForm, code: e.target.value })} />
+                  </div>
+                  <TrilingualField label="描述" values={{ zh: channelForm.description_zh, en: channelForm.description_en, ja: channelForm.description_ja }} onChange={(lang, val) => setChannelForm({ ...channelForm, [`description_${lang}`]: val })} multiline />
+                  <div className="form-group">
+                    <label>链接 (link)</label>
+                    <input value={channelForm.link} onChange={(e) => setChannelForm({ ...channelForm, link: e.target.value })} />
+                  </div>
+                  <div className="form-group">
+                    <label>图标颜色 (icon_color)</label>
+                    <input value={channelForm.icon_color} onChange={(e) => setChannelForm({ ...channelForm, icon_color: e.target.value })} placeholder="vermilion / teal / discord" />
+                  </div>
+                  <div className="form-group">
+                    <label>排序</label>
+                    <input type="number" value={channelForm.sort_order} onChange={(e) => setChannelForm({ ...channelForm, sort_order: Number(e.target.value) })} />
+                  </div>
+                  <div className="admin-form-actions">
+                    <button type="submit" className="admin-btn admin-btn-primary">{editingChannel ? '更新' : '添加'}</button>
+                    <button type="button" className="admin-btn admin-btn-secondary" onClick={() => { setShowChannelForm(false); setEditingChannel(null); }}>取消</button>
+                  </div>
+                </form>
+              )}
+
+              <div className="admin-table-container">
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>标识</th>
+                      <th>徽章</th>
+                      <th>标题 (zh)</th>
+                      <th>代号</th>
+                      <th>链接</th>
+                      <th>排序</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {contactChannels.length === 0 ? (
+                      <tr><td colSpan={8} style={{ textAlign: 'center', padding: '1.5rem' }}>暂无渠道</td></tr>
+                    ) : (
+                      contactChannels.map((ch) => (
+                        <tr key={ch.id}>
+                          <td>{ch.id}</td>
+                          <td>{ch.channel_key}</td>
+                          <td>{ch.badge}</td>
+                          <td>{ch.title_zh}</td>
+                          <td>{ch.code}</td>
+                          <td><a href={ch.link} target="_blank" rel="noopener noreferrer">{ch.link.substring(0, 30)}...</a></td>
+                          <td>{ch.sort_order}</td>
+                          <td>
+                            <button
+                              className="admin-btn admin-btn-secondary"
+                              onClick={() => {
+                                setEditingChannel(ch);
+                                setChannelForm({ channel_key: ch.channel_key, badge: ch.badge, title_zh: ch.title_zh, title_en: ch.title_en, title_ja: ch.title_ja, code: ch.code, description_zh: ch.description_zh, description_en: ch.description_en, description_ja: ch.description_ja, link: ch.link, icon_svg: ch.icon_svg, icon_color: ch.icon_color, sort_order: ch.sort_order });
+                                setShowChannelForm(true);
+                              }}
+                            >
+                              编辑
+                            </button>
+                            <button
+                              className="admin-btn admin-btn-danger"
+                              style={{ marginLeft: '0.5rem' }}
+                              onClick={async () => {
+                                if (!window.confirm('确定要删除此渠道吗？')) return;
+                                try {
+                                  const res = await apiFetch(`/api/admin/contact-channels/delete?id=${ch.id}`, { method: 'DELETE' });
+                                  if (res.ok) {
+                                    setMessage({ type: 'success', text: '渠道已删除' });
+                                    fetchContactChannels();
+                                  } else { throw new Error('删除失败'); }
+                                } catch (err) {
+                                  setMessage({ type: 'error', text: err instanceof Error ? err.message : '删除失败' });
+                                }
+                              }}
+                            >
+                              删除
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'contacts' && (
+            <div className="admin-section">
+              <div className="admin-section-header">
+                <h2 className="admin-section-title">留言/联系表单</h2>
+              </div>
+              <div className="admin-table-container">
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>姓名</th>
+                      <th>邮箱</th>
+                      <th>留言</th>
+                      <th>时间</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {contacts.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} style={{ textAlign: 'center', padding: '1.5rem' }}>
+                          暂无留言
+                        </td>
+                      </tr>
+                    ) : (
+                      contacts.map((c) => (
+                        <tr key={c.id}>
+                          <td>{c.id}</td>
+                          <td>{c.name}</td>
+                          <td><a href={`mailto:${c.email}`}>{c.email}</a></td>
+                          <td style={{ maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={c.message}>{c.message}</td>
+                          <td>{new Date(c.created_at).toLocaleString()}</td>
+                          <td>
+                            <button
+                              onClick={async () => {
+                                if (!window.confirm('确定要删除此留言吗？')) return;
+                                try {
+                                  const res = await apiFetch(`/api/admin/contacts/delete?id=${c.id}`, { method: 'DELETE' });
+                                  if (res.ok) {
+                                    setMessage({ type: 'success', text: '留言已删除' });
+                                    fetchContacts();
+                                  } else { throw new Error('删除失败'); }
+                                } catch (err) {
+                                  setMessage({ type: 'error', text: err instanceof Error ? err.message : '删除失败' });
+                                }
+                              }}
+                              className="admin-btn admin-btn-danger"
+                            >
+                              删除
+                            </button>
                           </td>
                         </tr>
                       ))

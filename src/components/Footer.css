@@ -1,7 +1,7 @@
 .site-footer {
     border-top: 1px solid var(--g-vermilion-line);
     background:
-        radial-gradient(ellipse 70% 100% at 50% 0%, rgba(201, 151, 56, 0.06), transparent 70%),
+        radial-gradient(ellipse 70% 100% at 50% 0%, rgba(201, 160, 74, 0.06), transparent 70%),
         var(--g-card);
     color: var(--g-ink-soft);
     font-size: 0.9rem;

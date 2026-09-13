@@ -16,7 +16,7 @@ describe('Header', () => {
 
     expect(screen.getByText('欢迎')).toBeInTheDocument();
     expect(screen.getByText('主页')).toBeInTheDocument();
-    expect(screen.getByText('产品')).toBeInTheDocument();
+    expect(screen.getByText('制品')).toBeInTheDocument();
     expect(screen.getByText('联系我们')).toBeInTheDocument();
   });
 

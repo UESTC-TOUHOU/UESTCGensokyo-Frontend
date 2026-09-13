@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { getApiBase } from '../config';
 import './Activities.css';
 
@@ -13,10 +14,16 @@ type ActivityItem = {
   summary_key: string;
   sort_order: number;
   type: string;
+  image_url: string;
+  detail_content_zh: string;
+  detail_content_en: string;
+  detail_content_ja: string;
+  related_link: string;
 };
 
 function Activities() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [activities, setActivities] = useState<ActivityItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -51,6 +58,12 @@ function Activities() {
     const direct = t(key);
     if (direct && direct !== key) return direct;
     return key;
+  };
+
+  const resolveImageUrl = (url: string): string => {
+    if (!url) return '';
+    if (url.startsWith('http')) return url;
+    return API_BASE ? API_BASE + url : url;
   };
 
   const calls = activities.filter((a) => a.type === 'call');
@@ -93,8 +106,18 @@ function Activities() {
           <h2 className="section-title">{t('activities.calls_title')}</h2>
           <div className="activities-calls-grid">
             {calls.map((act) => (
-              <article key={act.id} className="activity-card activity-card--call">
+              <article
+                key={act.id}
+                className="activity-card activity-card--call"
+                onClick={() => navigate('/activities/' + act.id)}
+                style={{ cursor: 'pointer' }}
+              >
                 <div className="activity-call-badge">{t('activities.call_badge')}</div>
+                {act.image_url && (
+                  <div className="activity-card-image">
+                    <img src={resolveImageUrl(act.image_url)} alt={translateKey(act.title_key, 'activities_data')} loading="lazy" />
+                  </div>
+                )}
                 <div className="card-top">
                   <span className="activity-date">
                     <span className="meta-label">{t('homepage.date')}:</span> {act.date}
@@ -126,7 +149,17 @@ function Activities() {
             <h3 className="activities-year-label">{year}</h3>
             <div className="activities-grid">
               {eventsByYear[year].map((act) => (
-                <article key={act.id} className="activity-card">
+                <article
+                  key={act.id}
+                  className="activity-card"
+                  onClick={() => navigate('/activities/' + act.id)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {act.image_url && (
+                    <div className="activity-card-image">
+                      <img src={resolveImageUrl(act.image_url)} alt={translateKey(act.title_key, 'activities_data')} loading="lazy" />
+                    </div>
+                  )}
                   <div className="card-top">
                     <span className="activity-date">
                       <span className="meta-label">{t('homepage.date')}:</span> {act.date}
