@@ -95,14 +95,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 6px rgba(201, 151, 56, 0.2);
+    box-shadow: 0 0 6px rgba(201, 160, 74, 0.2);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .lang-btn:hover {
     transform: translateY(-2px) scale(1.05);
     border-color: var(--color-accent-gold, #C99738);
-    box-shadow: 0 0 12px rgba(201, 151, 56, 0.45);
+    box-shadow: 0 0 12px rgba(201, 160, 74, 0.45);
     color: var(--color-primary-dark, #1E4D4A);
 }
 
@@ -110,7 +110,7 @@
     background: linear-gradient(135deg, var(--color-primary, #2F7571), var(--color-primary-dark, #1E4D4A));
     color: #FFF9F2;
     border-color: var(--color-accent-gold, #C99738);
-    box-shadow: 0 0 10px rgba(47, 117, 113, 0.4), 0 0 4px rgba(201, 151, 56, 0.3);
+    box-shadow: 0 0 10px rgba(42, 107, 94, 0.4), 0 0 4px rgba(201, 160, 74, 0.3);
     cursor: default;
 }
 
@@ -127,13 +127,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 6px rgba(201, 151, 56, 0.2);
+    box-shadow: 0 0 6px rgba(201, 160, 74, 0.2);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .theme-toggle:hover {
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 0 12px rgba(201, 151, 56, 0.45);
+    box-shadow: 0 0 12px rgba(201, 160, 74, 0.45);
 }
 
 /* ---- 汉堡按钮（默认隐藏） ---- */

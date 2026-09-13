@@ -1,0 +1,157 @@
+/* ============================================================
+   UESTC幻想乡 — 详情页共享样式 (ActivityDetail / ProductDetail)
+   设计规范见 DESIGN-SYSTEM.md
+   ============================================================ */
+
+.detail-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* 返回按钮 */
+.detail-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: 1px solid var(--g-vermilion-line);
+  padding: 0.5rem 1rem;
+  border-radius: var(--g-radius-sm);
+  cursor: pointer;
+  font-family: var(--g-font-sans);
+  font-size: 0.9rem;
+  color: var(--g-ink);
+  margin-bottom: 1.5rem;
+  transition: all 0.2s;
+}
+
+.detail-back-btn:hover {
+  border-color: var(--g-vermilion);
+  color: var(--g-vermilion);
+  background: var(--g-vermilion-line);
+}
+
+/* 主图容器 — 响应式 */
+.detail-hero-image {
+  width: 100%;
+  border-radius: var(--g-radius);
+  margin-bottom: 1.5rem;
+  background: var(--g-card-strong);
+  overflow: hidden;
+}
+
+.detail-hero-image img {
+  width: 100%;
+  max-height: clamp(280px, 55vw, 520px);
+  object-fit: contain;
+  display: block;
+}
+
+/* 标题 */
+.detail-title {
+  font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+  margin: 0 0 0.75rem;
+  color: var(--g-ink);
+  font-family: var(--g-font-serif);
+}
+
+/* 元信息行 */
+.detail-meta {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  font-size: 0.88rem;
+  color: var(--g-ink-soft);
+}
+
+.detail-meta-tag {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--g-radius-sm);
+  font-size: 0.8rem;
+  background: var(--g-vermilion-line);
+  color: var(--g-vermilion);
+}
+
+/* 摘要段落 */
+.detail-summary {
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+  color: var(--g-ink);
+}
+
+/* 详情正文 */
+.detail-body {
+  line-height: 1.85;
+  margin-bottom: 2rem;
+}
+
+.detail-body p {
+  margin-bottom: 1rem;
+  color: var(--g-ink);
+}
+
+/* 相关链接按钮 */
+.detail-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--g-radius-sm);
+  background: var(--g-vermilion);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.detail-link-btn:hover {
+  background: var(--g-vermilion-deep);
+  color: #fff;
+}
+
+/* 响应式 */
+@media (max-width: 480px) {
+  .detail-page {
+    padding: 1.25rem 1rem;
+  }
+
+  .detail-hero-image {
+    border-radius: var(--g-radius-sm);
+    max-height: clamp(180px, 60vw, 300px);
+  }
+}
+
+/* 制品元数据表（价格、作者、页数等） */
+.detail-meta-table {
+  margin: 0.75rem 0 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--g-card);
+  border: 1px solid var(--g-vermilion-line);
+  border-radius: var(--g-radius-sm);
+}
+
+.detail-meta-row {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.35rem 0;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--g-vermilion-line);
+}
+
+.detail-meta-row:last-child {
+  border-bottom: none;
+}
+
+.detail-meta-label {
+  min-width: 5em;
+  color: var(--g-ink-soft);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.detail-meta-value {
+  color: var(--g-ink);
+}

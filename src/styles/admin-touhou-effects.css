@@ -9,9 +9,9 @@
 .spellcard-backup {
   position: relative;
   background: linear-gradient(135deg,
-    rgba(201, 151, 56, 0.03) 0%,
+    rgba(201, 160, 74, 0.03) 0%,
     transparent 50%,
-    rgba(47, 117, 113, 0.03) 100%);
+    rgba(42, 107, 94, 0.03) 100%);
   border: 2px solid transparent;
   border-image: linear-gradient(
     135deg,

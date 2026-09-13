@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SpellCardFrame from '../components/SpellCardFrame';
 import { getApiBase } from '../config';
 import './Products.css';
@@ -18,11 +19,12 @@ export type Product = {
   image_url: string;
   tag?: string;
   sort_order: number;
+  metadata?: Record<string, string>;
 };
 
 const API_BASE = getApiBase();
 
-export const FALLBACK_PRODUCTS: Product[] = [
+const FALLBACK_PRODUCTS: Product[] = [
   {
     id: 1,
     name: 'products.doujinshi_yanyin_title',
@@ -180,6 +182,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
 
 function Products() {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>(FALLBACK_PRODUCTS);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -293,21 +296,23 @@ function Products() {
           const { tagKey, tagLabel } = getTagInfo(product);
 
           return (
-            <SpellCardFrame variant="gold" className="product-card" key={product.id}>
-              <div className="product-image-wrap">
-                {tagLabel && <span className={`product-tag tag-${tagKey}`}>{tagLabel}</span>}
-                <img
-                  src={resolveImageUrl(product.image_url)}
-                  alt={title}
-                  loading="lazy"
-                  className="product-img"
-                />
-              </div>
-              <div className="card-content">
-                <h3 className="product-title">{title}</h3>
-                <p className="product-desc">{desc}</p>
-              </div>
-            </SpellCardFrame>
+            <div key={product.id} onClick={() => navigate('/products/' + product.id)} style={{ cursor: 'pointer' }}>
+              <SpellCardFrame variant="gold" className="product-card">
+                <div className="product-image-wrap">
+                  {tagLabel && <span className={`product-tag tag-${tagKey}`}>{tagLabel}</span>}
+                  <img
+                    src={resolveImageUrl(product.image_url)}
+                    alt={title}
+                    loading="lazy"
+                    className="product-img"
+                  />
+                </div>
+                <div className="card-content">
+                  <h3 className="product-title">{title}</h3>
+                  <p className="product-desc">{desc}</p>
+                </div>
+              </SpellCardFrame>
+            </div>
           );
         })}
       </div>
