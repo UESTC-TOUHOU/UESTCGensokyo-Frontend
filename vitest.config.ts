@@ -16,6 +16,8 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: [fileURLToPath(new URL('./src/test/setup.ts', import.meta.url))],
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    exclude: ['node_modules', 'dist', 'touhou-web-engine', 'public'],
     css: false,
   },
 });
