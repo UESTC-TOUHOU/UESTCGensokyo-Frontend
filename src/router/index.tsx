@@ -7,6 +7,7 @@ import Products from '../pages/Products';
 import Contact from '../pages/Contact';
 import Admin from '../pages/Admin';
 import AdminLogin from '../pages/AdminLogin';
+import TH08 from '../pages/TH08';
 
 const router = createBrowserRouter(
   [
@@ -41,6 +42,10 @@ const router = createBrowserRouter(
         {
           path: 'admin/login',
           element: <AdminLogin />,
+        },
+        {
+          path: 'th08',
+          element: <TH08 />,
         },
       ],
     },
