@@ -1,22 +1,17 @@
 /* ============================================================
    TH08 (东方永夜抄) — 游戏页面样式
-   Canvas 全屏显示在 Layout 内容区，黑色背景
+   Canvas 全屏居中在 Layout 内容区，黑色暗色调，支持移动端适配与安全区
    ============================================================ */
 
 /* 页面外层容器：占满 Layout 内容区（视口高度减去导航栏高度） */
-.th08-container,
-.th08-page,
-.th08-view,
-.th08-game,
-.th08-wrapper,
-#game-root {
+.th08-container {
   width: 100%;
   height: calc(100vh - var(--g-header-h, 64px));
   height: calc(100dvh - var(--g-header-h, 64px));
   max-width: 100vw;
   margin: 0;
-  padding: 0;
-  background-color: #000000;
+  padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+  background-color: #05040a;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,22 +20,19 @@
   box-sizing: border-box;
 }
 
-/* 内部画布容器（保持 4:3 比例或填满） */
+/* 内部游戏宿主容器：保持 4:3 比例，限制在最大视口内 */
 .th08-canvas-container,
-.th08-container #game-root,
-.th08-page #game-root,
-.th08-game #game-root,
-.th08-wrapper #game-root {
+#game-root.th08-canvas-container {
   position: relative;
-  width: min(100%, calc((100vh - var(--g-header-h, 64px)) * 4 / 3));
-  height: min(calc(100vh - var(--g-header-h, 64px)), calc(100vw * 3 / 4));
+  width: min(100vw, calc((100dvh - var(--g-header-h, 64px)) * 4 / 3));
+  height: min(calc(100dvh - var(--g-header-h, 64px)), calc(100vw * 3 / 4));
   aspect-ratio: 4 / 3;
   max-width: 100%;
   max-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #000000;
+  background-color: #0b0a12;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
@@ -48,49 +40,96 @@
   box-sizing: border-box;
 }
 
-/* Layout 内容区在进入 TH08 时无内边距/外边距并保持黑色背景 */
-main:has(.th08-container),
-main:has(.th08-page),
-main:has(.th08-view),
-main:has(.th08-game),
-main:has(.th08-wrapper),
-main:has(.th08-canvas-container),
-main:has(#game-root),
-main:has(canvas.th08-canvas) {
-  background-color: #000000;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-/* 隐藏页脚以确保 Canvas 全屏占满 Layout 内容区 */
-body:has(.th08-container) .site-footer,
-body:has(.th08-page) .site-footer,
-body:has(.th08-view) .site-footer,
-body:has(.th08-game) .site-footer,
-body:has(.th08-wrapper) .site-footer,
-body:has(.th08-canvas-container) .site-footer,
-body:has(#game-root) .site-footer,
-body:has(canvas.th08-canvas) .site-footer {
-  display: none !important;
-}
-
-/* Canvas：全屏显示在 Layout 内容区，黑色背景 */
+/* Canvas：居中不拉伸，保持 contain */
 .th08-container canvas,
-.th08-page canvas,
-.th08-view canvas,
-.th08-game canvas,
-.th08-wrapper canvas,
 .th08-canvas-container canvas,
-#game-root canvas,
-canvas.th08-canvas,
-.th08-canvas {
+#game-root canvas {
   display: block;
   width: 100% !important;
   height: 100% !important;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  background-color: #000000;
+  background-color: #0b0a12;
   margin: 0 auto;
+}
+
+/* 页面加载指示器 */
+.th08-loading {
+  width: 100%;
+  height: calc(100dvh - var(--g-header-h, 64px));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--g-vermilion, #c41e3a);
+  font-family: var(--font-title, serif);
+  font-size: 1.25rem;
+  letter-spacing: 0.1em;
+  background-color: #05040a;
+}
+
+/* 初始化失败重试面板 */
+.th08-error-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(12, 11, 22, 0.94);
+  backdrop-filter: blur(8px);
+  color: #e8dcc8;
+  text-align: center;
+  border: 1px solid rgba(196, 30, 58, 0.4);
+}
+
+.th08-error-title {
+  margin: 0 0 1rem;
+  color: #e65c5c;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-family: var(--font-title, serif);
+  letter-spacing: 0.05em;
+}
+
+.th08-error-message {
+  margin: 0 0 1.5rem;
+  max-width: 480px;
+  font-size: 0.9rem;
+  color: #a69a9d;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.th08-retry-btn {
+  padding: 0.6rem 1.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffeec4;
+  background: linear-gradient(135deg, rgba(196, 30, 58, 0.8), rgba(91, 184, 179, 0.6));
+  border: 1px solid #d4a94e;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-height: 44px;
+}
+
+.th08-retry-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(212, 169, 78, 0.35);
+  background: linear-gradient(135deg, rgba(196, 30, 58, 1), rgba(91, 184, 179, 0.8));
+}
+
+/* Layout 内容区在进入 TH08 时无外边距保持纯净沉浸感 */
+main:has(.th08-container) {
+  background-color: #05040a;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* 隐藏页脚以确保游戏占满视口 */
+body:has(.th08-container) .site-footer {
+  display: none !important;
 }

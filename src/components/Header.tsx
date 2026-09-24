@@ -66,6 +66,7 @@ function Header() {
           <NavLink to="/home" onClick={() => setMenuOpen(false)}>{t('header.homepage')}</NavLink>
           <NavLink to="/activities" onClick={() => setMenuOpen(false)}>{t('header.activities')}</NavLink>
           <NavLink to="/products" onClick={() => setMenuOpen(false)}>{t('header.products')}</NavLink>
+          <NavLink to="/th08" onClick={() => setMenuOpen(false)}>{t('header.th08')}</NavLink>
           <NavLink to="/contact" onClick={() => setMenuOpen(false)}>{t('header.contact')}</NavLink>
         </nav>
 

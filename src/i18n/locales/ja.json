@@ -4,7 +4,13 @@
     "homepage": "ホームページ",
     "activities": "活動",
     "products": "製品",
+    "th08": "永夜抄新典（誤）",
     "contact": "お問い合わせ"
+  },
+  "th08": {
+    "title": "東方永夜抄 ~ Imperishable Night (Web)",
+    "error_title": "ゲームの起動に失敗しました",
+    "retry": "再試行"
   },
   "welcome": {
     "title": "ようこそ UESTC幻想郷へ",

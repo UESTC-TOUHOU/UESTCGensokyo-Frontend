@@ -25,3 +25,12 @@ dist-ssr
 *.sw?
 .idea
 dist/*
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Engine artifacts and local checkout
+touhou-web-engine
+public/th08-assets

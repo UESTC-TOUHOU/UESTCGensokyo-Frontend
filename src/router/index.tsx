@@ -8,10 +8,9 @@ import Products from '../pages/Products';
 import Contact from '../pages/Contact';
 import Admin from '../pages/Admin';
 import AdminLogin from '../pages/AdminLogin';
-import TH08 from '../pages/TH08';
-
 const ActivityDetail = lazy(() => import('../pages/ActivityDetail'));
 const ProductDetail = lazy(() => import('../pages/ProductDetail'));
+const TH08 = lazy(() => import('../pages/TH08'));
 
 const router = createBrowserRouter(
   [
@@ -57,7 +56,7 @@ const router = createBrowserRouter(
         },
         {
           path: 'th08',
-          element: <TH08 />,
+          element: <Suspense fallback={<div className="th08-loading">Loading...</div>}><TH08 /></Suspense>,
         },
       ],
     },
