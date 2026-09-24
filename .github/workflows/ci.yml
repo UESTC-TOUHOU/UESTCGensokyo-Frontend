@@ -28,7 +28,7 @@ jobs:
       - name: Link engine locally
         run: |
           cd ./touhou-web-engine && bun link
-          bun link @uestc-touhou/touhou-web-engine
+          cd .. && bun link @uestc-touhou/touhou-web-engine
 
       - name: Copy engine assets
         run: mkdir -p public/th08-assets && cp -r ./touhou-web-engine/dist/* public/th08-assets/
