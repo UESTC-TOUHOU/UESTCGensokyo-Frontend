@@ -1,0 +1,1 @@
+{"version":3,"file":"Wav.d.ts","sourceRoot":"","sources":["../../../src/engine/audio/Wav.ts"],"names":[],"mappings":"AAAA;;;;;;;;GAQG;AAEH,MAAM,WAAW,OAAO;IACtB,UAAU,EAAE,MAAM,CAAC;IACnB,uCAAuC;IACvC,QAAQ,EAAE,MAAM,CAAC;IACjB,qDAAqD;IACrD,OAAO,EAAE,YAAY,CAAC;CACvB;AAkBD;;;;;;GAMG;AACH,wBAAgB,QAAQ,CAAC,KAAK,EAAE,UAAU,GAAG,OAAO,GAAG,IAAI,CA8C1D"}

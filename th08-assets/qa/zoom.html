@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <title>QA zoom</title>
+    <style>
+      body { margin: 0; background: #0a0a12; color: #cfc8d6; font: 12px/1.5 monospace; }
+      header { padding: 6px 10px; border-bottom: 1px solid #2c2c3a; }
+      #wrap { padding: 10px; }
+      canvas { image-rendering: pixelated; background: #000; display: block; }
+    </style>
+  </head>
+  <body>
+    <header id="info">loading…</header>
+    <div id="wrap"><canvas id="out" width="640" height="480"></canvas></div>
+    <script>
+      // Crop a region of a screenshot and upscale it with no smoothing, so a
+      // browser shot can be inspected at pixel level without leaving the page.
+      const q = new URLSearchParams(location.search);
+      const src = q.get('src') || 'shot.jpg';
+      const x = Number(q.get('x') || 0);
+      const y = Number(q.get('y') || 0);
+      const w = Number(q.get('w') || 0);
+      const h = Number(q.get('h') || 0);
+      const k = Number(q.get('k') || 4);
+      const img = new Image();
+      img.onload = () => {
+        const cw = w || img.width;
+        const ch = h || img.height;
+        const out = document.getElementById('out');
+        out.width = cw * k;
+        out.height = ch * k;
+        const c = out.getContext('2d');
+        c.imageSmoothingEnabled = false;
+        c.drawImage(img, x, y, cw, ch, 0, 0, cw * k, ch * k);
+        document.getElementById('info').textContent =
+          src + ' crop ' + x + ',' + y + ' ' + cw + 'x' + ch + ' at ' + k + 'x (source ' + img.width + 'x' + img.height + ')';
+      };
+      img.onerror = () => {
+        document.getElementById('info').textContent = 'failed to load ' + src;
+      };
+      img.src = src;
+    </script>
+  </body>
+</html>
