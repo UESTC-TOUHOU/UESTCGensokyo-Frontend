@@ -4,7 +4,13 @@
     "homepage": "Home",
     "activities": "Activities",
     "products": "Products",
+    "th08": "Imperishable Night",
     "contact": "Contact"
+  },
+  "th08": {
+    "title": "Touhou 08 ~ Imperishable Night (Web)",
+    "error_title": "Failed to load game",
+    "retry": "Retry"
   },
   "welcome": {
     "title": "Welcome to UESTC Gensokyo",

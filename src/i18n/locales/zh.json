@@ -4,7 +4,13 @@
     "homepage": "主页",
     "activities": "活动",
     "products": "制品",
+    "th08": "永夜抄新典（误）",
     "contact": "联系我们"
+  },
+  "th08": {
+    "title": "东方永夜抄 ~ Imperishable Night (Web)",
+    "error_title": "游戏启动失败",
+    "retry": "重新尝试"
   },
   "welcome": {
     "title": "欢迎来到 UESTC幻想乡",
