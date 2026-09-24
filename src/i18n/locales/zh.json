@@ -3,7 +3,7 @@
     "welcome": "欢迎",
     "homepage": "主页",
     "activities": "活动",
-    "products": "产品",
+    "products": "制品",
     "contact": "联系我们"
   },
   "welcome": {
@@ -138,6 +138,37 @@
     "status_sending": "发送中...",
     "status_success": "发送成功！",
     "status_error": "发送失败，请重试。"
+  },
+  "common": {
+    "back": "返回",
+    "loading": "加载中...",
+    "not_found": "页面未找到"
+  },
+  "detail": {
+    "relatedLink": "相关链接"
+  },
+  "admin": {
+    "homepage": "主页配置",
+    "homepage_content": "主页内容编辑",
+    "hero_section": "Hero 区块",
+    "intro_section": "简介区块",
+    "feature": "特色卡片",
+    "save": "保存",
+    "saving": "保存中...",
+    "save_success": "✓",
+    "loading_homepage": "正在加载主页内容...",
+    "title_field": "标题",
+    "subtitle_field": "副标题",
+    "paragraph1": "段落一",
+    "paragraph2": "段落二",
+    "description_field": "描述",
+    "activity_cover": "活动封面图",
+    "detail_zh": "详情（中文）",
+    "detail_en": "详情（英文）",
+    "detail_ja": "详情（日文）",
+    "related_link": "相关链接（可选）",
+    "upload": "上传",
+    "uploading": "上传中..."
   },
   "footer": {
     "copyright": "© 2026 UESTC幻想乡。保留所有权利。",

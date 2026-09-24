@@ -73,13 +73,13 @@
 .product-tag.tag-doujinshi {
     background: var(--g-vermilion, #8E1E26);
     color: #fff;
-    border: 1px solid rgba(201, 151, 56, 0.6);
+    border: 1px solid rgba(201, 160, 74, 0.6);
 }
 
 .product-tag.tag-poster {
     background: var(--g-teal, #2F7571);
     color: #fff;
-    border: 1px solid rgba(244, 197, 66, 0.5);
+    border: 1px solid rgba(201, 160, 74, 0.5);
 }
 
 .product-tag.tag-bookmark {
@@ -130,14 +130,14 @@
 
 .products-loading {
     color: var(--g-teal, #2F7571);
-    background-color: rgba(47, 117, 113, 0.08);
-    border: 1px dashed rgba(47, 117, 113, 0.35);
+    background-color: rgba(42, 107, 94, 0.08);
+    border: 1px dashed rgba(42, 107, 94, 0.35);
 }
 
 .products-error {
-    color: var(--g-vermilion, #8E1E26);
-    background-color: rgba(142, 30, 38, 0.08);
-    border: 1px dashed rgba(142, 30, 38, 0.35);
+    color: var(--g-vermilion, #9E2A2B);
+    background-color: var(--g-vermilion-line);
+    border: 1px dashed rgba(158, 42, 43, 0.35);
 }
 
 .products-footer-note {

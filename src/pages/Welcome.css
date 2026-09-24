@@ -72,7 +72,7 @@
 .seal-ring-inner {
     width: 82%;
     height: 82%;
-    border: 2px solid rgba(47, 117, 113, 0.28);
+    border: 2px solid rgba(42, 107, 94, 0.28);
     animation: ring-spin-ccw 35s linear infinite;
 }
 
@@ -133,7 +133,7 @@
     border-radius: 50%;
     object-fit: cover;
     animation: logo-spin 24s linear infinite, logo-breathe-glow 4s ease-in-out infinite;
-    box-shadow: 0 0 18px rgba(47, 117, 113, 0.25);
+    box-shadow: 0 0 18px rgba(42, 107, 94, 0.25);
     transition: filter 0.3s ease;
 }
 
@@ -148,10 +148,10 @@
 
 @keyframes logo-breathe-glow {
     0%, 100% {
-        box-shadow: 0 0 16px rgba(47, 117, 113, 0.25);
+        box-shadow: 0 0 16px rgba(42, 107, 94, 0.25);
     }
     50% {
-        box-shadow: 0 0 28px rgba(47, 117, 113, 0.55), 0 0 12px rgba(201, 151, 56, 0.4);
+        box-shadow: 0 0 28px rgba(42, 107, 94, 0.55), 0 0 12px rgba(201, 160, 74, 0.4);
     }
 }
 
@@ -176,7 +176,7 @@
     background: linear-gradient(135deg, var(--g-vermilion, #8E1E26), var(--g-vermilion-deep, #6B161C));
     border: 1px solid var(--g-gold, #C99738);
     border-radius: var(--g-radius-sm, 4px);
-    box-shadow: 0 4px 16px rgba(142, 30, 38, 0.32), 0 0 12px rgba(201, 151, 56, 0.25);
+    box-shadow: 0 4px 16px rgba(158, 42, 43, 0.25), 0 0 12px rgba(200, 152, 56, 0.25);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -189,13 +189,13 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(201, 151, 56, 0.35), transparent);
+    background: linear-gradient(90deg, transparent, rgba(200, 152, 56, 0.35), transparent);
     transition: left 0.5s ease;
 }
 
 .welcome-cta:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(142, 30, 38, 0.42), 0 0 20px rgba(201, 151, 56, 0.4);
+    box-shadow: 0 8px 24px rgba(158, 42, 43, 0.35), 0 0 20px rgba(200, 152, 56, 0.4);
     border-color: #E8C172;
     color: #FFFFFF;
 }

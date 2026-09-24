@@ -82,8 +82,15 @@ const FALLBACK_MEMBERS: MemberItem[] = [
   },
 ];
 
+type HomepageField = { zh: string; en: string; ja: string };
+type HomepageContentData = {
+  hero: Record<string, HomepageField>;
+  intro: Record<string, HomepageField>;
+  features: Array<Record<string, HomepageField>>;
+} | null;
+
 function Homepage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [activities, setActivities] = useState<ActivityItem[]>(FALLBACK_ACTIVITIES);
   const [activitiesLoading, setActivitiesLoading] = useState(true);
@@ -93,8 +100,39 @@ function Homepage() {
   const [membersLoading, setMembersLoading] = useState(true);
   const [membersError, setMembersError] = useState(false);
 
+  const [hpContent, setHpContent] = useState<HomepageContentData>(null);
+
+  // Helper: pick language from a trilingual field, fallback to i18n key
+  const hp = (section: 'hero' | 'intro', field: string, fallbackKey: string): string => {
+    if (hpContent) {
+      const lang = (i18n.language || 'zh').startsWith('en') ? 'en' : (i18n.language || 'zh').startsWith('ja') ? 'ja' : 'zh';
+      const val = hpContent[section]?.[field]?.[lang];
+      if (val) return val;
+    }
+    return t(fallbackKey);
+  };
+
+  const hpFeature = (idx: number, field: string, fallbackKey: string): string => {
+    if (hpContent?.features?.[idx]) {
+      const lang = (i18n.language || 'zh').startsWith('en') ? 'en' : (i18n.language || 'zh').startsWith('ja') ? 'ja' : 'zh';
+      const val = hpContent.features[idx]?.[field]?.[lang];
+      if (val) return val;
+    }
+    return t(fallbackKey);
+  };
+
   useEffect(() => {
     let active = true;
+
+    fetch(`${API_BASE}/api/homepage-content`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Network error');
+        return res.json();
+      })
+      .then((data) => {
+        if (active && data) setHpContent(data);
+      })
+      .catch(() => { /* fallback to i18n */ });
 
     fetch(`${API_BASE}/api/activities`)
       .then((res) => {
@@ -154,8 +192,8 @@ function Homepage() {
         <img src={heroAbout} alt="UESTC幻想乡 暮樱幽幽子" className="about-hero-img" />
         <div className="about-hero-overlay">
           <div className="spellcard-banner">UESTC-TOUHOU</div>
-          <h1 className="about-hero-title">{t('homepage.title')}</h1>
-          <p className="about-hero-sub">{t('homepage.subtitle')}</p>
+          <h1 className="about-hero-title">{hp('hero', 'title', 'homepage.title')}</h1>
+          <p className="about-hero-sub">{hp('hero', 'subtitle', 'homepage.subtitle')}</p>
         </div>
       </div>
 
@@ -163,24 +201,24 @@ function Homepage() {
       <section className="homepage-section intro-section">
         <h2 className="section-title">{t('homepage.intro_title')}</h2>
         <div className="intro-text">
-          <p>{t('homepage.intro_p1')}</p>
-          <p>{t('homepage.intro_p2')}</p>
+          <p>{hp('intro', 'paragraph1', 'homepage.intro_p1')}</p>
+          <p>{hp('intro', 'paragraph2', 'homepage.intro_p2')}</p>
         </div>
         <div className="intro-features">
           <div className="feature-card">
             <div className="feature-marker">◆</div>
-            <h3>{t('homepage.intro_feature1_title')}</h3>
-            <p>{t('homepage.intro_feature1_desc')}</p>
+            <h3>{hpFeature(0, 'title', 'homepage.intro_feature1_title')}</h3>
+            <p>{hpFeature(0, 'description', 'homepage.intro_feature1_desc')}</p>
           </div>
           <div className="feature-card">
             <div className="feature-marker">◆</div>
-            <h3>{t('homepage.intro_feature2_title')}</h3>
-            <p>{t('homepage.intro_feature2_desc')}</p>
+            <h3>{hpFeature(1, 'title', 'homepage.intro_feature2_title')}</h3>
+            <p>{hpFeature(1, 'description', 'homepage.intro_feature2_desc')}</p>
           </div>
           <div className="feature-card">
             <div className="feature-marker">◆</div>
-            <h3>{t('homepage.intro_feature3_title')}</h3>
-            <p>{t('homepage.intro_feature3_desc')}</p>
+            <h3>{hpFeature(2, 'title', 'homepage.intro_feature3_title')}</h3>
+            <p>{hpFeature(2, 'description', 'homepage.intro_feature3_desc')}</p>
           </div>
         </div>
       </section>

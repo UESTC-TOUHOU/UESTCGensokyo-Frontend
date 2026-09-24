@@ -139,6 +139,37 @@
     "status_success": "Message sent successfully!",
     "status_error": "Failed to send message. Please try again."
   },
+  "common": {
+    "back": "Back",
+    "loading": "Loading...",
+    "not_found": "Page not found"
+  },
+  "detail": {
+    "relatedLink": "Related Link"
+  },
+  "admin": {
+    "homepage": "Homepage",
+    "homepage_content": "Homepage Content",
+    "hero_section": "Hero Section",
+    "intro_section": "Intro Section",
+    "feature": "Feature Card",
+    "save": "Save",
+    "saving": "Saving...",
+    "save_success": "✓",
+    "loading_homepage": "Loading homepage content...",
+    "title_field": "Title",
+    "subtitle_field": "Subtitle",
+    "paragraph1": "Paragraph 1",
+    "paragraph2": "Paragraph 2",
+    "description_field": "Description",
+    "activity_cover": "Activity Cover Image",
+    "detail_zh": "Detail (Chinese)",
+    "detail_en": "Detail (English)",
+    "detail_ja": "Detail (Japanese)",
+    "related_link": "Related Link (optional)",
+    "upload": "Upload",
+    "uploading": "Uploading..."
+  },
   "footer": {
     "copyright": "© 2026 UESTC Gensokyo. All Rights Reserved.",
     "slogan": "Find Gensokyo at UESTC",

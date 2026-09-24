@@ -1,38 +1,38 @@
-/* 东方 Project 风格主题 - 响子（幽谷响子）*/
+/* 东方 Project 风格主题 - 神社深绯 × 命莲翠与箔金（亮色）/ 星夜暗绀（深色）*/
 
 :root {
-  /* 主色 - 响子山彦青绿（与 main.css --g-teal 统一） */
-  --color-primary: #2F7571;
-  --color-primary-dark: #1E4D4A;
-  --color-primary-light: #4E8B88;
+  /* 主色 - 神社深绯 */
+  --color-primary: #9E2A2B;
+  --color-primary-dark: #7D1B22;
+  --color-primary-light: #B83A3C;
 
-  /* 强调色：金箔暗金 + 朱砂红 + 幽紫 */
-  --color-accent-gold: #C99738;
-  --color-accent-gold-hover: #B8852B;
-  --color-accent-red: #8E1E26;
-  --color-accent-vermilion: #C8402A;
-  --color-accent-purple: #6B3E6E;
+  /* 强调色：山吹箔金 + 响子翠绿点睛 */
+  --color-accent-gold: #C89838;
+  --color-accent-gold-hover: #AE8028;
+  --color-accent-red: #9E2A2B;
+  --color-accent-vermilion: #9E2A2B;
+  --color-accent-purple: #9E2A2B;
 
   /* 背景色 */
-  --color-bg-light: #FFF9F2; /* 和纸米白 */
-  --color-bg-dark: #1F1717; /* 深墨 */
+  --color-bg-light: #FAF7F2; /* 鸟子暖白和纸 */
+  --color-bg-dark: #1C1917; /* 松烟墨 */
   --color-bg-card: #FFFFFF;
-  --color-bg-overlay: rgba(255, 249, 242, 0.96);
+  --color-bg-overlay: rgba(250, 247, 242, 0.96);
 
   /* 文字色 */
-  --color-text-primary: #221516; /* 墨黑 */
-  --color-text-secondary: #6B5C58; /* 灰褐 */
-  --color-text-muted: #8A7A76;
+  --color-text-primary: #1C1917; /* 松烟墨 */
+  --color-text-secondary: #605A54; /* 灰墨 */
+  --color-text-muted: #8C827A;
 
   /* 边框和分隔 */
-  --color-border: #E8DCCE;
+  --color-border: #E5DFD5;
   --color-border-active: var(--color-accent-gold);
 
   /* 阴影与光晕 */
-  --shadow-sm: 0 2px 8px rgba(57, 28, 24, 0.08);
-  --shadow-md: 0 4px 16px rgba(57, 28, 24, 0.12);
-  --shadow-lg: 0 8px 32px rgba(57, 28, 24, 0.16);
-  --shadow-spellcard: 0 0 16px rgba(201, 151, 56, 0.22), 0 4px 16px rgba(57, 28, 24, 0.1);
+  --shadow-sm: 0 2px 8px rgba(28, 25, 23, 0.05);
+  --shadow-md: 0 4px 16px rgba(28, 25, 23, 0.08);
+  --shadow-lg: 0 8px 32px rgba(28, 25, 23, 0.12);
+  --shadow-spellcard: 0 0 16px rgba(200, 152, 56, 0.20), 0 4px 16px rgba(28, 25, 23, 0.06);
 
   /* 字体栈：完整支持中、日（明朝体）、英楷体衬线 */
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans SC", "Noto Sans JP", sans-serif;
@@ -42,65 +42,68 @@
 }
 
 /* ============================================================
-   深色模式 — 深墨和纸
+   深色模式 — 星夜暗绀夜
    data-theme="dark" 由 ThemeContext 动态切换
    ============================================================ */
 :root[data-theme='dark'] {
   /* 主色 */
-  --color-primary: #5BB8B3;
-  --color-primary-dark: #3A9E98;
-  --color-primary-light: #7CCCC8;
+  --color-primary: #4C72A4;
+  --color-primary-dark: #324D72;
+  --color-primary-light: #6A93CB;
 
   /* 强调色 */
-  --color-accent-gold: #D4A94E;
-  --color-accent-gold-hover: #C49B3D;
-  --color-accent-red: #C94A52;
-  --color-accent-vermilion: #D4604A;
-  --color-accent-purple: #9B6E9E;
+  --color-accent-gold: #DBA742;
+  --color-accent-gold-hover: #C69330;
+  --color-accent-red: #D4545A;
+  --color-accent-vermilion: #4C72A4;
+  --color-accent-purple: #4C72A4;
 
   /* 背景色 */
-  --color-bg-light: #1A1515;
-  --color-bg-dark: #110F0F;
-  --color-bg-card: #241E1E;
-  --color-bg-overlay: rgba(26, 21, 21, 0.96);
+  --color-bg-light: #0F141C;
+  --color-bg-dark: #090D13;
+  --color-bg-card: #171E28;
+  --color-bg-overlay: rgba(15, 20, 28, 0.96);
 
   /* 文字色 */
-  --color-text-primary: #E8DCC8;
-  --color-text-secondary: #A89888;
-  --color-text-muted: #7A6E66;
+  --color-text-primary: #E2E7EE;
+  --color-text-secondary: #9AA6B5;
+  --color-text-muted: #6C7989;
 
   /* 边框和分隔 */
-  --color-border: #3A3030;
+  --color-border: #232C3A;
   --color-border-active: var(--color-accent-gold);
 
   /* 阴影 */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-spellcard: 0 0 16px rgba(212, 169, 78, 0.18), 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.55);
+  --shadow-spellcard: 0 0 16px rgba(219, 167, 66, 0.20), 0 4px 16px rgba(0, 0, 0, 0.3);
 
   /* --g-* 覆盖 */
-  --g-paper: #1A1515;
-  --g-card: #241E1E;
-  --g-card-strong: #2E2626;
-  --g-ink: #E8DCC8;
-  --g-ink-soft: #A89888;
-  --g-vermilion: #C94A52;
-  --g-vermilion-deep: #A83A42;
-  --g-gold: #D4A94E;
-  --g-teal: #5BB8B3;
-  --g-teal-soft: #7CCCC8;
-  --g-vermilion-line: rgba(201, 74, 82, 0.18);
-  --g-teal-glow: rgba(91, 184, 179, 0.10);
-  --g-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-  --g-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --g-paper: #0F141C;
+  --g-card: #171E28;
+  --g-card-strong: #202937;
+  --g-ink: #E2E7EE;
+  --g-ink-soft: #9AA6B5;
+  --g-vermilion: #4C72A4;
+  --g-vermilion-deep: #3A5C8A;
+  --g-gold: #DBA742;
+  --g-teal: #4C72A4;
+  --g-teal-soft: #6A93CB;
+  --g-purple: #4C72A4;
+  --g-purple-soft: #6A93CB;
+  --g-vermilion-line: rgba(76, 114, 164, 0.22);
+  --g-teal-glow: rgba(76, 114, 164, 0.12);
+  --g-purple-glow: rgba(219, 167, 66, 0.08);
+  --g-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --g-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 /* 符卡边框通用组件样式 */
 .spellcard-frame {
   position: relative;
   background: var(--color-bg-card);
-  border: 1px solid var(--g-vermilion-line, rgba(142, 30, 38, 0.18));
+  border: 1px solid var(--g-vermilion-line, rgba(158, 42, 43, 0.15));
   border-radius: var(--border-radius-base);
   padding: 1.5rem;
   box-shadow: var(--shadow-sm);
@@ -136,8 +139,8 @@
 
 .spellcard-frame:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(142, 30, 38, 0.14), 0 0 16px rgba(201, 151, 56, 0.18);
-  border-color: rgba(142, 30, 38, 0.35);
+  box-shadow: var(--g-shadow-hover), 0 0 16px var(--g-purple-glow);
+  border-color: var(--color-accent-gold);
 }
 
 .spellcard-frame:hover::before,
@@ -149,7 +152,7 @@
 
 /* 变体微调 */
 .spellcard-variant-gold {
-  border-color: rgba(201, 151, 56, 0.35);
+  border-color: rgba(201, 160, 74, 0.35);
 }
 .spellcard-variant-gold::before,
 .spellcard-variant-gold::after {
@@ -157,7 +160,7 @@
 }
 
 .spellcard-variant-green {
-  border-color: rgba(47, 117, 113, 0.3);
+  border-color: rgba(42, 107, 94, 0.3);
 }
 .spellcard-variant-green::before,
 .spellcard-variant-green::after {
@@ -201,21 +204,21 @@
       45deg,
       transparent,
       transparent 10px,
-      rgba(74, 157, 95, 0.03) 10px,
-      rgba(74, 157, 95, 0.03) 20px
+      rgba(42, 107, 94, 0.03) 10px,
+      rgba(42, 107, 94, 0.03) 20px
     );
 }
 
 /* 响子回音波纹效果 */
 @keyframes echo-ripple {
   0% {
-    box-shadow: 0 0 0 0 rgba(74, 157, 95, 0.4);
+    box-shadow: 0 0 0 0 rgba(42, 107, 94, 0.4);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(74, 157, 95, 0);
+    box-shadow: 0 0 0 10px rgba(42, 107, 94, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(74, 157, 95, 0);
+    box-shadow: 0 0 0 0 rgba(42, 107, 94, 0);
   }
 }
 
@@ -242,15 +245,15 @@
 /* 符卡变体 */
 .spellcard-variant-gold {
   border-color: var(--color-accent-gold);
-  box-shadow: 0 0 20px rgba(244, 197, 66, 0.4), 0 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px rgba(201, 160, 74, 0.4), 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .spellcard-variant-purple {
   border-color: var(--color-accent-purple);
-  box-shadow: 0 0 20px rgba(139, 90, 142, 0.4), 0 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px rgba(94, 59, 107, 0.4), 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .spellcard-variant-green {
   border-color: var(--color-primary);
-  box-shadow: 0 0 20px rgba(74, 157, 95, 0.4), 0 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px rgba(42, 107, 94, 0.4), 0 4px 16px rgba(0, 0, 0, 0.15);
 }
