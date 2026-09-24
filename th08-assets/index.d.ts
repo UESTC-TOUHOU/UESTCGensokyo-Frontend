@@ -6,6 +6,7 @@ export * from './engine/core/BulletSystem';
 export * from './engine/core/CollisionSystem';
 export * from './engine/core/InputSystem';
 export * from './engine/core/Stage';
+export * from './engine/core/ResourceResolver';
 export * from './engine/physics/SpatialHashGrid';
 export * from './engine/renderer/PixiRenderer';
 export * from './engine/renderer/SpriteManager';

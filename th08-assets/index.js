@@ -1,12 +1,12 @@
-var T = Object.defineProperty;
-var M = (t, s, a) => s in t ? T(t, s, { enumerable: !0, configurable: !0, writable: !0, value: a }) : t[s] = a;
-var r = (t, s, a) => M(t, typeof s != "symbol" ? s + "" : s, a);
-import { v as B } from "./Boss-BY9U9ygY.js";
-import { ac as O, J as N, ad as w, ae as H, af as G, $ as v, a0 as U, z as X, F as V, ag as Y, ah as z, ai as K, aj as W, ak as Z, a1 as j, E as k, al as q, am as J, an as $, ao as Q, ap as ss, N as as, a2 as ts, a3 as es, a4 as ns, a5 as is, a6 as rs, a7 as os, a8 as cs, a9 as ls, G as us, aa as ps, I as hs, L as As, aq as Ss, ab as _s, ar as Es, as as ds, at as ms, K as Is, Z as ys, A as gs, O as Ts, R as Ms, au as Bs, av as Ls, aw as Rs, S as fs, ax as Ps, ay as bs, az as xs, aA as Ds, aB as Fs, aC as Cs, aD as Os, aE as Ns, aF as ws, aG as Hs, aH as Gs, aI as vs, t as Us } from "./Boss-BY9U9ygY.js";
+var B = Object.defineProperty;
+var T = (t, s, a) => s in t ? B(t, s, { enumerable: !0, configurable: !0, writable: !0, value: a }) : t[s] = a;
+var i = (t, s, a) => T(t, typeof s != "symbol" ? s + "" : s, a);
+import { w as M } from "./Boss-C8S9tkJU.js";
+import { af as O, K as N, ag as w, ah as H, ai as G, a0 as U, a1 as v, A as X, G as V, aj as Y, ak as K, al as z, am as W, an as J, a4 as j, E as k, ao as q, ap as Q, aq as Z, ar as $, as as ss, O as as, a5 as ts, a6 as es, a7 as ns, a8 as rs, a9 as is, aa as os, ab as cs, ac as ls, J as us, ad as ps, I as As, L as hs, at as Ss, ae as _s, au as Es, av as ds, aw as ms, N as Is, _ as gs, F as ys, Q as Bs, R as Ts, ax as Ms, ay as Rs, az as Ls, S as fs, aA as Ps, aB as bs, aC as xs, aD as Ds, aE as Fs, aF as Cs, aG as Os, aH as Ns, aI as ws, aJ as Hs, aK as Gs, aL as Us, a3 as vs, r as Xs, aM as Vs, a2 as Ys, t as Ks } from "./Boss-C8S9tkJU.js";
 class _ {
   constructor() {
     /** Defaults to the shared Bullet pool; override with withFactory() to route elsewhere. */
-    r(this, "factory", (s) => B(s));
+    i(this, "factory", (s) => M(s));
   }
   /** Override how spawned bullets are created (used for object pooling). */
   withFactory(s) {
@@ -17,15 +17,15 @@ function I(t, s, a) {
   const {
     count: e,
     speed: n,
-    baseAngle: i,
+    baseAngle: r,
     spreadAngle: o = 0,
     radius: l = 4,
     color: u = 3377407,
     tag: p = "enemy-bullet",
-    sprite: h
-  } = a, c = [], E = e > 1 ? i - o * (e - 1) / 2 : i;
-  for (let A = 0; A < e; A++) {
-    const S = E + o * A;
+    sprite: A
+  } = a, c = [], E = e > 1 ? r - o * (e - 1) / 2 : r;
+  for (let h = 0; h < e; h++) {
+    const S = E + o * h;
     c.push(
       t({
         position: { x: s.position.x, y: s.position.y },
@@ -33,7 +33,7 @@ function I(t, s, a) {
         radius: l,
         color: u,
         tag: p,
-        sprite: h
+        sprite: A
       })
     );
   }
@@ -46,31 +46,31 @@ class f extends _ {
   spawn(s, a, e) {
     const {
       count: n,
-      speed: i,
+      speed: r,
       angleOffset: o = 0,
       radius: l = 4,
       color: u = 16724804,
       angularVelocity: p = 0,
-      acceleration: h = 0,
+      acceleration: A = 0,
       tag: c = "enemy-bullet",
       sprite: E
-    } = this.config, A = [], S = Math.PI * 2 / n;
+    } = this.config, h = [], S = Math.PI * 2 / n;
     for (let d = 0; d < n; d++) {
-      const m = S * d + o, y = Math.cos(m) * i, g = Math.sin(m) * i;
-      A.push(
+      const m = S * d + o, g = Math.cos(m) * r, y = Math.sin(m) * r;
+      h.push(
         this.factory({
           position: { x: s.position.x, y: s.position.y },
-          velocity: { x: y, y: g },
+          velocity: { x: g, y },
           radius: l,
           color: u,
           angularVelocity: p,
-          acceleration: h,
+          acceleration: A,
           tag: c,
           sprite: E
         })
       );
     }
-    return A;
+    return h;
   }
 }
 class P extends _ {
@@ -80,22 +80,22 @@ class P extends _ {
   spawn(s, a, e) {
     const {
       count: n,
-      speed: i,
+      speed: r,
       baseAngle: o,
       spreadAngle: l = 0,
       radius: u = 4,
       color: p = 3377407,
-      tag: h = "enemy-bullet",
+      tag: A = "enemy-bullet",
       sprite: c
     } = this.config;
     return I(this.factory, s, {
       count: n,
-      speed: i,
+      speed: r,
       baseAngle: o,
       spreadAngle: l,
       radius: u,
       color: p,
-      tag: h,
+      tag: A,
       sprite: c
     });
   }
@@ -107,22 +107,22 @@ class b extends _ {
   spawn(s, a, e) {
     const {
       count: n = 1,
-      speed: i,
+      speed: r,
       spreadAngle: o = 0.2,
       radius: l = 4,
       color: u = 15615146,
       tag: p = "enemy-bullet",
-      sprite: h
+      sprite: A
     } = this.config, c = e ? s.angleTo(e) : Math.PI / 2;
     return I(this.factory, s, {
       count: n,
-      speed: i,
+      speed: r,
       baseAngle: c,
       spreadAngle: o,
       radius: l,
       color: u,
       tag: p,
-      sprite: h
+      sprite: A
     });
   }
 }
@@ -139,22 +139,22 @@ class x extends _ {
   }
   spawn(s, a, e) {
     const n = [];
-    for (const i of this.patterns)
-      n.push(...i.spawn(s, a, e));
+    for (const r of this.patterns)
+      n.push(...r.spawn(s, a, e));
     return n;
   }
 }
 class D {
   constructor(s) {
-    r(this, "name");
-    r(this, "durationSeconds");
-    r(this, "bonusScore");
-    r(this, "maxHp");
-    r(this, "pattern");
-    r(this, "timeRemaining");
-    r(this, "currentBonus");
-    r(this, "isActive", !1);
-    r(this, "isCaptured", !0);
+    i(this, "name");
+    i(this, "durationSeconds");
+    i(this, "bonusScore");
+    i(this, "maxHp");
+    i(this, "pattern");
+    i(this, "timeRemaining");
+    i(this, "currentBonus");
+    i(this, "isActive", !1);
+    i(this, "isCaptured", !0);
     this.name = s.name, this.durationSeconds = s.durationSeconds, this.bonusScore = s.bonusScore ?? 1e6, this.maxHp = s.maxHp, this.pattern = s.pattern, this.timeRemaining = this.durationSeconds, this.currentBonus = this.bonusScore;
   }
   start() {
@@ -180,38 +180,38 @@ export {
   w as BOSS_HALO_SPAN,
   H as BOSS_WARNING_FRAMES,
   G as BOSS_WARNING_SLIDE_FRAMES,
-  v as Boss,
-  U as Bullet,
+  U as Boss,
+  v as Bullet,
   _ as BulletPattern,
   X as BulletSystem,
   f as CircularPattern,
   V as CollisionSystem,
   x as CompositePattern,
   Y as DEFAULT_BOUNDS,
-  z as DEFAULT_BULLET_POOL_CAP,
-  K as DEFAULT_GAMEPAD_BINDINGS,
+  K as DEFAULT_BULLET_POOL_CAP,
+  z as DEFAULT_GAMEPAD_BINDINGS,
   W as DEFAULT_KEY_BINDINGS,
-  Z as DEFAULT_PLAYFIELD,
+  J as DEFAULT_PLAYFIELD,
   j as DROP_TABLE,
   k as Enemy,
   q as Entity,
-  J as EventEmitter,
-  $ as HITBOX_BEZEL,
-  Q as HITBOX_CORE,
+  Q as EventEmitter,
+  Z as HITBOX_BEZEL,
+  $ as HITBOX_CORE,
   ss as HITBOX_DOT,
   as as HUD,
   ts as ITEM_CAPTURE_LINE,
   es as ITEM_DEEP_CULL,
   ns as ITEM_DRAG,
-  is as ITEM_GRAVITY,
-  rs as ITEM_MAGNET_RADIUS,
+  rs as ITEM_GRAVITY,
+  is as ITEM_MAGNET_RADIUS,
   os as ITEM_MAX_FALL,
   cs as ITEM_MAX_RISE,
   ls as ITEM_SPECS,
   us as InputSystem,
   ps as Item,
-  hs as ItemSystem,
-  As as Leaderboard,
+  As as ItemSystem,
+  hs as Leaderboard,
   P as LinearPattern,
   Ss as MAX_BOSS_HIT_DAMAGE,
   _s as MAX_ITEMS,
@@ -219,14 +219,14 @@ export {
   ds as PLAYER_MAX_LEAN,
   ms as PORTRAIT_SCALE,
   Is as PerformanceMonitor,
-  ys as PixiRenderer,
-  gs as Player,
-  Ts as ReplayPlayer,
-  Ms as ReplayRecorder,
-  Bs as SWITCH_FLASH_FRAMES,
-  Ls as SpatialHashGrid,
+  gs as PixiRenderer,
+  ys as Player,
+  Bs as ReplayPlayer,
+  Ts as ReplayRecorder,
+  Ms as SWITCH_FLASH_FRAMES,
+  Rs as SpatialHashGrid,
   D as SpellCard,
-  Rs as SpriteManager,
+  Ls as SpriteManager,
   fs as Stage,
   Ps as TAISEI_BASE_TILT,
   bs as TAISEI_SCALE,
@@ -236,11 +236,15 @@ export {
   Cs as distanceBetween,
   Os as drainBulletPool,
   Ns as getBulletPoolSize,
-  ws as nearestPaletteName,
-  Hs as normalizeReplayActions,
-  B as obtainBullet,
-  Gs as releaseBullet,
-  vs as scaleVector,
+  ws as getResourceBase,
+  Hs as nearestPaletteName,
+  Gs as normalizeReplayActions,
+  M as obtainBullet,
+  Us as releaseBullet,
+  vs as resetResourceBase,
+  Xs as resolveAssetUrl,
+  Vs as scaleVector,
+  Ys as setResourceBase,
   I as spawnSpread,
-  Us as taiseiFrameKey
+  Ks as taiseiFrameKey
 };

@@ -355,6 +355,7 @@ export declare class TH08Game {
      * portraits. Null until `init` has the ANM manifest in hand.
      */
     private retail;
+    private isDestroyed;
     constructor(options?: TH08GameOptions);
     startReplayRecording(): void;
     stopReplayRecording(): ReplayData;
