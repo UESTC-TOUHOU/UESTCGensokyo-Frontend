@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: wray-lee/touhou-web-engine
-          ref: f062be7f0700e3bd4b15a007b6521feee27d6460
+          ref: dc5c52e6b29bef858de1fd38f68b1ae36f133330
           path: touhou-web-engine
 
       - uses: oven-sh/setup-bun@v2
@@ -97,7 +97,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: wray-lee/touhou-web-engine
-          ref: f062be7f0700e3bd4b15a007b6521feee27d6460
+          ref: dc5c52e6b29bef858de1fd38f68b1ae36f133330
           path: touhou-web-engine
 
       - name: Set up QEMU
