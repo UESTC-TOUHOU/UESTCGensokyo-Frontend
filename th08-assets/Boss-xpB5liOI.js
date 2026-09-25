@@ -1,24 +1,24 @@
-var Ne = Object.defineProperty;
-var Le = (o, t, e) => t in o ? Ne(o, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : o[t] = e;
-var a = (o, t, e) => Le(o, typeof t != "symbol" ? t + "" : t, e);
-import { Assets as Ge, Container as W, Sprite as gt, Shader as He, compileHighShaderGlProgram as Oe, localUniformBitGl as Ve, textureBitGl as Ue, roundPixelsBitGl as ze, compileHighShaderGpuProgram as Ke, localUniformBit as We, textureBit as Ye, roundPixelsBit as Xe, UniformGroup as qe, MeshGeometry as $e, Buffer as Qe, BufferUsage as qt, Mesh as je, Application as Je, Graphics as A, Text as F, TextStyle as O, RendererType as $t } from "pixi.js";
-function yt(o = 0, t = 0) {
+var Le = Object.defineProperty;
+var Ge = (o, t, e) => t in o ? Le(o, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : o[t] = e;
+var a = (o, t, e) => Ge(o, typeof t != "symbol" ? t + "" : t, e);
+import { Assets as He, Container as W, Sprite as yt, Shader as Oe, compileHighShaderGlProgram as Ve, localUniformBitGl as Ue, textureBitGl as ze, roundPixelsBitGl as Ke, compileHighShaderGpuProgram as We, localUniformBit as Ye, textureBit as Xe, roundPixelsBit as qe, UniformGroup as $e, MeshGeometry as Qe, Buffer as je, BufferUsage as $t, Mesh as Je, Application as Ze, Graphics as A, Text as F, TextStyle as O, RendererType as Qt } from "pixi.js";
+function bt(o = 0, t = 0) {
   return { x: o, y: t };
 }
-function zi(o, t) {
+function Wi(o, t) {
   return { x: o.x + t.x, y: o.y + t.y };
 }
-function Ki(o, t) {
+function Yi(o, t) {
   return { x: o.x * t, y: o.y * t };
 }
-function Me(o, t) {
+function ve(o, t) {
   const e = t.x - o.x, s = t.y - o.y;
   return Math.hypot(e, s);
 }
-function Ze(o, t) {
+function ts(o, t) {
   return Math.atan2(t.y - o.y, t.x - o.x);
 }
-class ve {
+class Ce {
   constructor() {
     a(this, "events", /* @__PURE__ */ new Map());
   }
@@ -46,7 +46,7 @@ class ve {
     this.events.clear();
   }
 }
-const St = class St extends ve {
+const Tt = class Tt extends Ce {
   constructor(e = {}, s = {}, i = {}, r = "default") {
     super();
     a(this, "id");
@@ -56,7 +56,7 @@ const St = class St extends ve {
     a(this, "isAlive");
     a(this, "tag");
     a(this, "_transform");
-    this.id = `entity_${St.nextId++}`, this.position = yt(e.x ?? 0, e.y ?? 0), this.velocity = yt(s.x ?? 0, s.y ?? 0), this._transform = { position: this.position, velocity: this.velocity, rotation: 0 }, this.hitbox = {
+    this.id = `entity_${Tt.nextId++}`, this.position = bt(e.x ?? 0, e.y ?? 0), this.velocity = bt(s.x ?? 0, s.y ?? 0), this._transform = { position: this.position, velocity: this.velocity, rotation: 0 }, this.hitbox = {
       radius: i.radius ?? 0,
       offset: i.offset ?? { x: 0, y: 0 }
     }, this.isAlive = !0, this.tag = r;
@@ -78,10 +78,10 @@ const St = class St extends ve {
     this.isAlive && (this.isAlive = !1, this.emit("destroy", this), this.removeAllListeners());
   }
   distanceTo(e) {
-    return Me(this.position, e.position);
+    return ve(this.position, e.position);
   }
   angleTo(e) {
-    return Ze(this.position, e.position);
+    return ts(this.position, e.position);
   }
   getHitboxCenter() {
     const e = this.hitbox.offset || { x: 0, y: 0 };
@@ -91,8 +91,8 @@ const St = class St extends ve {
     };
   }
 };
-a(St, "nextId", 1);
-let Y = St;
+a(Tt, "nextId", 1);
+let Y = Tt;
 const st = { up: 16, down: 32, left: 64, right: 128 }, P = {
   idle: 0,
   up: 1,
@@ -104,11 +104,11 @@ const st = { up: 16, down: 32, left: 64, right: 128 }, P = {
   downLeft: 7,
   downRight: 8
 };
-function ts(o) {
+function es(o) {
   const { up: t, down: e, left: s, right: i } = st;
   return (o & (t | s)) === (t | s) ? P.upLeft : (o & (e | s)) === (e | s) ? P.downLeft : (o & (t | i)) === (t | i) ? P.upRight : (o & (e | i)) === (e | i) ? P.downRight : o & e ? P.down : o & t ? P.up : o & s ? P.left : o & i ? P.right : P.idle;
 }
-function es(o, t, e) {
+function ss(o, t, e) {
   switch (o) {
     case P.up:
       return [0, -t];
@@ -130,21 +130,21 @@ function es(o, t, e) {
       return [0, 0];
   }
 }
-const ss = 512, j = [];
-function Ce(o = {}) {
+const is = 512, j = [];
+function Ae(o = {}) {
   const t = j.pop();
-  return t ? (t.reset(o), t) : new Ae(o);
+  return t ? (t.reset(o), t) : new Ie(o);
 }
-function is(o, t = ss) {
-  !(o instanceof Ae) || o.isAlive || o.isPooled || t > 0 && j.length >= t || (o.isPooled = !0, j.push(o));
+function as(o, t = is) {
+  !(o instanceof Ie) || o.isAlive || o.isPooled || t > 0 && j.length >= t || (o.isPooled = !0, j.push(o));
 }
 function ht() {
   return j.length;
 }
-function Wi() {
+function Xi() {
   return j.splice(0, j.length).map((o) => (o.isPooled = !1, o));
 }
-class Ae extends Y {
+class Ie extends Y {
   constructor(e = {}) {
     super(e.position, e.velocity, { radius: e.radius ?? 4 }, e.tag ?? "enemy-bullet");
     a(this, "color");
@@ -197,12 +197,12 @@ class Ae extends Y {
     a(this, "maxLifetime", 0);
     /** True while this instance sits in the shared free-list awaiting reuse. */
     a(this, "isPooled", !1);
-    this.color = e.color ?? 16724838, this.sprite = e.sprite ?? "bullet_small", this.damage = e.damage ?? 1, this.grazed = e.grazed ?? !1, this.angularVelocity = e.angularVelocity ?? 0, this.acceleration = e.acceleration ?? 0, this.angularAcceleration = e.angularAcceleration ?? 0, this.angularJerk = e.angularJerk ?? 0, this.jerk = e.jerk ?? 0, this.speedMin = e.speedMin ?? 0, this.speedMax = e.speedMax ?? Number.POSITIVE_INFINITY, this.angularVelocityMin = e.angularVelocityMin ?? Number.NEGATIVE_INFINITY, this.angularVelocityMax = e.angularVelocityMax ?? Number.POSITIVE_INFINITY, this.accelerationMin = e.accelerationMin ?? Number.NEGATIVE_INFINITY, this.accelerationMax = e.accelerationMax ?? Number.POSITIVE_INFINITY, this.angularAccelerationMin = e.angularAccelerationMin ?? Number.NEGATIVE_INFINITY, this.angularAccelerationMax = e.angularAccelerationMax ?? Number.POSITIVE_INFINITY, this.headingMin = e.headingMin ?? Number.NEGATIVE_INFINITY, this.headingMax = e.headingMax ?? Number.POSITIVE_INFINITY, this.heading = Qt(e), this.homingTurn = e.homingTurn ?? 0, this.homingFrames = e.homingFrames ?? 0, this.spin = e.spin ?? 0, this.launchHeading = this.heading, this.homingMaxTurn = e.homingMaxTurn ?? 0, this.maxLifetime = e.maxLifetime ?? 0;
+    this.color = e.color ?? 16724838, this.sprite = e.sprite ?? "bullet_small", this.damage = e.damage ?? 1, this.grazed = e.grazed ?? !1, this.angularVelocity = e.angularVelocity ?? 0, this.acceleration = e.acceleration ?? 0, this.angularAcceleration = e.angularAcceleration ?? 0, this.angularJerk = e.angularJerk ?? 0, this.jerk = e.jerk ?? 0, this.speedMin = e.speedMin ?? 0, this.speedMax = e.speedMax ?? Number.POSITIVE_INFINITY, this.angularVelocityMin = e.angularVelocityMin ?? Number.NEGATIVE_INFINITY, this.angularVelocityMax = e.angularVelocityMax ?? Number.POSITIVE_INFINITY, this.accelerationMin = e.accelerationMin ?? Number.NEGATIVE_INFINITY, this.accelerationMax = e.accelerationMax ?? Number.POSITIVE_INFINITY, this.angularAccelerationMin = e.angularAccelerationMin ?? Number.NEGATIVE_INFINITY, this.angularAccelerationMax = e.angularAccelerationMax ?? Number.POSITIVE_INFINITY, this.headingMin = e.headingMin ?? Number.NEGATIVE_INFINITY, this.headingMax = e.headingMax ?? Number.POSITIVE_INFINITY, this.heading = jt(e), this.homingTurn = e.homingTurn ?? 0, this.homingFrames = e.homingFrames ?? 0, this.spin = e.spin ?? 0, this.launchHeading = this.heading, this.homingMaxTurn = e.homingMaxTurn ?? 0, this.maxLifetime = e.maxLifetime ?? 0;
   }
   /** Re-arm a pooled instance with fresh config so it can be reused. */
   reset(e = {}) {
     var s, i, r, n;
-    this.isPooled = !1, this.position.x = ((s = e.position) == null ? void 0 : s.x) ?? 0, this.position.y = ((i = e.position) == null ? void 0 : i.y) ?? 0, this.velocity.x = ((r = e.velocity) == null ? void 0 : r.x) ?? 0, this.velocity.y = ((n = e.velocity) == null ? void 0 : n.y) ?? 0, this.rotation = 0, this.hitbox.radius = e.radius ?? 4, this.hitbox.offset = { x: 0, y: 0 }, this.isAlive = !0, this.tag = e.tag ?? "enemy-bullet", this.color = e.color ?? 16724838, this.sprite = e.sprite ?? "bullet_small", this.damage = e.damage ?? 1, this.grazed = e.grazed ?? !1, this.angularVelocity = e.angularVelocity ?? 0, this.acceleration = e.acceleration ?? 0, this.angularAcceleration = e.angularAcceleration ?? 0, this.angularJerk = e.angularJerk ?? 0, this.jerk = e.jerk ?? 0, this.speedMin = e.speedMin ?? 0, this.speedMax = e.speedMax ?? Number.POSITIVE_INFINITY, this.angularVelocityMin = e.angularVelocityMin ?? Number.NEGATIVE_INFINITY, this.angularVelocityMax = e.angularVelocityMax ?? Number.POSITIVE_INFINITY, this.accelerationMin = e.accelerationMin ?? Number.NEGATIVE_INFINITY, this.accelerationMax = e.accelerationMax ?? Number.POSITIVE_INFINITY, this.angularAccelerationMin = e.angularAccelerationMin ?? Number.NEGATIVE_INFINITY, this.angularAccelerationMax = e.angularAccelerationMax ?? Number.POSITIVE_INFINITY, this.headingMin = e.headingMin ?? Number.NEGATIVE_INFINITY, this.headingMax = e.headingMax ?? Number.POSITIVE_INFINITY, this.heading = Qt(e), this.homingTurn = e.homingTurn ?? 0, this.homingFrames = e.homingFrames ?? 0, this.spin = e.spin ?? 0, this.launchHeading = this.heading, this.homingMaxTurn = e.homingMaxTurn ?? 0, this.drawRadius = e.drawRadius ?? 0, this.lifetime = 0, this.maxLifetime = e.maxLifetime ?? 0;
+    this.isPooled = !1, this.position.x = ((s = e.position) == null ? void 0 : s.x) ?? 0, this.position.y = ((i = e.position) == null ? void 0 : i.y) ?? 0, this.velocity.x = ((r = e.velocity) == null ? void 0 : r.x) ?? 0, this.velocity.y = ((n = e.velocity) == null ? void 0 : n.y) ?? 0, this.rotation = 0, this.hitbox.radius = e.radius ?? 4, this.hitbox.offset = { x: 0, y: 0 }, this.isAlive = !0, this.tag = e.tag ?? "enemy-bullet", this.color = e.color ?? 16724838, this.sprite = e.sprite ?? "bullet_small", this.damage = e.damage ?? 1, this.grazed = e.grazed ?? !1, this.angularVelocity = e.angularVelocity ?? 0, this.acceleration = e.acceleration ?? 0, this.angularAcceleration = e.angularAcceleration ?? 0, this.angularJerk = e.angularJerk ?? 0, this.jerk = e.jerk ?? 0, this.speedMin = e.speedMin ?? 0, this.speedMax = e.speedMax ?? Number.POSITIVE_INFINITY, this.angularVelocityMin = e.angularVelocityMin ?? Number.NEGATIVE_INFINITY, this.angularVelocityMax = e.angularVelocityMax ?? Number.POSITIVE_INFINITY, this.accelerationMin = e.accelerationMin ?? Number.NEGATIVE_INFINITY, this.accelerationMax = e.accelerationMax ?? Number.POSITIVE_INFINITY, this.angularAccelerationMin = e.angularAccelerationMin ?? Number.NEGATIVE_INFINITY, this.angularAccelerationMax = e.angularAccelerationMax ?? Number.POSITIVE_INFINITY, this.headingMin = e.headingMin ?? Number.NEGATIVE_INFINITY, this.headingMax = e.headingMax ?? Number.POSITIVE_INFINITY, this.heading = jt(e), this.homingTurn = e.homingTurn ?? 0, this.homingFrames = e.homingFrames ?? 0, this.spin = e.spin ?? 0, this.launchHeading = this.heading, this.homingMaxTurn = e.homingMaxTurn ?? 0, this.drawRadius = e.drawRadius ?? 0, this.lifetime = 0, this.maxLifetime = e.maxLifetime ?? 0;
   }
   /** Point the bullet along an absolute heading, keeping velocity in sync. */
   setHeading(e) {
@@ -217,7 +217,7 @@ class Ae extends Y {
    */
   turnToward(e, s) {
     if (!(s > 0)) return;
-    const i = It(e - this.heading);
+    const i = Pt(e - this.heading);
     this.setHeading(this.heading + Math.max(-s, Math.min(s, i)));
   }
   /**
@@ -227,9 +227,9 @@ class Ae extends Y {
    * curving toward its mark instead of looping back over the shooter.
    */
   homeToward(e, s) {
-    if (!(s > 0) || Math.cos(It(e - this.heading)) <= 0) return !1;
+    if (!(s > 0) || Math.cos(Pt(e - this.heading)) <= 0) return !1;
     if (this.turnToward(e, s), this.homingMaxTurn > 0) {
-      const i = It(this.heading - this.launchHeading), r = Math.max(-this.homingMaxTurn, Math.min(this.homingMaxTurn, i));
+      const i = Pt(this.heading - this.launchHeading), r = Math.max(-this.homingMaxTurn, Math.min(this.homingMaxTurn, i));
       r !== i && this.setHeading(this.launchHeading + r);
     }
     return !0;
@@ -249,7 +249,7 @@ class Ae extends Y {
     const s = this.angularVelocity !== 0 || this.angularAcceleration !== 0 || this.angularJerk !== 0, i = this.acceleration !== 0 || this.jerk !== 0, r = this.speedMin !== 0 || this.speedMax !== Number.POSITIVE_INFINITY || this.angularVelocityMin !== Number.NEGATIVE_INFINITY || this.angularVelocityMax !== Number.POSITIVE_INFINITY || this.accelerationMin !== Number.NEGATIVE_INFINITY || this.accelerationMax !== Number.POSITIVE_INFINITY || this.angularAccelerationMin !== Number.NEGATIVE_INFINITY || this.angularAccelerationMax !== Number.POSITIVE_INFINITY || this.headingMin !== Number.NEGATIVE_INFINITY || this.headingMax !== Number.POSITIVE_INFINITY;
     if (s || i || r) {
       let n = Math.hypot(this.velocity.x, this.velocity.y);
-      s && (this.heading += this.angularVelocity * e), i && (n += this.acceleration * e), s && (this.angularVelocity += this.angularAcceleration * e), i && (this.acceleration += this.jerk * e), s && (this.angularAcceleration += this.angularJerk * e), this.heading < this.headingMin && (this.heading = this.headingMin), this.heading > this.headingMax && (this.heading = this.headingMax), n < this.speedMin && (n = this.speedMin), n > this.speedMax && (n = this.speedMax), n < 0 && (n = 0), this.angularVelocity = At(this.angularVelocity, this.angularVelocityMin, this.angularVelocityMax), this.acceleration = At(this.acceleration, this.accelerationMin, this.accelerationMax), this.angularAcceleration = At(
+      s && (this.heading += this.angularVelocity * e), i && (n += this.acceleration * e), s && (this.angularVelocity += this.angularAcceleration * e), i && (this.acceleration += this.jerk * e), s && (this.angularAcceleration += this.angularJerk * e), this.heading < this.headingMin && (this.heading = this.headingMin), this.heading > this.headingMax && (this.heading = this.headingMax), n < this.speedMin && (n = this.speedMin), n > this.speedMax && (n = this.speedMax), n < 0 && (n = 0), this.angularVelocity = It(this.angularVelocity, this.angularVelocityMin, this.angularVelocityMax), this.acceleration = It(this.acceleration, this.accelerationMin, this.accelerationMax), this.angularAcceleration = It(
         this.angularAcceleration,
         this.angularAccelerationMin,
         this.angularAccelerationMax
@@ -258,53 +258,53 @@ class Ae extends Y {
     super.update(e), this.lifetime += e, this.maxLifetime > 0 && this.lifetime >= this.maxLifetime && this.destroy();
   }
 }
-function At(o, t, e) {
+function It(o, t, e) {
   return Math.max(t, Math.min(e, o));
 }
-function It(o) {
+function Pt(o) {
   let t = o % (Math.PI * 2);
   return t > Math.PI && (t -= Math.PI * 2), t <= -Math.PI && (t += Math.PI * 2), t;
 }
-function Qt(o) {
+function jt(o) {
   var s, i;
   if (typeof o.heading == "number") return o.heading;
   const t = ((s = o.velocity) == null ? void 0 : s.x) ?? 0, e = ((i = o.velocity) == null ? void 0 : i.y) ?? 0;
   return Math.atan2(e, t);
 }
-const bt = 30, Ut = 30, as = 60, rs = -15, os = 6, ns = 7, hs = 15, ls = 30, cs = 2, us = [18, 10, 10, 12];
-function ds(o) {
+const xt = 30, zt = 30, rs = 60, os = -15, ns = 6, hs = 7, ls = 15, cs = 30, us = 2, ds = [18, 10, 10, 12];
+function ps(o) {
   return Math.floor((o - 4) / 2);
 }
-function ps(o) {
-  return o < 4 ? o : ds(o);
-}
 function ms(o) {
-  return o === 0 || o === 4 || o === 5;
+  return o < 4 ? o : ps(o);
 }
 function fs(o) {
-  if (o.bombs < 1) return cs;
-  let t = o.bombs * os;
-  return o.timeOrbs >= o.lastSpellTimeOrbThreshold && (t += ns), t = Math.min(t, hs), o.spellCardActive && (t = Math.min(t * 2, ls)), ms(o.shotType) && (t = Math.floor(t * 9 / 5)), t;
+  return o === 0 || o === 4 || o === 5;
 }
 function gs(o) {
-  return us[ps(o) & 3] ?? 10;
+  if (o.bombs < 1) return us;
+  let t = o.bombs * ns;
+  return o.timeOrbs >= o.lastSpellTimeOrbThreshold && (t += hs), t = Math.min(t, ls), o.spellCardActive && (t = Math.min(t * 2, cs)), fs(o.shotType) && (t = Math.floor(t * 9 / 5)), t;
 }
-function ys(o, t) {
+function ys(o) {
+  return ds[ms(o) & 3] ?? 10;
+}
+function bs(o, t) {
   return o ? t < 2 ? Math.max(0, t) : 2 : 1;
 }
-function jt(o, t) {
-  return Math.min(o + 6, gs(t));
+function Jt(o, t) {
+  return Math.min(o + 6, ys(t));
 }
-const xt = {
+const wt = {
   scaleX: 1,
   scaleY: 1,
   alpha: 1,
   additive: !1,
   whiteout: !1
 };
-function bs(o) {
-  if (o >= bt) return xt;
-  const t = Math.max(0, o) / bt;
+function xs(o) {
+  if (o >= xt) return wt;
+  const t = Math.max(0, o) / xt;
   return {
     scaleX: 3 * t + 1,
     scaleY: 1 - t,
@@ -313,8 +313,8 @@ function bs(o) {
     whiteout: !1
   };
 }
-function xs(o) {
-  if (o >= Ut) return xt;
+function ws(o) {
+  if (o >= zt) return wt;
   const t = Math.max(0, o), e = 1 - t / 60;
   return {
     scaleX: 2 * e + 1,
@@ -324,8 +324,8 @@ function xs(o) {
     whiteout: !1
   };
 }
-function ws(o, t, e = 0) {
-  return o === "dying" ? e > 0 ? { ...xt, whiteout: !0 } : bs(bt - t) : o === "respawning" ? xs(Ut - t) : xt;
+function Ss(o, t, e = 0) {
+  return o === "dying" ? e > 0 ? { ...wt, whiteout: !0 } : xs(xt - t) : o === "respawning" ? ws(zt - t) : wt;
 }
 const V = (o) => o, U = {
   reimu: V({
@@ -496,7 +496,7 @@ const V = (o) => o, U = {
     spin: 0.03,
     blurb: "亡灵 · 缓速追踪"
   })
-}, it = 128, Jt = [8, 24, 48, 80, 128, 1 / 0], Pt = 128, Ft = 10, Et = 12, Ss = 16, Ts = 16, lt = {
+}, it = 128, Zt = [8, 24, 48, 80, 128, 1 / 0], Ft = 128, Et = 10, Bt = 12, Ts = 16, Ms = 16, lt = {
   "reimu-yukari": {
     fastSpeed: 4,
     fastDiagonalSpeed: 4 / Math.SQRT2,
@@ -526,15 +526,15 @@ const V = (o) => o, U = {
   "marisa-alice": { itemTimeScale: 0.9, itemTimeScaleFocused: 0.9 },
   "sakuya-remilia": { itemTimeScale: 0.65, itemTimeScaleFocused: 0.9 },
   "youmu-yuyuko": { itemTimeScale: 0.9, itemTimeScaleFocused: 0.9 }
-}, wt = {
+}, St = {
   "reimu-yukari": {
     id: "reimu-yukari",
     name: "灵梦 / 紫",
     subtitle: "平衡型 · 追踪阴阳玉",
     maxPower: it,
-    pointItemValueLine: Pt,
-    itemGrabSpeed: Ft,
-    itemPickupHalfExtent: Et,
+    pointItemValueLine: Ft,
+    itemGrabSpeed: Et,
+    itemPickupHalfExtent: Bt,
     hitboxHalfExtent: 0.825,
     grazeHalfExtent: 1.4,
     bombDamage: 150,
@@ -567,9 +567,9 @@ const V = (o) => o, U = {
     name: "咲夜 / 蕾米莉亚",
     subtitle: "精准型 · 时停刀刃",
     maxPower: it,
-    pointItemValueLine: Pt,
-    itemGrabSpeed: Ft,
-    itemPickupHalfExtent: Et,
+    pointItemValueLine: Ft,
+    itemGrabSpeed: Et,
+    itemPickupHalfExtent: Bt,
     hitboxHalfExtent: 1,
     grazeHalfExtent: 3,
     bombDamage: 180,
@@ -584,9 +584,9 @@ const V = (o) => o, U = {
     name: "妖梦 / 幽幽子",
     subtitle: "近战型 · 宽幅灵刃",
     maxPower: it,
-    pointItemValueLine: Pt,
-    itemGrabSpeed: Ft,
-    itemPickupHalfExtent: Et,
+    pointItemValueLine: Ft,
+    itemGrabSpeed: Et,
+    itemPickupHalfExtent: Bt,
     hitboxHalfExtent: 1,
     grazeHalfExtent: 1.5,
     bombDamage: 190,
@@ -596,7 +596,7 @@ const V = (o) => o, U = {
     ...ct["youmu-yuyuko"],
     members: [U.youmu, U.yuyuko]
   }
-}, Yi = (o) => wt[o] ?? wt["reimu-yukari"], Ms = {
+}, qi = (o) => St[o] ?? St["reimu-yukari"], vs = {
   // World space, not canvas space: the 384x448 field is drawn inside a 640x480
   // window, and the renderer applies the offset. The ship keeps an 8px margin
   // from the walls exactly like the retail clip box.
@@ -604,9 +604,9 @@ const V = (o) => o, U = {
   maxX: 376,
   minY: 16,
   maxY: 432
-}, vs = 14, E = class E extends Y {
+}, Cs = 14, E = class E extends Y {
   constructor(e = {}, s = {}) {
-    const i = s.profile ?? (s.characterId ? wt[s.characterId] : wt["reimu-yukari"]);
+    const i = s.profile ?? (s.characterId ? St[s.characterId] : St["reimu-yukari"]);
     super(e, {}, { radius: s.hitboxRadius ?? i.hitboxHalfExtent }, "player");
     /** The team this player belongs to (menu selection, leaderboard entry). */
     a(this, "team");
@@ -691,7 +691,7 @@ const V = (o) => o, U = {
     a(this, "shootCooldown", 0);
     a(this, "playfield");
     a(this, "bulletFactory");
-    this.team = i, this.characterId = s.characterId ?? i.id, this.characterName = i.name, this.fastSpeed = s.fastSpeed ?? i.fastSpeed, this.slowSpeed = s.slowSpeed ?? i.slowSpeed, this.fastDiagonalSpeed = i.fastDiagonalSpeed, this.slowDiagonalSpeed = i.slowDiagonalSpeed, this.bombDamage = i.bombDamage, this.color = i.color, this.accentColor = i.accentColor, this.maxPower = i.maxPower, this.power = Math.min(this.maxPower, s.initialPower ?? 0), this.state = "alive", this.lives = s.initialLives ?? 3, this.maxPower = s.profile ? s.profile.maxPower : this.maxPower, this.bombs = s.initialBombs ?? 3, this.playfield = s.playfield ?? Ms, this.bulletFactory = s.bulletFactory ?? ((r) => Ce(r));
+    this.team = i, this.characterId = s.characterId ?? i.id, this.characterName = i.name, this.fastSpeed = s.fastSpeed ?? i.fastSpeed, this.slowSpeed = s.slowSpeed ?? i.slowSpeed, this.fastDiagonalSpeed = i.fastDiagonalSpeed, this.slowDiagonalSpeed = i.slowDiagonalSpeed, this.bombDamage = i.bombDamage, this.color = i.color, this.accentColor = i.accentColor, this.maxPower = i.maxPower, this.power = Math.min(this.maxPower, s.initialPower ?? 0), this.state = "alive", this.lives = s.initialLives ?? 3, this.maxPower = s.profile ? s.profile.maxPower : this.maxPower, this.bombs = s.initialBombs ?? 3, this.playfield = s.playfield ?? vs, this.bulletFactory = s.bulletFactory ?? ((r) => Ae(r));
   }
   /** The member currently flying (A unfocused, B focused). */
   get member() {
@@ -734,7 +734,7 @@ const V = (o) => o, U = {
   }
   /** Swap the flying member directly (tests, replays and scripted demos). */
   setMember(e) {
-    return this.memberIndex === e ? !1 : (this.memberIndex = e, this.switchFlash = vs, !0);
+    return this.memberIndex === e ? !1 : (this.memberIndex = e, this.switchFlash = Cs, !0);
   }
   /**
    * Enter or leave focus mode. In Imperishable Night this *is* the member swap:
@@ -793,7 +793,7 @@ const V = (o) => o, U = {
       this.leanX = this.velocity.x;
       return;
     }
-    const r = this.isSlowMode ? this.slowSpeed : this.fastSpeed, n = this.isSlowMode ? this.slowDiagonalSpeed : this.fastDiagonalSpeed, l = e.movementBits, [h, c] = es(ts(l), r, n);
+    const r = this.isSlowMode ? this.slowSpeed : this.fastSpeed, n = this.isSlowMode ? this.slowDiagonalSpeed : this.fastDiagonalSpeed, l = e.movementBits, [h, c] = ss(es(l), r, n);
     this.velocity.x = h, this.velocity.y = c, this.leanX = this.velocity.x;
   }
   /**
@@ -901,7 +901,7 @@ const V = (o) => o, U = {
    * deathbomb worth its two bombs.
    */
   hit() {
-    return this.isInvulnerable || this.state !== "alive" ? !1 : (this.state = "dying", this.stateTimer = E.DEATH_FRAMES, this.graceTimer = fs({
+    return this.isInvulnerable || this.state !== "alive" ? !1 : (this.state = "dying", this.stateTimer = E.DEATH_FRAMES, this.graceTimer = gs({
       bombs: this.bombs,
       timeOrbs: this.timeOrbs,
       lastSpellTimeOrbThreshold: this.lastSpellTimeOrbThreshold,
@@ -914,7 +914,7 @@ const V = (o) => o, U = {
    * (`Player.cpp:1341-1369`). Out of lives the whole bar goes instead of a slice.
    */
   settleDeath() {
-    const e = this.lives <= 0 ? this.power : this.power <= Ts ? this.power : Ss;
+    const e = this.lives <= 0 ? this.power : this.power <= Ms ? this.power : Ts;
     this.power -= e, this.powerLost += e, this.deathSettled = !0, this.emit("deathSettled");
   }
   /**
@@ -966,7 +966,7 @@ const V = (o) => o, U = {
   /** Shot level 0..5 from g_PowerUpThresholds {8,24,48,80,128}. */
   get shotLevel() {
     let e = 0;
-    for (; e < Jt.length - 1 && this.power >= Jt[e]; )
+    for (; e < Zt.length - 1 && this.power >= Zt[e]; )
       e++;
     return e;
   }
@@ -979,15 +979,15 @@ const V = (o) => o, U = {
     if (this.bombs <= 0) return !1;
     const e = this.state === "dying" && this.deathbombArmed && this.graceTimer > 0;
     if (!e && this.state !== "alive") return !1;
-    const s = ys(e, this.bombs);
-    return s <= 0 ? !1 : (this.bombs -= s, this.graceTimer = jt(this.graceTimer, this.shotType), this.emit("bomb", this.bombs), !0);
+    const s = bs(e, this.bombs);
+    return s <= 0 ? !1 : (this.bombs -= s, this.graceTimer = Jt(this.graceTimer, this.shotType), this.emit("bomb", this.bombs), !0);
   }
   /**
    * Scale, blend and opacity for the grace window, the dissolve and the spawn-in.
    * `null` means the ship draws as usual.
    */
   get shipPose() {
-    const e = ws(this.state, this.stateTimer, this.graceTimer);
+    const e = Ss(this.state, this.stateTimer, this.graceTimer);
     return e.alpha >= 1 && e.scaleX === 1 && e.scaleY === 1 && !e.whiteout ? null : e;
   }
   /** True while the ship is held white on the death spot inside its window. */
@@ -995,14 +995,14 @@ const V = (o) => o, U = {
     return this.state === "dying" && this.graceTimer > 0;
   }
   update(e) {
-    super.update(e), this.shootCooldown > 0 && (this.shootCooldown = Math.max(0, this.shootCooldown - e)), this.switchFlash > 0 && (this.switchFlash = Math.max(0, this.switchFlash - e)), this.cancelTimer > 0 && (this.cancelTimer = Math.max(0, this.cancelTimer - e)), this.state === "dying" ? this.graceTimer > 0 ? (this.timeOrbs = Math.max(0, this.timeOrbs + rs * e), this.graceTimer = Math.max(0, this.graceTimer - e), this.deathbombArmed = this.graceTimer > 0, this.graceTimer === 0 && this.settleDeath()) : (this.stateTimer = Math.max(0, this.stateTimer - e), this.stateTimer === 0 && this.respawn()) : this.state === "respawning" && (this.stateTimer = Math.max(0, this.stateTimer - e), this.stateTimer === 0 && (this.state = "alive", this.graceTimer = jt(0, this.shotType))), this.isInvulnerable && (this.invulnerabilityTimer -= e, this.invulnerabilityTimer <= 0 && (this.isInvulnerable = !1, this.invulnerabilityTimer = 0)), this.position.x = Math.max(this.playfield.minX, Math.min(this.playfield.maxX, this.position.x)), this.position.y = Math.max(this.playfield.minY, Math.min(this.playfield.maxY, this.position.y));
+    super.update(e), this.shootCooldown > 0 && (this.shootCooldown = Math.max(0, this.shootCooldown - e)), this.switchFlash > 0 && (this.switchFlash = Math.max(0, this.switchFlash - e)), this.cancelTimer > 0 && (this.cancelTimer = Math.max(0, this.cancelTimer - e)), this.state === "dying" ? this.graceTimer > 0 ? (this.timeOrbs = Math.max(0, this.timeOrbs + os * e), this.graceTimer = Math.max(0, this.graceTimer - e), this.deathbombArmed = this.graceTimer > 0, this.graceTimer === 0 && this.settleDeath()) : (this.stateTimer = Math.max(0, this.stateTimer - e), this.stateTimer === 0 && this.respawn()) : this.state === "respawning" && (this.stateTimer = Math.max(0, this.stateTimer - e), this.stateTimer === 0 && (this.state = "alive", this.graceTimer = Jt(0, this.shotType))), this.isInvulnerable && (this.invulnerabilityTimer -= e, this.invulnerabilityTimer <= 0 && (this.isInvulnerable = !1, this.invulnerabilityTimer = 0)), this.position.x = Math.max(this.playfield.minX, Math.min(this.playfield.maxX, this.position.x)), this.position.y = Math.max(this.playfield.minY, Math.min(this.playfield.maxY, this.position.y));
   }
 };
 /** 0 = member A (unfocused), 1 = member B (focused). */
 /** Death burst before the ship is allowed back (Player::Die -> 30 frames). */
-a(E, "DEATH_FRAMES", bt), /** Spawn-in scale/fade animation (FUN_0044d180 -> 30 frames). */
-a(E, "SPAWN_FRAMES", Ut), /** Post-respawn bullet-cancel volume (playerStateSlotCooldown = 60). */
-a(E, "BULLET_CANCEL_FRAMES", as), /** plyNNa.sht bombCount: every team restarts a life with 3 bombs. */
+a(E, "DEATH_FRAMES", xt), /** Spawn-in scale/fade animation (FUN_0044d180 -> 30 frames). */
+a(E, "SPAWN_FRAMES", zt), /** Post-respawn bullet-cancel volume (playerStateSlotCooldown = 60). */
+a(E, "BULLET_CANCEL_FRAMES", rs), /** plyNNa.sht bombCount: every team restarts a life with 3 bombs. */
 a(E, "INITIAL_BOMBS", 3), /** Respawn point: arcadeRegionSize.x / 2, arcadeRegionSize.y - 64. */
 /**
  * 192 = the centre of the 384-wide playfield (`sim/Playfield.ts` RESPAWN_X). This
@@ -1019,14 +1019,14 @@ a(E, "RESPAWN_X", 192), a(E, "RESPAWN_Y", 384), /**
  * is an observed bound, and every lane is clamped to it rather than tuned to it.
  */
 a(E, "MUZZLE_LIMIT", 12);
-let Zt = E;
+let te = E;
 const ut = {
   minX: -50,
   maxX: 450,
   minY: -50,
   maxY: 650
 };
-class Xi {
+class $i {
   constructor(t = {}) {
     a(this, "bullets", []);
     a(this, "bounds");
@@ -1049,12 +1049,12 @@ class Xi {
   }
   /** Create a bullet from the shared module pool, reusing a dead instance when available. */
   createBullet(t = {}) {
-    const e = ht(), s = Ce(t);
+    const e = ht(), s = Ae(t);
     return ht() < e ? this.poolReused++ : this.poolAllocated++, s;
   }
   /** Return a dead bullet to the shared pool (double-release safe, respects the cap). */
   recycle(t) {
-    is(t, this.maxPoolSize);
+    as(t, this.maxPoolSize);
   }
   add(...t) {
     for (const e of t)
@@ -1114,7 +1114,7 @@ class Xi {
     };
   }
 }
-class Cs {
+class As {
   constructor(t = 64) {
     /** Cell edge length in px (read-only; exposed for debug visualization). */
     a(this, "cellSize");
@@ -1156,12 +1156,12 @@ class Cs {
     for (const n of e) {
       if (n.hitbox.radius <= 0) continue;
       const l = n.getHitboxCenter();
-      Me(i, l) <= r + n.hitbox.radius && s.push(n);
+      ve(i, l) <= r + n.hitbox.radius && s.push(n);
     }
     return s;
   }
 }
-class qi {
+class Qi {
   constructor(t = 64) {
     a(this, "grid");
     /** Last list handed to update(); the grid is (re)built from it lazily. */
@@ -1169,7 +1169,7 @@ class qi {
     a(this, "dirty", !0);
     /** Number of real distance comparisons performed this frame (F12 metric). */
     a(this, "totalChecks", 0);
-    this.grid = new Cs(t);
+    this.grid = new As(t);
   }
   /**
    * Register the live entity set for this frame. The grid itself is rebuilt
@@ -1233,7 +1233,7 @@ class qi {
     return r;
   }
 }
-const As = {
+const Is = {
   up: ["ArrowUp", "KeyW"],
   down: ["ArrowDown", "KeyS"],
   left: ["ArrowLeft", "KeyA"],
@@ -1246,7 +1246,7 @@ const As = {
   debug: ["F12", "KeyP"],
   /** 碰撞网格可视化开关（票据 04 的 "D" 与 WASD 右移冲突，改用 G） */
   "debug-collision": ["KeyG"]
-}, Is = {
+}, Ps = {
   up: { axes: [{ index: 1, direction: -1 }], buttons: [12] },
   down: { axes: [{ index: 1, direction: 1 }], buttons: [13] },
   left: { axes: [{ index: 0, direction: -1 }], buttons: [14] },
@@ -1259,9 +1259,9 @@ const As = {
   // LB / LT
   pause: { buttons: [9] }
   // Start
-}, Ps = 3;
-class $i {
-  constructor(t = As, e = Is) {
+}, Fs = 3;
+class ji {
+  constructor(t = Is, e = Ps) {
     a(this, "bindings");
     a(this, "gamepadBindings");
     a(this, "gamepadProvider");
@@ -1433,7 +1433,7 @@ class $i {
   update() {
     this.prevFrameDown = new Set(this.currentFrameDown), this.refreshCurrentActions(), this.frame++;
     for (const [t, e] of this.pressBuffer)
-      this.frame - e >= Ps && this.pressBuffer.delete(t);
+      this.frame - e >= Fs && this.pressBuffer.delete(t);
   }
   isKeyDown(t) {
     return this.currentFrameDown.has(t);
@@ -1462,9 +1462,9 @@ class $i {
     let t = 0, e = 0;
     if (this.isKeyDown("left") && (t -= 1), this.isKeyDown("right") && (t += 1), this.isKeyDown("up") && (e -= 1), this.isKeyDown("down") && (e += 1), t !== 0 && e !== 0) {
       const s = Math.SQRT1_2;
-      return yt(t * s, e * s);
+      return bt(t * s, e * s);
     }
-    return yt(t, e);
+    return bt(t, e);
   }
   /**
    * The four direction actions as the bit set `core/Movement` resolves.
@@ -1478,14 +1478,14 @@ class $i {
     return (this.isKeyDown("up") ? st.up : 0) | (this.isKeyDown("down") ? st.down : 0) | (this.isKeyDown("left") ? st.left : 0) | (this.isKeyDown("right") ? st.right : 0);
   }
 }
-const dt = 640, Z = 480, Q = 384, tt = 448, at = 32, Lt = 16;
-function Qi(o) {
+const dt = 640, Z = 480, Q = 384, tt = 448, at = 32, Gt = 16;
+function Ji(o) {
   return o - at;
 }
-function ji(o) {
-  return o - Lt;
+function Zi(o) {
+  return o - Gt;
 }
-function Fs(o, t) {
+function Es(o, t) {
   let e = null, s = Number.POSITIVE_INFINITY;
   for (const [i, r] of Object.entries(t)) {
     const n = (r >> 16 & 255) - (o >> 16 & 255), l = (r >> 8 & 255) - (o >> 8 & 255), h = (r & 255) - (o & 255), c = n * n + l * l + h * h;
@@ -1527,7 +1527,7 @@ const k = class k {
     if (!this.bulletTexture) return null;
     const s = this.shapeByKey.get(t);
     if (!s || !this.bulletTexture.shapes.includes(s)) return null;
-    const i = Fs(e, this.bulletTexture.palette) ?? "master";
+    const i = Es(e, this.bulletTexture.palette) ?? "master";
     return (this.bulletTexture.template ?? "bullet:{shape}:{color}").replace("{shape}", s).replace("{color}", i);
   }
   /** Standalone texture name registered for a sprite key. */
@@ -1565,8 +1565,8 @@ a(k, "star", (t, e, s, { color: i, radius: r, alpha: n = 1 }) => {
   }
   t.poly(l).fill({ color: i, alpha: n });
 });
-let Gt = k;
-const Ie = 8, v = {
+let Ht = k;
+const Pe = 8, v = {
   left: 64,
   top: 19,
   width: 320,
@@ -1582,103 +1582,110 @@ const Ie = 8, v = {
   /** bossLifeBarMaxSize easing rates from Gui::FUN_00435900. */
   riseStep: 0.01,
   fallStep: 0.02
-}, Pe = 2105440, Es = 2105376, te = {
+}, Fe = 2105440, Bs = 2105376, ee = {
   normal: [6088959, 3117008],
   spell: [16769130, 16742972]
 }, pt = [10539263, 10518783, 14713024, 16728128];
-function Bs(o) {
+function _s(o) {
   return o >> 2 & 4144959 | 0;
 }
-function zt(o, t, e, s) {
+function Kt(o, t, e, s) {
   return { x: o, y: v.top, width: t, height: v.height, color: e, shade: s };
 }
-function _s(o) {
-  const t = Fe(o);
-  return zt(v.left, v.width * t, 16777215, Pe);
+function ks(o) {
+  const t = Ee(o);
+  return Kt(v.left, v.width * t, 16777215, Fe);
 }
-function ks(o, t, e) {
-  const s = Fe(t);
+function Ds(o, t, e) {
+  const s = Ee(t);
   if (s <= 0) return [];
-  const i = Ee(o), r = e ? te.spell : te.normal, n = [];
+  const i = Be(o), r = e ? ee.spell : ee.normal, n = [];
   for (let l = 0; l < i; l++) {
     const h = l / i;
     if (h >= s) break;
     const c = Math.min((l + 1) / i, s), d = r[l % r.length];
     n.push(
-      zt(
+      Kt(
         v.left + h * v.width,
         (c - h) * v.width,
         d,
-        Bs(d)
+        _s(d)
       )
     );
   }
   return n;
 }
-function Ds(o) {
-  const t = Ee(o);
+function Rs(o) {
+  const t = Be(o);
   if (t <= 0) return [];
   const e = t <= 5 ? 2 : 1, s = [];
   for (let i = 0; i < t; i++) {
     const r = v.pipLeft + i * v.pipWidth / t, n = v.pipLeft + (i + 1) * v.pipWidth / t - e, l = 16777215 - Math.floor(i * 255 / 9);
-    s.push(zt(r, Math.max(1, n - r), l, Es));
+    s.push(Kt(r, Math.max(1, n - r), l, Bs));
   }
   return s;
 }
-function Rs(o) {
+function Ns(o) {
   return o >= 20 ? pt[0] : o >= 10 ? pt[1] : o >= 5 ? pt[2] : pt[3];
 }
-function Ns(o) {
+function Ls(o) {
   const t = Math.max(0, Math.min(99, Math.floor(o)));
   return {
     x: v.timerX,
     y: v.timerY,
     text: t.toString().padStart(2, "0"),
-    color: Rs(o)
+    color: Ns(o)
   };
 }
-function Fe(o) {
+function Ee(o) {
   return Math.max(0, Math.min(1, o));
 }
-function Ee(o) {
-  return Math.max(0, Math.min(Ie, Math.floor(o) || 0));
+function Be(o) {
+  return Math.max(0, Math.min(Pe, Math.floor(o) || 0));
 }
-const Be = "";
-let rt = Be;
-function Ji(o) {
+const _e = "";
+let rt = _e;
+const Gs = "1";
+function mt(o) {
+  const t = o.startsWith("/") ? o : `/${o}`;
+  return o.includes("?") || !t.includes("/assets/") ? o : `${o}?v=${Gs}`;
+}
+function ta(o) {
   if (!o || o === "." || o === "./") {
     rt = o === "." || o === "./" ? "./" : "";
     return;
   }
   rt = o.endsWith("/") ? o : `${o}/`;
 }
-function Zi() {
+function ea() {
   return rt;
 }
-function ta() {
-  rt = Be;
+function sa() {
+  rt = _e;
 }
-function Kt(o, t = rt) {
-  if (!o || typeof o != "string" || o.startsWith("data:") || o.startsWith("blob:") || o.startsWith("http://") || o.startsWith("https://") || o.startsWith("//") || !t || t === "/")
+function Wt(o, t = rt) {
+  if (!o || typeof o != "string" || o.startsWith("data:") || o.startsWith("blob:") || o.startsWith("http://") || o.startsWith("https://") || o.startsWith("//"))
     return o;
+  if (!t || t === "/")
+    return mt(o);
   const e = t.endsWith("/") ? t : `${t}/`;
   if (o === e || o.startsWith(e))
-    return o;
+    return mt(o);
   const s = o.startsWith("/") ? o.slice(1) : o;
   if (e !== "./") {
     const i = e.startsWith("/") ? e.slice(1) : e;
     if (s.startsWith(i))
-      return e.startsWith("/") ? `/${s}` : s;
+      return mt(e.startsWith("/") ? `/${s}` : s);
   }
-  return `${e}${s}`;
+  return mt(`${e}${s}`);
 }
-class Ls {
+class Hs {
   constructor() {
     a(this, "textures", /* @__PURE__ */ new Map());
   }
   async load(t, e) {
     try {
-      const s = await Ge.load(Kt(e));
+      const s = await He.load(Wt(e));
       return this.textures.set(t, s), s;
     } catch {
       return null;
@@ -1735,7 +1742,7 @@ class N {
   }
   acquire() {
     let t = this.pool[this.cursor];
-    return t || (t = new gt(), t.anchor.set(0.5), this.pool.push(t), this.container.addChild(t)), this.cursor++, t;
+    return t || (t = new yt(), t.anchor.set(0.5), this.pool.push(t), this.container.addChild(t)), this.cursor++, t;
   }
   /** Hide pooled sprites this frame did not touch. */
   end() {
@@ -1749,7 +1756,7 @@ class N {
     this.pool.length = 0;
   }
 }
-const ot = "aFogDepth", ee = (
+const ot = "aFogDepth", se = (
   /* wgsl */
   `
             struct FogUniforms {
@@ -1759,7 +1766,7 @@ const ot = "aFogDepth", ee = (
 
             @group(3) @binding(0) var<uniform> fogUniforms : FogUniforms;
         `
-), Gs = (
+), Os = (
   /* wgsl */
   `
             let fogSpan = max(fogUniforms.uFogRange.y - fogUniforms.uFogRange.x, 0.0001);
@@ -1773,20 +1780,20 @@ const ot = "aFogDepth", ee = (
                 outColor.a
             );
         `
-), Hs = (
+), Vs = (
   /* glsl */
   `
             float fogSpan = max(uFogRange.y - uFogRange.x, 0.0001);
             float fogAmount = clamp((vFogDepth - uFogRange.x) / fogSpan, 0.0, 1.0) * uFogRange.z;
             outColor = vec4(mix(outColor.rgb, uFogColor.rgb * outColor.a, fogAmount), outColor.a);
         `
-), Os = {
+), Us = {
   name: "fog-bit",
   vertex: {
     header: (
       /* wgsl */
       `
-            ${ee}
+            ${se}
             @in ${ot}: f32;
             @out vFogDepth: f32;
         `
@@ -1802,16 +1809,16 @@ const ot = "aFogDepth", ee = (
     header: (
       /* wgsl */
       `
-            ${ee}
+            ${se}
             @in vFogDepth: f32;
         `
     ),
     main: (
       /* wgsl */
-      Gs
+      Os
     )
   }
-}, Vs = {
+}, zs = {
   name: "fog-bit",
   vertex: {
     header: (
@@ -1839,17 +1846,17 @@ const ot = "aFogDepth", ee = (
     ),
     main: (
       /* glsl */
-      Hs
+      Vs
     )
   }
 };
-function Us() {
-  return new qe({
+function Ks() {
+  return new $e({
     uFogColor: { value: new Float32Array([0, 0, 0, 1]), type: "vec4<f32>" },
     uFogRange: { value: new Float32Array([0, 0, 0, 0]), type: "vec4<f32>" }
   });
 }
-function zs(o, t) {
+function Ws(o, t) {
   const e = o.uniforms.uFogRange;
   if (!t || !(t.far > t.near)) {
     e[0] = 0, e[1] = 0, e[2] = 0, o.update();
@@ -1858,15 +1865,15 @@ function zs(o, t) {
   const s = o.uniforms.uFogColor;
   s[0] = (t.color >> 16 & 255) / 255, s[1] = (t.color >> 8 & 255) / 255, s[2] = (t.color & 255) / 255, s[3] = 1, e[0] = t.near, e[1] = t.far, e[2] = 1, o.update();
 }
-function Ks(o, t) {
-  return new He({
-    gpuProgram: Ke({
+function Ys(o, t) {
+  return new Oe({
+    gpuProgram: We({
       name: "fog-mesh-gpu",
-      bits: [We, Ye, Xe, Os]
+      bits: [Ye, Xe, qe, Us]
     }),
-    glProgram: Oe({
+    glProgram: Ve({
       name: "fog-mesh-gl",
-      bits: [Ve, Ue, ze, Vs]
+      bits: [Ue, ze, Ke, zs]
     }),
     // The keys are the WGSL binding names, which is how `Shader` sorts each
     // resource into its group. `textureUniforms` is the page's pixel-to-0..1
@@ -1881,8 +1888,8 @@ function Ks(o, t) {
     }
   });
 }
-const Bt = 32, Ws = [0, 1, 2, 0, 2, 3], et = 48;
-class Ys {
+const _t = 32, Xs = [0, 1, 2, 0, 2, 3], et = 48;
+class qs {
   constructor(t, e = {}) {
     a(this, "container");
     a(this, "options");
@@ -1899,7 +1906,7 @@ class Ys {
   push(t) {
     var l;
     if (!(t.alpha > 0)) return;
-    const e = Math.min(Bt, Math.max(1, Math.round(t.alpha * Bt))), s = !!t.depth && !!this.options.fogShader, i = t.page + ":" + e + ":" + (t.additive ? "a" : "n") + (s ? ":f" : ""), r = this.ensure(i, t.texture, e / Bt, !!t.additive, s);
+    const e = Math.min(_t, Math.max(1, Math.round(t.alpha * _t))), s = !!t.depth && !!this.options.fogShader, i = t.page + ":" + e + ":" + (t.additive ? "a" : "n") + (s ? ":f" : ""), r = this.ensure(i, t.texture, e / _t, !!t.additive, s);
     this.live.add(i), r.count >= r.capacity && this.grow(r);
     const n = r.count * 4;
     for (let h = 0; h < 8; h += 2) {
@@ -1910,7 +1917,7 @@ class Ys {
       for (let h = 0; h < 4; h++)
         r.depths[n + h] = ((l = t.depth) == null ? void 0 : l[h]) ?? 0;
     for (let h = 0; h < 6; h++)
-      r.indices[r.count * 6 + h] = n + Ws[h];
+      r.indices[r.count * 6 + h] = n + Xs[h];
     r.count++;
   }
   /** Publish the frame: slots past the last quad collapse to zero area. */
@@ -1944,7 +1951,7 @@ class Ys {
   ensure(t, e, s, i, r) {
     const n = this.buckets.get(t);
     if (n) return n;
-    const l = new $e({
+    const l = new Qe({
       positions: new Float32Array(et * 8),
       uvs: new Float32Array(et * 8),
       indices: this.degenerateIndices(et)
@@ -1954,10 +1961,10 @@ class Ys {
     if (r) {
       const g = this.options.fogShader;
       if (!g) throw new Error("QuadLayer: a fogged quad needs a fogShader");
-      h = new Float32Array(et * 4), c = new Qe({
+      h = new Float32Array(et * 4), c = new je({
         data: h,
         label: "quad-layer-fog-depth",
-        usage: qt.VERTEX | qt.COPY_DST
+        usage: $t.VERTEX | $t.COPY_DST
       }), l.addAttribute(ot, {
         buffer: c,
         format: "float32",
@@ -1965,7 +1972,7 @@ class Ys {
         offset: 0
       }), l.batchMode = "no-batch", d = g(e);
     }
-    const u = new je({ geometry: l, texture: e, shader: d, label: "quad-layer" });
+    const u = new Je({ geometry: l, texture: e, shader: d, label: "quad-layer" });
     u.alpha = s, u.blendMode = i ? "add" : "normal", this.container.addChild(u);
     const m = {
       mesh: u,
@@ -2003,8 +2010,8 @@ class Ys {
     return e;
   }
 }
-const se = ["main", "left", "right"], Xs = { normal: "", slow: "s:" };
-class qs {
+const ie = ["main", "left", "right"], $s = { normal: "", slow: "s:" };
+class Qs {
   constructor(t, e = "main") {
     a(this, "group");
     a(this, "index", 0);
@@ -2016,7 +2023,7 @@ class qs {
     a(this, "frame", 0);
     a(this, "mirror", !1);
     a(this, "pose", "normal");
-    this.anim = t, this.group = t[e] ? e : "main", this.loop = se.includes(this.group), this.transition = this.loop ? null : this.group;
+    this.anim = t, this.group = t[e] ? e : "main", this.loop = ie.includes(this.group), this.transition = this.loop ? null : this.group;
     const s = this.def(this.group);
     this.frame = (s == null ? void 0 : s.frames[0]) ?? 0, this.mirror = (s == null ? void 0 : s.mirror) ?? !1;
   }
@@ -2038,7 +2045,7 @@ class qs {
   }
   /** Force a group, clearing any queued direction change. */
   setGroup(t) {
-    !this.def(t) || t === this.group || (this.pending = null, this.play(t, se.includes(t)));
+    !this.def(t) || t === this.group || (this.pending = null, this.play(t, ie.includes(t)));
   }
   /**
    * Switch between the upright and the 低速 stance.
@@ -2126,7 +2133,7 @@ class qs {
    * vendored Taisei ships keep animating exactly as before.
    */
   key(t) {
-    const e = Xs[this.pose];
+    const e = $s[this.pose];
     return e && this.anim[e + t] ? e + t : t;
   }
   /** Definition for a group name, honouring the current stance. */
@@ -2134,7 +2141,7 @@ class qs {
     return this.anim[this.key(t)];
   }
 }
-const ie = at + Q, mt = 32, q = { w: 128, h: 16 }, $s = 432, G = 488, Qs = 13, ae = 16, R = {
+const ae = at + Q, ft = 32, q = { w: 128, h: 16 }, js = 432, G = 488, Js = 13, re = 16, R = {
   hiscore: 40,
   score: 56,
   player: 88,
@@ -2143,13 +2150,13 @@ const ie = at + Q, mt = 32, q = { w: 128, h: 16 }, $s = 432, G = 488, Qs = 13, a
   graze: 152,
   point: 168,
   time: 184
-}, re = { x: 480, y: 208 }, oe = { x: 552, y: 200 }, js = { x: 528, y: 320, r: 40 }, nt = 12, ne = (o) => {
+}, oe = { x: 480, y: 208 }, ne = { x: 552, y: 200 }, Zs = { x: 528, y: 320, r: 40 }, nt = 12, he = (o) => {
   const t = Math.min(nt, Math.max(0, o)) / nt;
   return Math.PI * 2 * t + Math.PI;
-}, Js = (o) => {
+}, ti = (o) => {
   const t = Math.min(nt, Math.max(0, Math.trunc(o)));
   return Math.floor(t / 2) + ":" + (t % 2 ? "30" : "00");
-}, _t = { x: G, y: R.power, h: 16 }, he = 8, Zs = 60, ti = 0.5, _e = 10, le = 80, ei = 208, C = {
+}, kt = { x: G, y: R.power, h: 16 }, le = 8, ei = 60, si = 0.5, ke = 10, ce = 80, ii = 208, C = {
   x: at,
   y: 449,
   w: 128,
@@ -2159,15 +2166,15 @@ const ie = at + Q, mt = 32, q = { w: 128, h: 16 }, $s = 432, G = 488, Qs = 13, a
   cursorW: 8,
   cursorH: 12,
   iconSize: 16
-}, Ht = (o) => "hud:glyph:" + o, si = (o) => "hud:label:" + o, ce = (o) => "hud:pip:" + o, kt = (o) => "hud:plate:" + o, ft = (o) => "hud:gauge:" + o, ii = (o) => "hud:badge:" + o, ai = (o) => "hud:popup:" + o, ri = Ht(48), ea = 4294967040, ue = 4294967295, sa = 16772992, ia = 4294951072, de = 48, oi = [0, 11, 21], ni = 52, hi = 56, Dt = 1024, pe = 4096;
-class Ot {
+}, Ot = (o) => "hud:glyph:" + o, ai = (o) => "hud:label:" + o, ue = (o) => "hud:pip:" + o, Dt = (o) => "hud:plate:" + o, gt = (o) => "hud:gauge:" + o, ri = (o) => "hud:badge:" + o, oi = (o) => "hud:popup:" + o, ni = Ot(48), ia = 4294967040, de = 4294967295, aa = 16772992, ra = 4294951072, pe = 48, hi = [0, 11, 21], li = 52, ci = 56, Rt = 1024, me = 4096;
+class Vt {
   constructor() {
-    a(this, "pool", Array.from({ length: de }, () => ({
+    a(this, "pool", Array.from({ length: pe }, () => ({
       inUse: !1,
       x: 0,
       y: 0,
       digits: [],
-      color: ue,
+      color: de,
       timer: 0,
       scale: 1
     })));
@@ -2180,9 +2187,9 @@ class Ot {
    * `scale` doubles the whole run, which is how the card-capture totals read bigger
    * than a pickup (`AsciiManager::SetScale` before `CreateTimePopup`).
    */
-  spawn(t, e, s, i = ue, r = 1) {
+  spawn(t, e, s, i = de, r = 1) {
     const n = this.pool[this.cursor];
-    this.cursor = (this.cursor + 1) % de, n.inUse = !0, n.x = t, n.y = e, n.color = i, n.timer = 0, n.scale = r > 0 ? r : 1, n.digits = s < 0 ? [_e] : s === 0 ? [0] : (() => {
+    this.cursor = (this.cursor + 1) % pe, n.inUse = !0, n.x = t, n.y = e, n.color = i, n.timer = 0, n.scale = r > 0 ? r : 1, n.digits = s < 0 ? [ke] : s === 0 ? [0] : (() => {
       const l = [];
       let h = s;
       for (; h > 0; )
@@ -2193,11 +2200,11 @@ class Ot {
   /** Rise every live popup and retire the ones that have run out their 60 frames. */
   update() {
     for (const t of this.pool)
-      t.inUse && (t.y -= ti, t.timer++, t.timer > Zs && (t.inUse = !1));
+      t.inUse && (t.y -= si, t.timer++, t.timer > ei && (t.inUse = !1));
   }
   /** Bank index for a popup age, matching the three sprite ranges in `DrawPopups`. */
   static bankFor(t) {
-    return t < ni ? 0 : t < hi ? 1 : 2;
+    return t < li ? 0 : t < ci ? 1 : 2;
   }
   /**
    * `AsciiManager.cpp:1615-1629`: distance from the ship sets opacity, so a popup that
@@ -2205,7 +2212,7 @@ class Ot {
    */
   static alphaFor(t, e, s, i) {
     const r = s - t, n = i - e, l = r * r + n * n;
-    return l > pe ? ei : l > Dt ? (l - Dt << 7) / (pe - Dt) + le | 0 : le;
+    return l > me ? ii : l > Rt ? (l - Rt << 7) / (me - Rt) + ce | 0 : ce;
   }
   /** Canvas-space views for this frame; (offsetX, offsetY) maps playfield to canvas. */
   view(t, e, s, i) {
@@ -2216,8 +2223,8 @@ class Ot {
         y: n.y + i,
         digits: n.digits,
         color: n.color,
-        bank: Ot.bankFor(n.timer),
-        alpha: Ot.alphaFor(n.x, n.y, t, e) / 255,
+        bank: Vt.bankFor(n.timer),
+        alpha: Vt.alphaFor(n.x, n.y, t, e) / 255,
         scale: n.scale
       });
     return r;
@@ -2232,7 +2239,7 @@ class Ot {
     this.cursor = 0;
   }
 }
-const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1, z = "★", I = { anchorX: 0, anchorY: 0 }, ci = 16773312, K = class K {
+const ui = (o, t) => o === ke && t > 0 ? o : o + hi[t], $ = (o) => o.alpha ?? 1, z = "★", I = { anchorX: 0, anchorY: 0 }, di = 16773312, K = class K {
   constructor() {
     a(this, "app");
     a(this, "gameContainer");
@@ -2241,8 +2248,8 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
     a(this, "bulletGraphics");
     a(this, "entityGraphics");
     /** Named procedural sprites; renderer draws bullets by `Bullet.sprite` key. */
-    a(this, "sprites", new Gt());
-    a(this, "assets", new Ls());
+    a(this, "sprites", new Ht());
+    a(this, "assets", new Hs());
     a(this, "hudGraphics");
     a(this, "debugGraphics");
     a(this, "backgroundGraphics");
@@ -2275,7 +2282,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
      */
     a(this, "playfield", {
       x: at,
-      y: Lt,
+      y: Gt,
       width: Q,
       height: tt
     });
@@ -2419,8 +2426,8 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
     a(this, "screenFadeTint", 16777215);
     a(this, "screenFade");
     a(this, "pendingFx", []);
-    this.app = new Je(), this.gameContainer = new W(), this.hudContainer = new W(), this.debugContainer = new W(), this.theme = "forestNight", this.playerSkin = "taisei", this.backgroundGraphics = new A(), this.gameContainer.addChild(this.backgroundGraphics), this.bgSky = new N(this.gameContainer, "bg-sky"), this.bgMid = new N(this.gameContainer, "bg-mid"), this.bgNear = new N(this.gameContainer, "bg-near"), this.backdropLayer = new W(), this.gameContainer.addChild(this.backdropLayer), this.backdropQuads = new Ys(this.backdropLayer, {
-      fogShader: (e) => Ks(e, this.fog())
+    this.app = new Ze(), this.gameContainer = new W(), this.hudContainer = new W(), this.debugContainer = new W(), this.theme = "forestNight", this.playerSkin = "taisei", this.backgroundGraphics = new A(), this.gameContainer.addChild(this.backgroundGraphics), this.bgSky = new N(this.gameContainer, "bg-sky"), this.bgMid = new N(this.gameContainer, "bg-mid"), this.bgNear = new N(this.gameContainer, "bg-near"), this.backdropLayer = new W(), this.gameContainer.addChild(this.backdropLayer), this.backdropQuads = new qs(this.backdropLayer, {
+      fogShader: (e) => Ys(e, this.fog())
     }), this.backdropFade = new A(), this.gameContainer.addChild(this.backdropFade), this.washPlate = new A(), this.gameContainer.addChild(this.washPlate), this.frameSprite = D(0, 0), this.gameContainer.addChild(this.frameSprite), this.spellCircle = D(), this.bossShadow = D(), this.gameContainer.addChild(this.spellCircle), this.gameContainer.addChild(this.bossShadow), this.entityLayer = new W(), this.gameContainer.addChild(this.entityLayer), this.itemLayer = new W(), this.gameContainer.addChild(this.itemLayer), this.entityGraphics = new A(), this.gameContainer.addChild(this.entityGraphics), this.bulletGraphics = new A(), this.gameContainer.addChild(this.bulletGraphics), this.partnerSprite = D(), this.playerSprite = D(), this.gameContainer.addChild(this.playerSprite), this.bossSprite = D(), this.gameContainer.addChild(this.bossSprite), this.laserLayer = new N(this.gameContainer, "lasers"), this.bullets = new N(this.gameContainer, "bullets"), this.playerShots = new N(this.gameContainer, "shots"), this.fx = new N(this.gameContainer, "fx"), this.bombGraphics = new A(), this.bombGraphics.blendMode = "add", this.gameContainer.addChild(this.bombGraphics), this.hitboxMarker = D(), this.hitboxMarker.blendMode = "normal", this.gameContainer.addChild(this.hitboxMarker), this.hitboxGraphics = new A(), this.gameContainer.addChild(this.hitboxGraphics), this.washFlash = new A(), this.gameContainer.addChild(this.washFlash), this.playfieldMask = new A().rect(0, 0, Q, tt).fill({ color: 16777215 }), this.gameContainer.addChild(this.playfieldMask), this.gameContainer.mask = this.playfieldMask, this.hudGraphics = new A(), this.hudContainer.addChild(this.hudGraphics), this.panelSprite = D(0, 0), this.bossGaugeGraphics = new A(), this.bossTimerText = new F({
       text: "",
       style: new O({
@@ -2511,7 +2518,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
       preference: t.backend
     }), t.container.appendChild(this.app.canvas), this.app.stage.addChild(this.gameContainer), this.app.stage.addChild(this.hudContainer), this.app.stage.addChild(this.screenFade), this.app.stage.addChild(this.debugContainer), this.app.stage.addChild(this.pauseOverlay), this.app.stage.addChild(this.pauseText), this.playfield = {
       x: at,
-      y: Lt,
+      y: Gt,
       width: Q,
       height: tt
     }, this.rightPanelX = 460, this.gameContainer.position.set(this.playfield.x, this.playfield.y), this.frameSprite.position.set(0, 0), this.panelSprite.position.set(this.rightPanelX - 12, 32);
@@ -2525,18 +2532,18 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
     ), this.spellTimerText.anchor.set(1, 0), this.spellCapturedText.anchor.set(0.5, 0), this.centerBannerText.position.set(224, 240), this.centerBannerText.anchor.set(0.5, 0.5), this.bossTimerText.position.set(v.timerX, v.timerY), this.debugText.position.set(10, 10);
   }
   render(t, e, s, i, r, n, l = !1, h = null, c = {}, d = []) {
-    var Xt;
+    var qt;
     this.playerPose = c.playerPose ?? "normal", this.hitboxMarker.visible = !1, this.entityGraphics.clear(), this.bulletGraphics.clear(), this.hitboxGraphics.clear(), this.bombGraphics.clear(), this.washPlate.clear(), this.washFlash.clear(), this.hudGraphics.clear(), this.statusGraphics.clear(), this.debugGraphics.clear(), this.bullets.begin(), this.laserLayer.begin(), this.playerShots.begin(), this.fx.begin(), this.drawBombArt(c.bombZones, c.bombCancel), this.drawWash(c.bombWash);
-    const u = this.drawBackdrop(c.backdrop), m = u ? ((Xt = c.backdrop) == null ? void 0 : Xt.clearColor) ?? 0 : c.backgroundColor ?? 855318;
+    const u = this.drawBackdrop(c.backdrop), m = u ? ((qt = c.backdrop) == null ? void 0 : qt.clearColor) ?? 0 : c.backgroundColor ?? 855318;
     this.backgroundGraphics.clear(), this.backgroundGraphics.rect(-this.playfield.x, -this.playfield.y, this.width, this.height).fill({ color: m });
     const g = c.theme ?? this.theme;
     g !== this.theme && (this.theme = g, this.scroll = 0), l || (this.scroll += c.scrollSpeed ?? 1.1);
-    const S = this.assets.get("bg:" + g + ":sky"), L = this.assets.get("bg:" + g + ":mid"), B = this.assets.get("bg:" + g + ":near"), X = Math.max(0.42, Math.min(1, c.brightness ?? 1)), ke = [S, L, B].filter(Boolean).length > 1 ? 0.34 : 1;
-    this.placeLayer(this.bgSky, u ? void 0 : S, this.scroll * ke, X), this.placeLayer(this.bgMid, u ? void 0 : L, this.scroll * 0.68, X * 0.96), this.placeLayer(this.bgNear, u ? void 0 : B, this.scroll, X * 0.92);
-    const Wt = this.assets.get("ui:frame"), J = this.usingBitmapHud();
-    J ? (this.frameSprite.visible = !1, this.panelSprite.visible = !1, this.hudGraphics.clear()) : Wt ? (this.frameSprite.visible = !0, this.frameSprite.texture = Wt, this.frameSprite.position.set(0, 0)) : (this.frameSprite.visible = !1, this.hudGraphics.rect(this.playfield.x, this.playfield.y, this.playfield.width, this.playfield.height).stroke({ width: 2, color: 6011059 }));
-    const Yt = this.assets.get("ui:hudPanel");
-    if (Yt && !J ? (this.panelSprite.visible = !0, this.panelSprite.texture = Yt, this.panelSprite.position.set(this.rightPanelX - 12, 32)) : J || (this.panelSprite.visible = !1, this.hudGraphics.rect(this.rightPanelX - 12, 32, 180, 416).stroke({ width: 2, color: 12852794 })), this.playerSprite.visible = !1, t.isAlive || t.state === "dying") {
+    const S = this.assets.get("bg:" + g + ":sky"), L = this.assets.get("bg:" + g + ":mid"), B = this.assets.get("bg:" + g + ":near"), X = Math.max(0.42, Math.min(1, c.brightness ?? 1)), De = [S, L, B].filter(Boolean).length > 1 ? 0.34 : 1;
+    this.placeLayer(this.bgSky, u ? void 0 : S, this.scroll * De, X), this.placeLayer(this.bgMid, u ? void 0 : L, this.scroll * 0.68, X * 0.96), this.placeLayer(this.bgNear, u ? void 0 : B, this.scroll, X * 0.92);
+    const Yt = this.assets.get("ui:frame"), J = this.usingBitmapHud();
+    J ? (this.frameSprite.visible = !1, this.panelSprite.visible = !1, this.hudGraphics.clear()) : Yt ? (this.frameSprite.visible = !0, this.frameSprite.texture = Yt, this.frameSprite.position.set(0, 0)) : (this.frameSprite.visible = !1, this.hudGraphics.rect(this.playfield.x, this.playfield.y, this.playfield.width, this.playfield.height).stroke({ width: 2, color: 6011059 }));
+    const Xt = this.assets.get("ui:hudPanel");
+    if (Xt && !J ? (this.panelSprite.visible = !0, this.panelSprite.texture = Xt, this.panelSprite.position.set(this.rightPanelX - 12, 32)) : J || (this.panelSprite.visible = !1, this.hudGraphics.rect(this.rightPanelX - 12, 32, 180, 416).stroke({ width: 2, color: 12852794 })), this.playerSprite.visible = !1, t.isAlive || t.state === "dying") {
       const p = t.position.x, f = t.position.y, y = $(t), x = (t.leanX ?? t.velocity.x) / Math.max(1e-3, t.fastSpeed), w = !t.isInvulnerable || Math.floor(t.invulnerabilityTimer / 6) % 2 === 0;
       this.playerSprite.blendMode = "normal", w && this.drawMember(this.playerSprite, t.member.id, p, f, y, x), this.playerSprite.tint = t.bombStateFlash ? 15736864 : 16777215;
       const b = this.hitboxGlow, T = b ? this.assets.get(b.key) : void 0;
@@ -2544,11 +2551,11 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
         b.width / Math.max(1, T.width),
         b.height / Math.max(1, T.height)
       )), t.hitboxVisible) {
-        const M = this.hitboxGraphics, _ = Math.max(fi, t.hitbox.radius);
-        M.circle(p, f, _ + gi).fill({ color: 397855, alpha: 0.82 * y }), M.circle(p, f, _).fill({ color: 16734830, alpha: 0.95 * y }), M.circle(p, f, Math.max(1.4, _ - yi)).fill({ color: 16777215, alpha: y });
+        const M = this.hitboxGraphics, _ = Math.max(yi, t.hitbox.radius);
+        M.circle(p, f, _ + bi).fill({ color: 397855, alpha: 0.82 * y }), M.circle(p, f, _).fill({ color: 16734830, alpha: 0.95 * y }), M.circle(p, f, Math.max(1.4, _ - xi)).fill({ color: 16777215, alpha: y });
       }
       if (t.switchFlash > 0) {
-        const M = 1 - t.switchFlash / bi, _ = 14 + M * 30;
+        const M = 1 - t.switchFlash / wi, _ = 14 + M * 30;
         this.hitboxGraphics.circle(p, f, _).stroke({
           width: 2.4 * (1 - M) + 0.4,
           color: t.member.accentColor,
@@ -2556,10 +2563,10 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
         });
       }
     }
-    const Tt = /* @__PURE__ */ new Set();
+    const Mt = /* @__PURE__ */ new Set();
     for (const p of s) {
       if (!p.isAlive) continue;
-      Tt.add(p);
+      Mt.add(p);
       const f = p.position.x, y = p.position.y, x = $(p), w = this.sprites.textureKey(p.spriteKey ?? "enemy") ?? p.spriteKey ?? "enemy", b = this.enemySpriteFor(p);
       if (this.drawSheet("enemy:" + w, b, f, y, x, 0, p.rotation, p.hitbox.radius * 3.4))
         continue;
@@ -2571,14 +2578,14 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
         this.entityGraphics.ellipse(f - 8, y - 4, 10, 5).fill({ color: 16777215, alpha: 0.6 * x }), this.entityGraphics.ellipse(f + 8, y - 4, 10, 5).fill({ color: 16777215, alpha: 0.6 * x }), this.entityGraphics.circle(f, y, p.hitbox.radius).fill({ color: p.color, alpha: x });
     }
     for (const [p, f] of this.enemySprites)
-      Tt.has(p) || (f.visible = !1, typeof this.entityLayer.removeChild == "function" && this.entityLayer.removeChild(f), f.destroy(), this.enemySprites.delete(p));
-    this.drawnEnemies = Tt.size, this.drawItems(d);
-    const De = e && "alpha" in e ? $(e) : 0;
-    if (e && (e.isAlive || e.isDefeated && De > 0)) {
+      Mt.has(p) || (f.visible = !1, typeof this.entityLayer.removeChild == "function" && this.entityLayer.removeChild(f), f.destroy(), this.enemySprites.delete(p));
+    this.drawnEnemies = Mt.size, this.drawItems(d);
+    const Re = e && "alpha" in e ? $(e) : 0;
+    if (e && (e.isAlive || e.isDefeated && Re > 0)) {
       const p = e.position.x, f = e.position.y, y = $(e);
       this.bossSprite.visible = !1;
       const x = this.sprites.textureKey(e.spriteKey ?? e.name) ?? e.spriteKey ?? e.name;
-      this.drawBossAura(p, f, y, e.isSpellCardActive, fe(e));
+      this.drawBossAura(p, f, y, e.isSpellCardActive, ge(e));
       const w = e.isAlive && this.drawSheet(
         "boss:" + x,
         this.bossSprite,
@@ -2593,7 +2600,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
         this.bossSprite.visible = !0, this.bossSprite.texture = b, this.bossSprite.position.set(p, f), this.bossSprite.alpha = y, this.bossSprite.rotation = e.rotation, this.bossSprite.scale.set(1);
       else if (!w) {
         const T = (0.2 + 0.1 * Math.sin(e.timer * 0.1)) * y;
-        this.entityGraphics.circle(p, f, 32).fill({ color: fe(e), alpha: T }), this.entityGraphics.circle(p, f - 6, 12).fill({ color: wi(e), alpha: y }), this.entityGraphics.poly([
+        this.entityGraphics.circle(p, f, 32).fill({ color: ge(e), alpha: T }), this.entityGraphics.circle(p, f - 6, 12).fill({ color: Ti(e), alpha: y }), this.entityGraphics.poly([
           { x: p, y: f },
           { x: p - 14, y: f + 20 },
           { x: p + 14, y: f + 20 }
@@ -2667,27 +2674,27 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
       this.livesText.text = "Player: " + (p ? "" : r.lives > 0 ? z.repeat(Math.min(8, r.lives)) : "-"), this.bombsText.text = "Spell:  " + (p ? "" : z.repeat(Math.max(0, r.bombs))), this.drawHudIcons(r.lives, r.bombs, (f) => 40 + f * 21), this.powerText.text = "Power:  " + r.power + " / " + r.maxPower, this.grazeText.text = "Graze:  " + r.graze, this.stageText.text = "Stage " + r.stageNumber + " - " + r.difficulty, this.timeText.text = "Time: " + r.timePhase, this.memberText.text = "Member: " + r.memberLabel + (r.focusActive ? " *" : "");
     }
     this.drawTeamStatus(t, c.youkaiMeter), this.drawScorePopups(c.scorePopups);
-    const Mt = this.assets.get("taisei:ui:spell"), Re = this.assets.get("ui:spellBanner"), vt = r.spellCutIn ? this.assets.get(r.spellCutIn) : void 0;
+    const vt = this.assets.get("taisei:ui:spell"), Ne = this.assets.get("ui:spellBanner"), Ct = r.spellCutIn ? this.assets.get(r.spellCutIn) : void 0;
     if (r.spellCardName) {
       this.spellNameText.text = r.spellCardName, this.spellTimerText.text = Math.ceil(r.spellCardTime).toString(), this.spellNameText.visible = !0, this.spellTimerText.visible = !0;
       const p = K.DISPLAY_WINDOW - Math.max(0, r.spellCardDisplayTimer), f = Math.min(1, p / K.DISPLAY_ANIM_FRAMES), y = 1 - Math.pow(1 - f, 3), x = this.width / 2, w = x + (1 - y) * (this.width - x);
       this.spellCapturedText.visible = r.spellCaptured, this.spellCapturedText.position.set(this.spellNameText.position.x, this.spellNameText.position.y + 14), this.spellNameText.alpha = Math.min(1, 0.2 + y * 0.8), this.spellNameText.scale.set(1.6 - 0.6 * y), this.spellNameText.position.set(w, this.height / 2 - 14);
-      const b = Re ?? Mt;
-      b ? (this.bannerSprite.visible = !0, this.bannerSprite.texture = b, this.bannerSprite.position.set(w, this.height / 2 - 14), this.bannerSprite.alpha = this.spellNameText.alpha, this.bannerSprite.blendMode = b === Mt ? "add" : "normal", this.bannerSprite.scale.set((b === Mt ? 430 : 420) / Math.max(1, b.width))) : this.bannerSprite.visible = !1;
+      const b = Ne ?? vt;
+      b ? (this.bannerSprite.visible = !0, this.bannerSprite.texture = b, this.bannerSprite.position.set(w, this.height / 2 - 14), this.bannerSprite.alpha = this.spellNameText.alpha, this.bannerSprite.blendMode = b === vt ? "add" : "normal", this.bannerSprite.scale.set((b === vt ? 430 : 420) / Math.max(1, b.width))) : this.bannerSprite.visible = !1;
     } else
       this.spellNameText.visible = !1, this.spellTimerText.visible = !1, this.spellCapturedText.visible = !1, this.bannerSprite.visible = !1, this.spellNameText.scale.set(1), this.spellNameText.alpha = 1;
-    if (vt && r.spellCardDisplayTimer > 0) {
+    if (Ct && r.spellCardDisplayTimer > 0) {
       const p = r.spellCardDisplayTimer, f = (K.DISPLAY_WINDOW - p) / K.DISPLAY_ANIM_FRAMES, y = 1 - Math.pow(1 - Math.min(1, f), 3), x = r.spellCutInSide === "player", w = 210, b = x ? this.playfield.x + this.playfield.width - 6 : this.playfield.x + 6;
-      this.cutInSprite.visible = !0, this.cutInSprite.texture = vt, this.cutInSprite.scale.set(w / Math.max(1, vt.height)), this.cutInSprite.anchor.set(x ? 1 : 0, 0.5), this.cutInSprite.position.set(
+      this.cutInSprite.visible = !0, this.cutInSprite.texture = Ct, this.cutInSprite.scale.set(w / Math.max(1, Ct.height)), this.cutInSprite.anchor.set(x ? 1 : 0, 0.5), this.cutInSprite.position.set(
         b + (x ? 1 : -1) * (1 - y) * (w * 0.8),
         this.playfield.y + this.playfield.height - w / 2 - 10
       ), this.cutInSprite.alpha = Math.min(1, p / 18) * 0.96;
     } else
       this.cutInSprite.visible = !1;
-    const Ct = r.bossWarning ? this.assets.get("taisei:ui:boss_indicator") : void 0;
-    if (Ct) {
-      const p = r.centerMessageTimer, f = Math.min(1, (di - p) / pi), y = 1 - Math.pow(1 - f, 3), x = 210, w = this.playfield.x + this.playfield.width / 2, b = this.playfield.x - x;
-      this.bossWarningSprite.visible = !0, this.bossWarningSprite.texture = Ct, this.bossWarningSprite.anchor.set(0.5, 0.5), this.bossWarningSprite.scale.set(x / Math.max(1, Ct.width)), this.bossWarningSprite.position.set(
+    const At = r.bossWarning ? this.assets.get("taisei:ui:boss_indicator") : void 0;
+    if (At) {
+      const p = r.centerMessageTimer, f = Math.min(1, (mi - p) / fi), y = 1 - Math.pow(1 - f, 3), x = 210, w = this.playfield.x + this.playfield.width / 2, b = this.playfield.x - x;
+      this.bossWarningSprite.visible = !0, this.bossWarningSprite.texture = At, this.bossWarningSprite.anchor.set(0.5, 0.5), this.bossWarningSprite.scale.set(x / Math.max(1, At.width)), this.bossWarningSprite.position.set(
         b + (w - b) * y,
         this.playfield.y + this.playfield.height * 0.3
       ), this.bossWarningSprite.alpha = Math.min(1, p / 24), this.centerBannerText.visible = !1;
@@ -2838,14 +2845,14 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
     };
     e.rect(v.left, v.top, v.width, i).stroke({
       width: 1,
-      color: Pe,
+      color: Fe,
       alpha: s * 0.9
-    }), n(_s(t.gaugeDisplayRatio));
-    for (const h of ks(t.lifeBars, t.gaugeDisplayRatio, t.isSpellCardActive))
+    }), n(ks(t.gaugeDisplayRatio));
+    for (const h of Ds(t.lifeBars, t.gaugeDisplayRatio, t.isSpellCardActive))
       n(h);
-    for (const h of Ds(t.remainingBars))
+    for (const h of Rs(t.remainingBars))
       n(h);
-    const l = Ns(t.spellcardSecondsRemaining);
+    const l = Ls(t.spellcardSecondsRemaining);
     this.bossTimerText.visible = t.isSpellCardActive && l.text !== "00", this.bossTimerText.text = l.text, this.bossTimerText.style.fill = l.color, this.bossTimerText.alpha = s;
   }
   drawBossAura(t, e, s, i, r) {
@@ -2857,7 +2864,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
     } else
       this.spellCircle.visible = !1;
     const l = this.assets.get("taisei:part:boss_shadow");
-    l ? (this.bossShadow.visible = !0, this.bossShadow.texture = l, this.bossShadow.position.set(t, e - 10), this.bossShadow.alpha = (i ? 0.34 : 0.2) * s, this.bossShadow.blendMode = "add", this.bossShadow.tint = r, this.bossShadow.scale.set(ui / Math.max(1, l.height))) : this.bossShadow.visible = !1;
+    l ? (this.bossShadow.visible = !0, this.bossShadow.texture = l, this.bossShadow.position.set(t, e - 10), this.bossShadow.alpha = (i ? 0.34 : 0.2) * s, this.bossShadow.blendMode = "add", this.bossShadow.tint = r, this.bossShadow.scale.set(pi / Math.max(1, l.height))) : this.bossShadow.visible = !1;
   }
   /**
    * Lives and bombs as real heart/star art instead of the text glyph, falling
@@ -2881,14 +2888,14 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
    * started without the asset pack.
    */
   usingBitmapHud() {
-    return this.hudArtReady || (this.hudArtReady = !!this.assets.get(ri)), this.hudArtReady;
+    return this.hudArtReady || (this.hudArtReady = !!this.assets.get(ni)), this.hudArtReady;
   }
   /** Blit `text` in the retail 16x16 font from (x, y) and return the advance. */
   drawHudText(t, e, s, i = 1, r = "left", n = {}) {
-    const l = n.advance ?? Qs, h = t.length * l * i;
+    const l = n.advance ?? Js, h = t.length * l * i;
     let c = r === "right" ? e - h : e;
     for (const d of t) {
-      const u = this.assets.get(Ht(d.charCodeAt(0)));
+      const u = this.assets.get(Ot(d.charCodeAt(0)));
       u && this.hudBitmap.draw({
         texture: u,
         x: c,
@@ -2914,9 +2921,9 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
         const i = s.digits.length;
         if (!i) continue;
         const r = s.scale > 0 ? s.scale : 1;
-        let n = s.x - he * r * i / 2;
+        let n = s.x - le * r * i / 2;
         for (let l = i - 1; l >= 0; l--) {
-          const h = this.assets.get(ai(li(s.digits[l], s.bank)));
+          const h = this.assets.get(oi(ui(s.digits[l], s.bank)));
           h && e.draw({
             texture: h,
             x: n,
@@ -2926,7 +2933,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
             alpha: s.alpha,
             tint: s.color & 16777215,
             ...I
-          }), n += he * r;
+          }), n += le * r;
         }
       }
     e.end();
@@ -2955,40 +2962,40 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
     ])
       u.visible = !1;
     this.hudIcons.begin(), this.hudIcons.end();
-    const r = this.assets.get(kt("tile"));
+    const r = this.assets.get(Dt("tile"));
     if (r) {
-      for (let u = 0; u < Z - q.h; u += mt)
+      for (let u = 0; u < Z - q.h; u += ft)
         i.draw({ texture: r, x: 0, y: u, ...I });
-      for (let u = ie; u < dt - mt / 2; u += mt)
-        for (let m = q.h; m < Z - q.h; m += mt)
+      for (let u = ae; u < dt - ft / 2; u += ft)
+        for (let m = q.h; m < Z - q.h; m += ft)
           i.draw({ texture: r, x: u, y: m, ...I });
     }
-    const n = this.assets.get(kt("border"));
+    const n = this.assets.get(Dt("border"));
     if (n)
       for (let u = 0; u < dt - q.w / 2; u += q.w)
         i.draw({ texture: n, x: u, y: 0, ...I }), i.draw({ texture: n, x: u, y: Z - q.h, ...I });
-    const l = this.assets.get(kt("panel"));
-    l && i.draw({ texture: l, x: re.x, y: re.y, ...I });
+    const l = this.assets.get(Dt("panel"));
+    l && i.draw({ texture: l, x: oe.x, y: oe.y, ...I });
     for (const u of ["hiscore", "score", "player", "spell", "power", "graze", "point", "time"]) {
-      const m = this.assets.get(si(u)), g = R[u];
-      m && i.draw({ texture: m, x: $s, y: g, ...I });
+      const m = this.assets.get(ai(u)), g = R[u];
+      m && i.draw({ texture: m, x: js, y: g, ...I });
     }
     this.drawHudText(t.formattedHiScore, G, R.hiscore), this.drawHudText(t.formattedScore, G, R.score);
-    const h = this.assets.get(ce("life"));
+    const h = this.assets.get(ue("life"));
     if (h)
       for (let u = 0; u < Math.max(0, t.lives); u++)
         i.draw({
           texture: h,
-          x: G + u * ae,
+          x: G + u * re,
           y: R.player,
           ...I
         });
-    const c = this.assets.get(ce("bomb"));
+    const c = this.assets.get(ue("bomb"));
     if (c)
       for (let u = 0; u < Math.max(0, t.bombs); u++)
         i.draw({
           texture: c,
-          x: G + u * ae,
+          x: G + u * re,
           y: R.spell,
           ...I
         });
@@ -2996,7 +3003,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
       const u = Math.min(8, Math.max(1, Math.round(t.power / 8))), m = t.power / u;
       for (let g = 0; g < u; g++) {
         const S = u === 1 ? 0 : g / (u - 1);
-        this.powerBar.rect(_t.x + g * m, _t.y, m + 0.5, _t.h).fill({ color: 14737663, alpha: 0.875 - 0.375 * S });
+        this.powerBar.rect(kt.x + g * m, kt.y, m + 0.5, kt.h).fill({ color: 14737663, alpha: 0.875 - 0.375 * S });
       }
     }
     if (this.drawHudText(t.power < t.maxPower ? String(t.power) : "MAX", G, R.power), this.drawHudText(String(t.graze), G, R.graze), this.drawPointRow(String(t.pointItems), String(t.nextPointExtend), R.point), t.timeOrbThreshold === null)
@@ -3007,14 +3014,14 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
         String(t.timeOrbs),
         String(t.timeOrbThreshold),
         R.time,
-        u ? ci : void 0
+        u ? di : void 0
       );
     }
-    const d = this.assets.get(ii(t.difficulty));
+    const d = this.assets.get(ri(t.difficulty));
     d && i.draw({
       texture: d,
-      x: oe.x,
-      y: oe.y,
+      x: ne.x,
+      y: ne.y,
       ...I
     }), this.drawYoukaiGauge(e), this.drawGuiBanners(s), i.end();
   }
@@ -3036,7 +3043,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
    * retail's whole-row `SetColor`, so it has to cover the slash as well as the digits.
    */
   drawPointRow(t, e, s, i) {
-    const r = this.drawHudText(t, G, s, 1, "left", { tint: i }), n = G + r, l = this.assets.get(Ht(47));
+    const r = this.drawHudText(t, G, s, 1, "left", { tint: i }), n = G + r, l = this.assets.get(Ot(47));
     l && this.hudBitmap.draw({
       texture: l,
       x: n,
@@ -3058,7 +3065,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
    * colours. `hud:clock:dial` lets a real sheet take it over unchanged.
    */
   drawNightClock(t, e = !0) {
-    const { x: s, y: i, r } = js, n = ne(t), l = this.assets.get("hud:clock:dial");
+    const { x: s, y: i, r } = Zs, n = he(t), l = this.assets.get("hud:clock:dial");
     if (this.nightClockFace.clear(), l)
       this.hudBitmap.draw({
         texture: l,
@@ -3071,12 +3078,12 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
     else {
       this.nightClockFace.circle(s, i, r).fill({ color: 1052696, alpha: 0.72 }).stroke({ width: 2, color: 13153386, alpha: 0.9 });
       for (let c = 0; c < nt; c++) {
-        const d = ne(c), u = c % 2 === 0, m = r - (u ? 9 : 5);
+        const d = he(c), u = c % 2 === 0, m = r - (u ? 9 : 5);
         this.nightClockFace.moveTo(s + Math.sin(d) * m, i - Math.cos(d) * m).lineTo(s + Math.sin(d) * r, i - Math.cos(d) * r).stroke({ width: u ? 2 : 1, color: 13153386, alpha: u ? 0.95 : 0.55 });
       }
     }
     const h = t >= nt;
-    this.nightClockHand.clear().moveTo(s - Math.sin(n) * 5, i + Math.cos(n) * 5).lineTo(s + Math.sin(n) * (r - 6), i - Math.cos(n) * (r - 6)).stroke({ width: 2.5, color: h ? 16765514 : 15790335, alpha: 0.95 }), e && this.drawHudText(Js(t), s - 20, i + r + 4);
+    this.nightClockHand.clear().moveTo(s - Math.sin(n) * 5, i + Math.cos(n) * 5).lineTo(s + Math.sin(n) * (r - 6), i - Math.cos(n) * (r - 6)).stroke({ width: 2.5, color: h ? 16765514 : 15790335, alpha: 0.95 }), e && this.drawHudText(ti(t), s - 20, i + r + 4);
   }
   /**
    * The 妖率計 at the bottom of the playfield: the ornate 128x16 track, the 人 and 妖
@@ -3085,11 +3092,11 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
    */
   drawYoukaiGauge(t) {
     if (t === void 0) return;
-    const e = this.assets.get(ft("track"));
+    const e = this.assets.get(gt("track"));
     if (!e) return;
     const s = this.hudBitmap;
     s.draw({ texture: e, x: C.x, y: C.y, ...I });
-    const i = this.assets.get(ft("human"));
+    const i = this.assets.get(gt("human"));
     i && s.draw({
       texture: i,
       x: C.x,
@@ -3098,7 +3105,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
       height: C.iconSize,
       ...I
     });
-    const r = this.assets.get(ft("youkai"));
+    const r = this.assets.get(gt("youkai"));
     r && s.draw({
       texture: r,
       x: C.x + C.w - C.iconSize,
@@ -3107,7 +3114,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
       height: C.iconSize,
       ...I
     });
-    const n = this.assets.get(ft("cursor")), h = C.x + C.w / 2 + (Math.max(0, Math.min(1, t)) - 0.5) * C.span * 2;
+    const n = this.assets.get(gt("cursor")), h = C.x + C.w / 2 + (Math.max(0, Math.min(1, t)) - 0.5) * C.span * 2;
     n && s.draw({
       texture: n,
       x: h - C.cursorW / 2,
@@ -3227,11 +3234,11 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
     let d = this.anims.get(e);
     d || (d = /* @__PURE__ */ new Map(), this.anims.set(e, d));
     let u = d.get(t);
-    (!u || u.sheet !== c) && (u = { sheet: c, player: new qs(c.anim) }, d.set(t, u)), this.lastSlot.set(e, t), e === this.playerSprite && u.player.setPose(this.playerPose), c.steer && u.player.setDirection(n, c.deadZone ?? 0.2), u.player.update(1), e === this.playerSprite && (this.playerAnimDebug = t + " " + u.player.currentGroup + "#" + u.player.frameIndex + " dir=" + n.toFixed(2) + " pose=" + this.playerPose);
+    (!u || u.sheet !== c) && (u = { sheet: c, player: new Qs(c.anim) }, d.set(t, u)), this.lastSlot.set(e, t), e === this.playerSprite && u.player.setPose(this.playerPose), c.steer && u.player.setDirection(n, c.deadZone ?? 0.2), u.player.update(1), e === this.playerSprite && (this.playerAnimDebug = t + " " + u.player.currentGroup + "#" + u.player.frameIndex + " dir=" + n.toFixed(2) + " pose=" + this.playerPose);
     const m = this.assets.get(c.frameKey(u.player.frameIndex));
     if (!m)
       return this.brokenSheets.add(t), !1;
-    const g = c.fit && h > 0 ? h / Math.max(1, m.width) : c.scale ?? xi;
+    const g = c.fit && h > 0 ? h / Math.max(1, m.width) : c.scale ?? Si;
     return e.visible = !0, e.texture = m, e.position.set(s, i), e.rotation = l, e.alpha = r, e.scale.set(u.player.flipped ? -g : g, g), !0;
   }
   /**
@@ -3255,7 +3262,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
    */
   drawTeamStatus(t, e) {
     this.partnerSprite.visible = !1;
-    const s = this.usingBitmapHud(), i = s ? ie + 2 : this.rightPanelX + 16, r = s ? 210 : 250;
+    const s = this.usingBitmapHud(), i = s ? ae + 2 : this.rightPanelX + 16, r = s ? 210 : 250;
     if (!s && t.isAlive && t.partner && this.drawMember(
       this.partnerSprite,
       t.partner.id,
@@ -3263,7 +3270,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
       r,
       1,
       0,
-      mi,
+      gi,
       !0
     ), e === void 0) return;
     if (s) {
@@ -3333,7 +3340,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
       t.begin(), t.end();
       return;
     }
-    const r = e.width >= this.playfield.width / 2 ? this.playfield.width / e.width : 1, n = e.width * r, l = e.height * r, h = Math.ceil(this.playfield.width / n), c = Math.min(4, Math.round(2 * r)), d = Math.max(1, l - c), u = Math.ceil(this.playfield.height / d) + 1, m = (s % d + d) % d, g = Si(i);
+    const r = e.width >= this.playfield.width / 2 ? this.playfield.width / e.width : 1, n = e.width * r, l = e.height * r, h = Math.ceil(this.playfield.width / n), c = Math.min(4, Math.round(2 * r)), d = Math.max(1, l - c), u = Math.ceil(this.playfield.height / d) + 1, m = (s % d + d) % d, g = Mi(i);
     t.begin();
     for (let S = u; S >= -1; S--)
       for (let L = 0; L < h; L++) {
@@ -3352,11 +3359,11 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
   get backend() {
     if (!this.app.renderer) return "pending";
     const t = this.app.renderer.type;
-    return t & $t.WEBGPU ? "webgpu" : t & $t.WEBGL ? "webgl" : "other";
+    return t & Qt.WEBGPU ? "webgpu" : t & Qt.WEBGL ? "webgl" : "other";
   }
   /** The backdrop layer's fog block, made on first fogged quad. */
   fog() {
-    return this.fogBlock ?? (this.fogBlock = Us()), this.fogBlock;
+    return this.fogBlock ?? (this.fogBlock = Ks()), this.fogBlock;
   }
   /**
    * Put a game-authored 3D backdrop onto the GPU.
@@ -3368,7 +3375,7 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
   drawBackdrop(t) {
     if (this.backdropQuads.begin(), this.backdropFade.clear(), !t)
       return this.backdropQuads.end(), !1;
-    if (t.quads.some((e) => e.depth) && zs(this.fog(), t.fog ?? null), t.quads.some((e) => !this.assets.has(e.page)))
+    if (t.quads.some((e) => e.depth) && Ws(this.fog(), t.fog ?? null), t.quads.some((e) => !this.assets.has(e.page)))
       return this.backdropQuads.end(), !1;
     for (const e of t.quads) {
       const s = this.assets.get(e.page);
@@ -3402,11 +3409,11 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
   }
   itemSpriteFor(t) {
     let e = this.itemSprites.get(t);
-    return e || (e = new gt(), e.anchor.set(0.5, 0.5), this.itemSprites.set(t, e), this.itemLayer.addChild(e)), e;
+    return e || (e = new yt(), e.anchor.set(0.5, 0.5), this.itemSprites.set(t, e), this.itemLayer.addChild(e)), e;
   }
   enemySpriteFor(t) {
     let e = this.enemySprites.get(t);
-    return e || (e = new gt(), e.anchor.set(0.5, 0.5), this.enemySprites.set(t, e), this.entityLayer.addChild(e)), e;
+    return e || (e = new yt(), e.anchor.set(0.5, 0.5), this.enemySprites.set(t, e), this.entityLayer.addChild(e)), e;
   }
   destroy() {
     this.assets.clear(), this.app.destroy(!0, { children: !0, texture: !0 });
@@ -3414,38 +3421,38 @@ const li = (o, t) => o === _e && t > 0 ? o : o + oi[t], $ = (o) => o.alpha ?? 1,
 };
 /** HUD.showSpellCard display window (frames); the first slice is the pop-in. */
 a(K, "DISPLAY_WINDOW", 90), a(K, "DISPLAY_ANIM_FRAMES", 30);
-let me = K;
-const aa = 0, ra = 0, oa = (o, t) => (e) => o + ":" + t + ":frame" + String(e).padStart(4, "0"), ui = 96, di = 150, pi = 18, mi = 1.5, fi = 3.4, gi = 2.6, yi = 1.4, bi = 14, xi = 0.6, na = 0.26, fe = (o) => o.displayColor ?? (o.isSpellCardActive ? 16720469 : 4491519), wi = (o) => o.accentColor ?? 16769126;
+let fe = K;
+const oa = 0, na = 0, ha = (o, t) => (e) => o + ":" + t + ":frame" + String(e).padStart(4, "0"), pi = 96, mi = 150, fi = 18, gi = 1.5, yi = 3.4, bi = 2.6, xi = 1.4, wi = 14, Si = 0.6, la = 0.26, ge = (o) => o.displayColor ?? (o.isSpellCardActive ? 16720469 : 4491519), Ti = (o) => o.accentColor ?? 16769126;
 function D(o = 0.5, t = o) {
-  const e = new gt();
+  const e = new yt();
   return e.anchor.set(o, t), e.visible = !1, e;
 }
-function Si(o) {
+function Mi(o) {
   const t = Math.max(0, Math.min(1, o)) * 255, e = Math.round(t);
   return e << 16 | e << 8 | e;
 }
-const Ti = 1, ge = 3;
-function Rt(o, t) {
+const vi = 1, ye = 3;
+function Nt(o, t) {
   return String.fromCharCode(o[t], o[t + 1], o[t + 2], o[t + 3]);
 }
-function Nt(o, t) {
+function Lt(o, t) {
   return o[t] | o[t + 1] << 8;
 }
-function ye(o, t) {
+function be(o, t) {
   return (o[t] | o[t + 1] << 8 | o[t + 2] << 16 | o[t + 3] << 24) >>> 0;
 }
-function Mi(o) {
-  if (o.length < 12 || Rt(o, 0) !== "RIFF" || Rt(o, 8) !== "WAVE") return null;
+function Ci(o) {
+  if (o.length < 12 || Nt(o, 0) !== "RIFF" || Nt(o, 8) !== "WAVE") return null;
   let t = 0, e = 0, s = 0, i = 0, r = null;
   for (let d = 12; d + 8 <= o.length; ) {
-    const u = Rt(o, d), m = ye(o, d + 4), g = d + 8;
-    u === "fmt " ? (t = Nt(o, g), e = Nt(o, g + 2), s = ye(o, g + 4), i = Nt(o, g + 14)) : u === "data" && (r = o.subarray(g, Math.min(g + m, o.length))), d = g + m + m % 2;
+    const u = Nt(o, d), m = be(o, d + 4), g = d + 8;
+    u === "fmt " ? (t = Lt(o, g), e = Lt(o, g + 2), s = be(o, g + 4), i = Lt(o, g + 14)) : u === "data" && (r = o.subarray(g, Math.min(g + m, o.length))), d = g + m + m % 2;
   }
-  if (!(r != null && r.length) || !e || !s || !i || t !== Ti && t !== ge) return null;
+  if (!(r != null && r.length) || !e || !s || !i || t !== vi && t !== ye) return null;
   const n = i / 8, l = Math.floor(r.length / n), h = new Float32Array(l), c = new DataView(r.buffer, r.byteOffset, r.byteLength);
   for (let d = 0; d < l; d++) {
     const u = d * n;
-    if (t === ge)
+    if (t === ye)
       h[d] = i === 32 ? c.getFloat32(u, !0) : c.getFloat64(u, !0);
     else if (i === 8)
       h[d] = (r[u] - 128) / 128;
@@ -3459,29 +3466,29 @@ function Mi(o) {
   }
   return { sampleRate: s, channels: e, samples: h };
 }
-const vi = 12, Ci = 20;
-function Ai(o) {
+const Ai = 12, Ii = 20;
+function Pi(o) {
   return 10 ** (o / 2e3);
 }
-function Ii(o) {
+function Fi(o) {
   const t = Math.max(0, Math.min(1, o));
   if (t <= 0) return 0;
   const e = 1 - t;
   return 1 - e * e * e;
 }
-function Pi(o, t) {
-  const e = Ii(t);
-  return e <= 0 ? 0 : Ai(Math.round((o + 5e3) * e) - 5e3);
+function Ei(o, t) {
+  const e = Fi(t);
+  return e <= 0 ? 0 : Pi(Math.round((o + 5e3) * e) - 5e3);
 }
-function be(o, t, e) {
+function xe(o, t, e) {
   for (const s of o)
     if (s.idx === t)
       return s.panSum += e, s.panCount += 1, !1;
-  return o.length >= vi ? !1 : (o.push({ idx: t, panSum: e, panCount: 1, tries: 0 }), !0);
+  return o.length >= Ai ? !1 : (o.push({ idx: t, panSum: e, panCount: 1, tries: 0 }), !0);
 }
-const Fi = (o) => fetch(Kt(o)).then((t) => t.ok ? t.arrayBuffer() : Promise.reject(new Error(`HTTP ${t.status}`)));
-class Ei {
-  constructor(t, e, s = Fi) {
+const Bi = (o) => fetch(Wt(o)).then((t) => t.ok ? t.arrayBuffer() : Promise.reject(new Error(`HTTP ${t.status}`)));
+class _i {
+  constructor(t, e, s = Bi) {
     a(this, "slots", []);
     /** Decoded audio, keyed by file path so indices sharing a recording share it too. */
     a(this, "buffers", /* @__PURE__ */ new Map());
@@ -3514,7 +3521,7 @@ class Ei {
    */
   queue(t, e = 0) {
     const s = this.source.entries[t];
-    s && (this.ensure(s), be(this.slots, t, Math.max(-1, Math.min(1, e))), this.schedule());
+    s && (this.ensure(s), xe(this.slots, t, Math.max(-1, Math.min(1, e))), this.schedule());
   }
   /** Fetch and decode every file in the table, so the first hit is not late. */
   preload() {
@@ -3538,7 +3545,7 @@ class Ei {
     if (!e || this.buffers.has(e) || this.loading.has(e) || this.failed.has(e)) return;
     const s = this.context();
     s && (this.loading.add(e), this.load(e).then((i) => {
-      const r = Mi(new Uint8Array(i));
+      const r = Ci(new Uint8Array(i));
       if (!r) throw new Error("unparsable wav");
       const n = s.createBuffer(
         r.channels,
@@ -3578,10 +3585,10 @@ class Ei {
         if (!r) continue;
         const n = this.source.files[r.buffer], l = n ? this.buffers.get(n) : void 0;
         if (!l) {
-          n && !this.failed.has(n) && i.tries < Ci && (i.tries += 1, be(this.slots, i.idx, i.panSum / i.panCount));
+          n && !this.failed.has(n) && i.tries < Ii && (i.tries += 1, xe(this.slots, i.idx, i.panSum / i.panCount));
           continue;
         }
-        const h = Pi(r.mb, this.volume);
+        const h = Ei(r.mb, this.volume);
         if (h <= 0) continue;
         (s = this.voices.get(i.idx)) == null || s.stop();
         const c = t.createBufferSource();
@@ -3595,8 +3602,8 @@ class Ei {
       }
   }
 }
-const Bi = [220, 261.63, 329.63, 440, 329.63, 261.63, 440, 523.25], _i = 0.35;
-class ha {
+const ki = [220, 261.63, 329.63, 440, 329.63, 261.63, 440, 523.25], Di = 0.35;
+class ca {
   constructor() {
     a(this, "bgmVolume", 0.7);
     a(this, "seVolume", 1);
@@ -3646,7 +3653,7 @@ class ha {
    * environment and every machine without the assets audible.
    */
   configureSe(t) {
-    this.seSource = t, this.seBus = new Ei(t, () => this.getContext()), this.seBus.setVolume(this.seVolume), this.seBus.preload();
+    this.seSource = t, this.seBus = new _i(t, () => this.getContext()), this.seBus.setVolume(this.seVolume), this.seBus.preload();
   }
   /** Waiting requests, and how many recordings are in hand. Debug aid. */
   get sePending() {
@@ -3734,7 +3741,7 @@ class ha {
     const h = Math.max(0, Math.min(1, i ?? this.bgmVolume));
     if (this.isBgmPlaying = !0, !(typeof window > "u"))
       if (t) {
-        if (this.bgmAudio = new Audio(Kt(t)), this.bgmLoopFrom = s && e.loopFromSeconds !== void 0 && e.loopFromSeconds > 0 ? e.loopFromSeconds : void 0, this.bgmAudio.loop = s && this.bgmLoopFrom === void 0, this.bgmAudio.muted = this.isMuted, this.bgmAudio.volume = this.isMuted ? 0 : h, this.fadeInMs > 0 && !this.isMuted) {
+        if (this.bgmAudio = new Audio(Wt(t)), this.bgmLoopFrom = s && e.loopFromSeconds !== void 0 && e.loopFromSeconds > 0 ? e.loopFromSeconds : void 0, this.bgmAudio.loop = s && this.bgmLoopFrom === void 0, this.bgmAudio.muted = this.isMuted, this.bgmAudio.volume = this.isMuted ? 0 : h, this.fadeInMs > 0 && !this.isMuted) {
           this.bgmAudio.volume = 0;
           const c = 20;
           let d = 0;
@@ -3778,7 +3785,7 @@ class ha {
     if (!e) return;
     const s = e.createGain();
     s.gain.value = t * 0.25, s.connect(e.destination), this.bgmGainNode = s;
-    const i = _i, r = Bi;
+    const i = Di, r = ki;
     let n = e.currentTime + 0.05;
     const l = () => {
       for (let c = 0; c < 16; c++) {
@@ -3872,7 +3879,7 @@ class ha {
     }
   }
 }
-class la {
+class ua {
   constructor() {
     a(this, "fps", 60);
     a(this, "entityCount", 0);
@@ -3907,7 +3914,7 @@ class la {
     return t.push(`Collision Checks: ${this.collisionChecks}`, "Engine: PixiJS 8 + TS"), t;
   }
 }
-class Vt {
+class Ut {
   constructor() {
     a(this, "stageNumber", 1);
     a(this, "stageName", "Stage 1");
@@ -3994,10 +4001,10 @@ class Vt {
    * separate tenth column holding the continues used, clamped at 9.
    */
   get formattedScore() {
-    return Vt.scoreRow(this.score, this.retries);
+    return Ut.scoreRow(this.score, this.retries);
   }
   get formattedHiScore() {
-    return Vt.scoreRow(this.hiScore, this.hiScoreContinues);
+    return Ut.scoreRow(this.hiScore, this.hiScoreContinues);
   }
   static scoreRow(t, e) {
     return Math.max(0, Math.floor(t)).toString().padStart(9, "0") + " " + Math.min(9, Math.max(0, Math.floor(e)));
@@ -4033,7 +4040,7 @@ class Vt {
     this.spellCardDisplayTimer > 0 && (this.spellCardDisplayTimer = Math.max(0, this.spellCardDisplayTimer - t)), this.centerMessageTimer > 0 && (this.centerMessageTimer -= t, this.centerMessageTimer <= 0 && (this.centerMessage = null, this.bossWarning = !1));
   }
 }
-class ca extends Y {
+class da extends Y {
   constructor(e = {}, s = {}, i = {}) {
     super(e, s, { radius: i.radius ?? 14 }, "enemy");
     a(this, "hp");
@@ -4076,7 +4083,7 @@ class ca extends Y {
     return !this.isAlive || this.shootInterval <= 0 || !this.shootPattern ? [] : Math.floor(this.timer) % this.shootInterval === 0 ? this.shootPattern.spawn(this, this.timer, s) : [];
   }
 }
-const xe = {
+const we = {
   // Big P is worth 8 units and small P 1, straight from AddPower(8) /
   // AddPower(1) in the reference Item::CollectPower* handlers.
   power: {
@@ -4111,10 +4118,10 @@ const xe = {
     bombs: 0
   },
   surge: { sprite: "taisei:item:surge", size: 22, color: 16767088, power: 2, score: 50, lives: 0, bombs: 0 }
-}, ki = 0.08, Di = 0.955, Ri = 2.2, Ni = 2.6, Li = 92, Gi = 128, Hi = 48;
-class Oi extends Y {
+}, Ri = 0.08, Ni = 0.955, Li = 2.2, Gi = 2.6, Hi = 92, Oi = 128, Vi = 48;
+class Ui extends Y {
   constructor(e = {}, s = {}, i = {}) {
-    const r = i.kind ?? "powerSmall", n = xe[r];
+    const r = i.kind ?? "powerSmall", n = we[r];
     super(e, s, { radius: i.radius ?? n.size / 2 }, "item");
     a(this, "kind");
     a(this, "spec");
@@ -4127,10 +4134,10 @@ class Oi extends Y {
   }
   /** Re-arm a pooled item at a new spawn position. */
   reset(e, s, i = this.kind) {
-    this.kind = i, this.spec = xe[i], this.hitbox.radius = this.spec.size / 2, this.position.x = e, this.position.y = s, this.velocity.x = 0, this.velocity.y = 0, this.alpha = 1, this.timer = 0, this.magnetized = !1, this.isAlive = !0;
+    this.kind = i, this.spec = we[i], this.hitbox.radius = this.spec.size / 2, this.position.x = e, this.position.y = s, this.velocity.x = 0, this.velocity.y = 0, this.alpha = 1, this.timer = 0, this.magnetized = !1, this.isAlive = !0;
   }
   update(e) {
-    this.isAlive && (this.timer += e, this.velocity.y = Math.min(Ri, this.velocity.y + ki * e), this.velocity.x *= Math.pow(Di, e), super.update(e));
+    this.isAlive && (this.timer += e, this.velocity.y = Math.min(Li, this.velocity.y + Ri * e), this.velocity.x *= Math.pow(Ni, e), super.update(e));
   }
   /** Curve the item toward `target`, ramping up speed the closer it gets. */
   attract(e, s, i = 1) {
@@ -4141,13 +4148,13 @@ class Oi extends Y {
     c > d && (this.velocity.x = this.velocity.x / c * d, this.velocity.y = this.velocity.y / c * d);
   }
 }
-const we = {
+const Se = {
   fairy: { power: 0, powerSmall: 1, point: 1, rare: 0.01 },
   elite: { power: 1, powerSmall: 2, point: 2, rare: 0.05 },
   midboss: { power: 3, powerSmall: 4, point: 4, rare: 0.25 },
   boss: { power: 6, powerSmall: 6, point: 8, rare: 1 }
-}, Se = 220;
-class ua {
+}, Te = 220;
+class pa {
   constructor(t = Math.random) {
     a(this, "items", []);
     /** Total items collected since the last reset, for the debug overlay. */
@@ -4165,7 +4172,7 @@ class ua {
   }
   /** Decide which items a kill of `tier` yields. */
   rollDrops(t) {
-    const e = we[t] ?? we.fairy, s = [];
+    const e = Se[t] ?? Se.fairy, s = [];
     for (let r = 0; r < e.power; r++) s.push("power");
     for (let r = 0; r < e.powerSmall; r++) s.push("powerSmall");
     for (let r = 0; r < e.point; r++) s.push("point");
@@ -4174,10 +4181,10 @@ class ua {
   }
   /** Spawn one item, arcing it outward so a stack does not collapse into a dot. */
   spawn(t, e, s, i = 0) {
-    const r = this.pool.pop() ?? new Oi();
+    const r = this.pool.pop() ?? new Ui();
     r.reset(e, s, t);
     const n = this.rng() * Math.PI * 2, l = 0.6 + this.rng() * 1.5;
-    return r.velocity.x = Math.cos(n) * l, r.velocity.y = Math.max(-Ni, -Math.abs(Math.sin(n)) * l - 0.4), r.position.x += Math.cos(n) * i * 0.5, r.isAlive = !0, this.items.push(r), this.items.length > Se && this.release(this.items.shift()), r;
+    return r.velocity.x = Math.cos(n) * l, r.velocity.y = Math.max(-Gi, -Math.abs(Math.sin(n)) * l - 0.4), r.position.x += Math.cos(n) * i * 0.5, r.isAlive = !0, this.items.push(r), this.items.length > Te && this.release(this.items.shift()), r;
   }
   /**
    * Advance every item and return the ones the player touched.
@@ -4186,7 +4193,7 @@ class ua {
    * the player sits above the capture line, which is how TH08 sweeps the screen.
    */
   update(t, e, s) {
-    const i = [], r = e.position.x, n = e.position.y, l = n <= Gi;
+    const i = [], r = e.position.x, n = e.position.y, l = n <= Oi;
     for (let h = this.items.length - 1; h >= 0; h--) {
       const c = this.items[h];
       if (!c.isAlive) {
@@ -4194,13 +4201,13 @@ class ua {
         continue;
       }
       const d = r - c.position.x, u = n - c.position.y, m = Math.hypot(d, u);
-      (l || m < Li) && c.attract(e.position, t, l ? 1.6 : 1), c.update(t);
+      (l || m < Hi) && c.attract(e.position, t, l ? 1.6 : 1), c.update(t);
       const g = c.hitbox.radius;
       if (c.position.x < s.minX + g ? (c.position.x = s.minX + g, c.velocity.x = Math.abs(c.velocity.x) * 0.5) : c.position.x > s.maxX - g && (c.position.x = s.maxX - g, c.velocity.x = -Math.abs(c.velocity.x) * 0.5), m <= c.hitbox.radius + 8) {
         i.push(this.toResult(c)), this.items.splice(h, 1), this.release(c);
         continue;
       }
-      c.position.y > s.maxY + Hi && (this.items.splice(h, 1), this.release(c));
+      c.position.y > s.maxY + Vi && (this.items.splice(h, 1), this.release(c));
     }
     return this.collected += i.length, i;
   }
@@ -4227,10 +4234,10 @@ class ua {
     };
   }
   release(t) {
-    t.magnetized = !1, t.timer = 0, t.alpha = 1, t.velocity.x = 0, t.velocity.y = 0, this.pool.length < Se && this.pool.push(t);
+    t.magnetized = !1, t.timer = 0, t.alpha = 1, t.velocity.x = 0, t.velocity.y = 0, this.pool.length < Te && this.pool.push(t);
   }
 }
-class da extends ve {
+class ma extends Ce {
   constructor(e) {
     super();
     a(this, "name");
@@ -4277,7 +4284,7 @@ class da extends ve {
       e.executed = !1;
   }
 }
-class pa {
+class fa {
   constructor(t = "touhou-web-engine:leaderboard", e) {
     a(this, "entries", []);
     a(this, "storage");
@@ -4320,7 +4327,7 @@ class pa {
     (t = this.storage) == null || t.setItem(this.key, JSON.stringify(this.entries));
   }
 }
-class ma {
+class ga {
   constructor() {
     a(this, "frames", []);
     a(this, "recording", !1);
@@ -4375,7 +4382,7 @@ class ma {
     return e;
   }
 }
-class fa {
+class ya {
   constructor(t) {
     a(this, "cursor", 0);
     this.data = t;
@@ -4391,7 +4398,7 @@ class fa {
     return this.cursor >= this.data.frames.length;
   }
 }
-function ga(o) {
+function ba(o) {
   const t = [
     "up",
     "down",
@@ -4407,8 +4414,8 @@ function ga(o) {
   ];
   return o.filter((e) => t.includes(e));
 }
-const Te = 70;
-class ya extends Y {
+const Me = 70;
+class xa extends Y {
   constructor(e) {
     super(e.position ?? { x: 224, y: 120 }, {}, { radius: e.hitboxRadius ?? 24 }, "boss");
     a(this, "name");
@@ -4448,7 +4455,7 @@ class ya extends Y {
   get lifeBars() {
     var s;
     const e = ((s = this.currentPhase) == null ? void 0 : s.lifeBars) ?? 1;
-    return Math.max(1, Math.min(Ie, Math.round(e)));
+    return Math.max(1, Math.min(Pe, Math.round(e)));
   }
   /** How many whole life bars are still standing. */
   get remainingBars() {
@@ -4482,7 +4489,7 @@ class ya extends Y {
   }
   takeDamage(e) {
     var s;
-    !this.isAlive || this.isDefeated || (this.currentHp -= Math.max(0, Math.min(Te, e)), this.emit("damage", { currentHp: this.currentHp, maxHp: (s = this.currentPhase) == null ? void 0 : s.maxHp }), this.currentHp <= 0 && this.nextPhase());
+    !this.isAlive || this.isDefeated || (this.currentHp -= Math.max(0, Math.min(Me, e)), this.emit("damage", { currentHp: this.currentHp, maxHp: (s = this.currentPhase) == null ? void 0 : s.maxHp }), this.currentHp <= 0 && this.nextPhase());
   }
   /**
    * Spend a lump-sum damage source (spell card bombs) as a run of retail-sized
@@ -4492,7 +4499,7 @@ class ya extends Y {
   applyBurst(e) {
     let s = Math.max(0, Math.round(e));
     for (; s > 0 && this.isAlive && !this.isDefeated; ) {
-      const i = Math.min(Te, s);
+      const i = Math.min(Me, s);
       s -= i, this.takeDamage(i);
     }
   }
@@ -4522,106 +4529,106 @@ class ya extends Y {
 }
 export {
   v as $,
-  Xi as A,
-  as as B,
-  wt as C,
-  rs as D,
-  ca as E,
-  Zt as F,
-  qi as G,
-  Qs as H,
-  ua as I,
-  $i as J,
-  ha as K,
-  pa as L,
+  $i as A,
+  rs as B,
+  St as C,
+  os as D,
+  da as E,
+  te as F,
+  Qi as G,
+  Js as H,
+  pa as I,
+  ji as J,
+  ca as K,
+  fa as L,
   st as M,
-  la as N,
-  Vt as O,
+  ua as N,
+  Ut as O,
   Q as P,
-  fa as Q,
-  ma as R,
-  da as S,
-  ji as T,
-  Qi as U,
-  ue as V,
-  sa as W,
-  ea as X,
-  ia as Y,
-  Ie as Z,
-  me as _,
-  ft as a,
-  ya as a0,
-  Ae as a1,
-  Ji as a2,
-  ta as a3,
-  we as a4,
-  Gi as a5,
-  Hi as a6,
-  Di as a7,
-  ki as a8,
-  Li as a9,
-  aa as aA,
-  xi as aB,
-  zi as aC,
-  Ze as aD,
-  yt as aE,
-  Me as aF,
-  Wi as aG,
+  ya as Q,
+  ga as R,
+  ma as S,
+  Zi as T,
+  Ji as U,
+  de as V,
+  aa as W,
+  ia as X,
+  ra as Y,
+  Pe as Z,
+  fe as _,
+  gt as a,
+  xa as a0,
+  Ie as a1,
+  ta as a2,
+  sa as a3,
+  Se as a4,
+  Oi as a5,
+  Vi as a6,
+  Ni as a7,
+  Ri as a8,
+  Hi as a9,
+  oa as aA,
+  Si as aB,
+  Wi as aC,
+  ts as aD,
+  bt as aE,
+  ve as aF,
+  Xi as aG,
   ht as aH,
-  Zi as aI,
-  Fs as aJ,
-  ga as aK,
-  is as aL,
-  Ki as aM,
-  Ri as aa,
-  Ni as ab,
-  xe as ac,
-  Oi as ad,
-  Se as ae,
-  Ls as af,
-  ui as ag,
-  di as ah,
-  pi as ai,
+  ea as aI,
+  Es as aJ,
+  ba as aK,
+  as as aL,
+  Yi as aM,
+  Li as aa,
+  Gi as ab,
+  we as ac,
+  Ui as ad,
+  Te as ae,
+  Hs as af,
+  pi as ag,
+  mi as ah,
+  fi as ai,
   ut as aj,
-  ss as ak,
-  Is as al,
-  As as am,
-  Ms as an,
+  is as ak,
+  Ps as al,
+  Is as am,
+  vs as an,
   Y as ao,
-  ve as ap,
-  gi as aq,
-  yi as ar,
-  fi as as,
-  Te as at,
-  ra as au,
-  na as av,
-  mi as aw,
-  vs as ax,
-  Cs as ay,
-  Gt as az,
-  ii as b,
-  ai as c,
-  si as d,
-  ce as e,
-  kt as f,
+  Ce as ap,
+  bi as aq,
+  xi as ar,
+  yi as as,
+  Me as at,
+  na as au,
+  la as av,
+  gi as aw,
+  Cs as ax,
+  As as ay,
+  Ht as az,
+  ri as b,
+  oi as c,
+  ai as d,
+  ue as e,
+  Dt as f,
   tt as g,
-  Ht as h,
-  gs as i,
-  es as j,
-  bt as k,
-  fs as l,
-  ts as m,
-  Ut as n,
-  ys as o,
-  jt as p,
-  ps as q,
-  Kt as r,
-  ws as s,
-  oa as t,
-  ds as u,
-  Yi as v,
-  Ce as w,
-  Lt as x,
+  Ot as h,
+  ys as i,
+  ss as j,
+  xt as k,
+  gs as l,
+  es as m,
+  zt as n,
+  bs as o,
+  Jt as p,
+  ms as q,
+  Wt as r,
+  Ss as s,
+  ha as t,
+  ps as u,
+  qi as v,
+  Ae as w,
+  Gt as x,
   at as y,
-  Ot as z
+  Vt as z
 };

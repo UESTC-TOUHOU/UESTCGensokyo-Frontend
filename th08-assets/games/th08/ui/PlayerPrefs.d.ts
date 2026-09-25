@@ -17,7 +17,11 @@ export interface PlayerPrefs {
     fog: boolean;
     /** Ship art style. */
     playerSkin: PlayerSkin;
-    /** Virtual button layer for touch devices. */
+    /**
+     * Virtual button layer. Off unless the player turns it on: steering on a phone
+     * is the playfield drag, and a PC plays with the keyboard, so the pad never
+     * guesses from the pointer or the UA.
+     */
     touchControls: TouchMode;
     /** Background music volume, 0..1. */
     bgmVolume: number;
